@@ -1,0 +1,69 @@
+.page {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: var(--color-bg);
+  padding-bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px) + 16px);
+  /* 배경 레이어가 화면 밖으로 32px 나가므로 가로 넘침만 잘라낸다 */
+  overflow-x: clip;
+}
+
+/*
+ * 지금 보고 있는 투표 이미지를 흐리게 깔아둔 배경.
+ * Figma 기준 440x440, left/top -32, blur 24, opacity 0.72.
+ */
+.backdrop {
+  position: absolute;
+  top: -32px;
+  left: -32px;
+  z-index: 0;
+  width: 440px;
+  height: 440px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.backdropImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(24px);
+  opacity: 0.72;
+}
+
+.backdropOverlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(39, 39, 42, 0.5),
+    rgba(250, 250, 250, 0)
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+}
+
+.videoRow {
+  gap: var(--space-4);
+  padding: var(--space-4) var(--page-gutter) 0;
+}
+
+.issueRow {
+  gap: var(--space-4);
+  padding: var(--space-4) var(--page-gutter) 0;
+}
+
+.rowEnd {
+  flex: 0 0 1px;
+}

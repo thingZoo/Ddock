@@ -1,0 +1,77 @@
+@import './styles/tokens.css';
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+
+/*
+ * 앱인토스 제약 반영
+ * - 미니앱 테마는 라이트 모드로만 구현한다 (다크 모드 대응 금지)
+ * - 지도처럼 꼭 필요한 경우를 제외하고 제스처 기반 확대·축소는 비활성화한다
+ */
+:root {
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+}
+
+body {
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  color: var(--color-text-body);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* 더블탭 확대 방지 */
+  touch-action: manipulation;
+  overscroll-behavior-y: none;
+}
+
+/* 디자인 기준 폭 375px 고정. 더 넓은 화면에서는 가운데 정렬된다. */
+#root {
+  width: 375px;
+  margin: 0 auto;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 가로 스크롤 영역 스크롤바 숨김 */
+.scroll-x {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-x::-webkit-scrollbar {
+  display: none;
+}

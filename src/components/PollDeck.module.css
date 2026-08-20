@@ -1,0 +1,45 @@
+/*
+ * 투표 카드 덱.
+ * 앞 카드 뒤에 다음 투표가 작게 겹쳐 있고, 앞 카드를 옆으로 넘기면
+ * 뒤 카드가 제자리로 커지면서 올라온다.
+ *
+ * Figma 기준: 앞 카드 324x416(left 16), 뒤 카드 285x366(left 74).
+ * 285/324 = 0.8796 배, 중심 차이 = 38.5px.
+ */
+.deck {
+  position: relative;
+  height: 448px;
+  padding: var(--space-4);
+}
+
+.layer {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  width: 324px;
+  height: 416px;
+  will-change: transform, opacity;
+}
+
+.front {
+  z-index: 2;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.back {
+  z-index: 1;
+  /* 뒤 카드는 눌리지 않는다 */
+  pointer-events: none;
+}
+
+.animated {
+  transition:
+    transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
