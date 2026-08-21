@@ -1,9 +1,12 @@
 import { notFound } from "next/navigation";
-import { allCourses } from "@/data/course";
 import { VideoDetail } from "@/components/VideoDetail";
+import {
+  getAllUserCourses,
+  getUserCourseById,
+} from "@/lib/published-content/resolver";
 
 export function generateStaticParams() {
-  return allCourses.map((c) => ({ courseId: c.id }));
+  return getAllUserCourses().map((course) => ({ courseId: course.id }));
 }
 
 export default async function VideoDetailPage({
@@ -12,7 +15,7 @@ export default async function VideoDetailPage({
   params: Promise<{ courseId: string }>;
 }) {
   const { courseId } = await params;
-  const course = allCourses.find((c) => c.id === courseId);
+  const course = getUserCourseById(courseId);
   if (!course) notFound();
   return <VideoDetail course={course} />;
 }

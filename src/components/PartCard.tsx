@@ -14,6 +14,7 @@ export function PartCard({ part, onClick }: { part: Part; onClick?: () => void }
   const total = part.steps.length;
   const done = Math.min(doneOf(part.id), total);
   const complete = done >= total && total > 0;
+  const remoteThumbnail = /^https?:\/\//.test(part.thumbnail);
 
   return (
     <button
@@ -27,6 +28,8 @@ export function PartCard({ part, onClick }: { part: Part; onClick?: () => void }
         <div className="relative h-[72px] w-[110px] shrink-0">
           <Image
             src={part.thumbnail}
+            loader={remoteThumbnail ? ({ src }) => src : undefined}
+            unoptimized={remoteThumbnail}
             alt=""
             fill
             sizes="110px"
