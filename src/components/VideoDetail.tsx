@@ -41,7 +41,7 @@ export function VideoDetail({ course }: { course: Course }) {
   }, [activePart]);
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[var(--app-w)] flex-col bg-white">
+    <div className="app-shell">
       <YouTubeProvider videoId={course.youtubeId} poster={course.thumbnail}>
         {/* 파트 목록 화면일 때만 제목/메타 노출 (355:8868) */}
         {!activePart && (
@@ -83,7 +83,7 @@ export function VideoDetail({ course }: { course: Course }) {
 
         {tab === "catchup" &&
           (activePart ? (
-            <>
+            <div className="flex min-h-0 flex-1 flex-col">
               <ChapterBar
                 part={activePart}
                 current={finished ? activePart.steps.length : stepNo}
@@ -106,9 +106,9 @@ export function VideoDetail({ course }: { course: Course }) {
                   onIndexChange={setStepNo}
                 />
               )}
-            </>
+            </div>
           ) : (
-            <>
+            <div className="app-scroll">
               <div className="flex items-center gap-1 px-4 pb-2 pt-6">
                 <h2 className="t-md-semibold text-zinc-900">CATCH-UP PART</h2>
                 <span className="t-md-semibold text-orange-500">{course.parts.length}</span>
@@ -118,18 +118,24 @@ export function VideoDetail({ course }: { course: Course }) {
                   <PartCard key={p.id} part={p} onClick={() => openPart(p.id)} />
                 ))}
               </div>
-            </>
+            </div>
           ))}
 
         {tab === "script" && (
-          <ScriptTab
+          <div className="app-scroll">
+            <ScriptTab
             course={course}
-            selectedPartNo={scriptPartNo}
-            onSelectPart={setScriptPartNo}
-          />
+              selectedPartNo={scriptPartNo}
+              onSelectPart={setScriptPartNo}
+            />
+          </div>
         )}
 
-        {tab === "log" && <LogTab />}
+        {tab === "log" && (
+          <div className="app-scroll">
+            <LogTab />
+          </div>
+        )}
 
         <MoreSheet
           open={moreOpen}

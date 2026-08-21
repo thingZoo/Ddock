@@ -11,9 +11,9 @@ export function CompleteCard({
   onRestart: () => void;
 }) {
   return (
-    <div className="flex h-[424px] items-center justify-center gap-6 px-6">
+    <div className="flex min-h-0 flex-1 items-center justify-center gap-6 px-6 pb-6">
       <div
-        className="flex h-[300px] w-[200px] flex-col items-center justify-center gap-3 rounded-card px-5 text-center"
+        className="flex max-h-[300px] w-[200px] flex-1 flex-col items-center justify-center gap-3 rounded-card px-5 text-center"
         style={{
           boxShadow: "var(--shadow-card)",
           backgroundImage:

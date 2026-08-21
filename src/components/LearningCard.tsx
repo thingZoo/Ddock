@@ -8,7 +8,10 @@ import { PlayPauseButton } from "./PlayPauseButton";
 
 /**
  * 학습 카드 (355:9781)
- * 335 × 420 고정. 프롬프트가 길어져도 카드는 안 늘어나요.
+ *
+ * 피그마는 335 × 420 고정이지만 화면이 작아지면 줄어들어야 해서 flex 로 짰어요.
+ * 세로 구성: 상단바 52 → 간격 24 → 본문 → 하단 CTA 72
+ * 프롬프트가 길어져도 카드가 늘어나지 않아요 (본문에서 4줄로 자름).
  */
 export function LearningCard({
   step,
@@ -29,7 +32,7 @@ export function LearningCard({
 
   return (
     <div
-      className="relative h-[420px] w-[335px] shrink-0 rounded-card"
+      className="flex h-full w-full flex-col rounded-card"
       style={{
         boxShadow: "var(--shadow-card)",
         backdropFilter: "blur(6px)",
@@ -39,7 +42,7 @@ export function LearningCard({
       aria-hidden={dimmed}
     >
       {/* 상단 바 */}
-      <div className="absolute left-0 top-0 flex w-full items-center justify-between px-4 pt-2">
+      <div className="flex h-[52px] shrink-0 items-start justify-between px-4 pt-2">
         {infoCount > 0 ? (
           <button
             type="button"
@@ -62,10 +65,8 @@ export function LearningCard({
         />
       </div>
 
-      {/* 본문 — 피그마 355:9782 구조 그대로
-          제목 → gap 24 → 불릿 영역(104 고정) → gap 8 → 프롬프트 / 주의
-          불릿 영역을 고정해야 줄 수가 달라져도 아래 박스 위치가 안 흔들려요 */}
-      <div className="absolute left-5 right-5 top-[76px] flex h-[270px] flex-col items-center gap-2">
+      {/* 본문 — 제목 → gap 24 → 불릿(최소 104) → gap 8 → 프롬프트 / 주의 */}
+      <div className="flex min-h-0 flex-1 flex-col gap-2 px-5 pt-6">
         <div className="flex w-full flex-col gap-6">
           <h2 className="t-xl-bold text-zinc-900">{step.title}</h2>
           <ul className="flex min-h-[104px] w-full flex-col gap-1.5">
@@ -83,11 +84,11 @@ export function LearningCard({
       </div>
 
       {/* 하단 CTA */}
-      <div className="absolute bottom-0 left-[108px] right-[108px] pb-5 pt-3">
+      <div className="flex shrink-0 justify-center pb-5 pt-3">
         <button
           type="button"
           onClick={onSeeScript}
-          className="t-xs-bold w-full whitespace-nowrap rounded-pill border border-border bg-zinc-100 px-4 py-3 text-zinc-700"
+          className="t-xs-bold whitespace-nowrap rounded-pill border border-border bg-zinc-100 px-4 py-3 text-zinc-700"
         >
           구간 스크립트 보기
         </button>

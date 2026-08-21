@@ -150,7 +150,7 @@ export function YouTubeProvider({
 
   return (
     <PlayerCtx.Provider value={{ playing, ready, playFrom, toggle, pause }}>
-      <div className="relative h-[211px] w-full shrink-0 overflow-hidden bg-black">
+      <div className="relative aspect-video w-full shrink-0 overflow-hidden bg-black">
         <div ref={hostRef} className="absolute inset-0 h-full w-full" />
         {!started && (
           <div
