@@ -1,46 +1,45 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect } from "react";
 import type { Course } from "@/lib/types";
 import { useYouTube } from "./YouTubePlayer";
 
-/** 스크립트 탭 — 전체(355:9911) / 구간별(355:9971) */
+/**
+ * 스크립트 탭 — 전체(355:9911) / 파트 선택(355:9971)
+ *
+ * 파트를 골라도 챕터 구조는 그대로 둡니다. 파트에 속한 문단만 옅게 강조해요.
+ * (콘텐츠 명세: PART 가 CHAPTER 를 대체하지 않음)
+ */
 export function ScriptTab({
   course,
-  jumpToSec,
-  onConsumeJump,
+  selectedPartNo,
+  onSelectPart,
 }: {
   course: Course;
-  jumpToSec: number | null;
-  onConsumeJump: () => void;
+  selectedPartNo: number | null;
+  onSelectPart: (partNo: number | null) => void;
 }) {
-  const [partNo, setPartNo] = useState<number | null>(null);
   const { playFrom } = useYouTube();
-  const listRef = useRef<HTMLDivElement>(null);
 
-  const rows = useMemo(
-    () => (partNo == null ? course.script : course.script.filter((s) => s.partNo === partNo)),
-    [course.script, partNo]
-  );
-
-  // 가이드에서 "구간 스크립트 보기"로 넘어오면 해당 문단으로 스크롤
+  // 파트가 선택되면 그 파트의 첫 문단으로 스크롤해요
   useEffect(() => {
-    if (jumpToSec == null) return;
-    const target = [...course.script]
-      .reverse()
-      .find((s) => s.timeSec <= jumpToSec);
-    if (target) {
-      setPartNo(target.partNo);
-      requestAnimationFrame(() => {
-        document
-          .getElementById(`seg-${target.id}`)
-          ?.scrollIntoView({ behavior: "smooth", block: "center" });
-      });
-    }
-    onConsumeJump();
-  }, [jumpToSec, course.script, onConsumeJump]);
+    if (selectedPartNo == null) return;
+    const first = course.script.find((s) => s.partNo === selectedPartNo);
+    if (!first) return;
+    const id = requestAnimationFrame(() => {
+      document
+        .getElementById(`seg-${first.id}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [selectedPartNo, course.script]);
 
-  let lastChapter = "";
+  // 챕터 헤더는 챕터가 바뀌는 첫 문단에만 붙여요
+  const chapterHeadAt = new Set(
+    course.script
+      .filter((s, i) => i === 0 || s.chapter !== course.script[i - 1].chapter)
+      .map((s) => s.id)
+  );
 
   return (
     <div className="flex flex-col">
@@ -48,12 +47,12 @@ export function ScriptTab({
       <div className="scroll-x flex items-center gap-2 px-4 py-4">
         <span className="t-xs-medium shrink-0 text-zinc-500">파트별</span>
         {course.parts.map((p) => {
-          const on = partNo === p.partNo;
+          const on = selectedPartNo === p.partNo;
           return (
             <button
               key={p.id}
               type="button"
-              onClick={() => setPartNo(on ? null : p.partNo)}
+              onClick={() => onSelectPart(on ? null : p.partNo)}
               className={`t-xs-medium flex shrink-0 items-center gap-1 rounded-pill border px-2.5 py-1.5 ${
                 on
                   ? "border-orange-500 bg-orange-25 text-orange-500"
@@ -73,21 +72,23 @@ export function ScriptTab({
         })}
       </div>
 
-      <div ref={listRef} className="flex flex-col gap-4 px-4 pb-10">
-        {rows.map((s) => {
-          const showChapter = s.chapter !== lastChapter;
-          lastChapter = s.chapter;
+      <div className="flex flex-col gap-4 px-4 pb-10">
+        {course.script.map((s) => {
+          const showChapter = chapterHeadAt.has(s.id);
+          const active = selectedPartNo != null && s.partNo === selectedPartNo;
           return (
             <div key={s.id} id={`seg-${s.id}`} className="flex flex-col gap-3">
-              {showChapter && (
-                <h3 className="t-md-bold pt-2 text-zinc-900">{s.chapter}</h3>
-              )}
-              <div className="flex flex-col gap-2">
+              {showChapter && <h3 className="t-md-bold pt-2 text-zinc-900">{s.chapter}</h3>}
+              <div
+                className={`-mx-2 flex flex-col gap-2 rounded-lg px-2 py-2 transition-colors ${
+                  active ? "bg-orange-25" : ""
+                }`}
+              >
                 <button
                   type="button"
                   onClick={() => playFrom(s.timeSec)}
                   className={`t-2xs-medium w-fit rounded-chip px-1.5 py-1 ${
-                    partNo == null ? "bg-zinc-100 text-zinc-600" : "bg-orange-500 text-white"
+                    active ? "bg-orange-500 text-white" : "bg-zinc-100 text-zinc-600"
                   }`}
                 >
                   {s.timeLabel}
@@ -97,11 +98,6 @@ export function ScriptTab({
             </div>
           );
         })}
-        {rows.length === 0 && (
-          <p className="t-sm-normal py-16 text-center text-zinc-500">
-            이 파트의 스크립트가 아직 없어요.
-          </p>
-        )}
       </div>
     </div>
   );

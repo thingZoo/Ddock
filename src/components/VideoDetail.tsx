@@ -20,7 +20,7 @@ export function VideoDetail({ course }: { course: Course }) {
   const [activePartId, setActivePartId] = useState<string | null>(null);
   const [finished, setFinished] = useState(false);
   const [stepNo, setStepNo] = useState(1);
-  const [jumpToSec, setJumpToSec] = useState<number | null>(null);
+  const [scriptPartNo, setScriptPartNo] = useState<number | null>(null);
 
   const activePart = course.parts.find((p) => p.id === activePartId) ?? null;
   const activeIdx = activePart ? course.parts.indexOf(activePart) : -1;
@@ -34,10 +34,11 @@ export function VideoDetail({ course }: { course: Course }) {
     setMoreOpen(false);
   }, []);
 
-  const seeScript = useCallback((sec: number) => {
-    setJumpToSec(sec);
+  /** 구간 스크립트 보기 — 이 STEP 이 아니라 PART 전체 스크립트를 열어요 */
+  const seeScript = useCallback(() => {
+    if (activePart) setScriptPartNo(activePart.partNo);
     setTab("script");
-  }, []);
+  }, [activePart]);
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[var(--app-w)] flex-col bg-white">
@@ -123,8 +124,8 @@ export function VideoDetail({ course }: { course: Course }) {
         {tab === "script" && (
           <ScriptTab
             course={course}
-            jumpToSec={jumpToSec}
-            onConsumeJump={() => setJumpToSec(null)}
+            selectedPartNo={scriptPartNo}
+            onSelectPart={setScriptPartNo}
           />
         )}
 

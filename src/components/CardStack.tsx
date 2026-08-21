@@ -19,7 +19,7 @@ export function CardStack({
 }: {
   part: Part;
   onFinish: () => void;
-  onSeeScript: (sec: number) => void;
+  onSeeScript: () => void;
   onIndexChange?: (oneBased: number) => void;
 }) {
   const [index, setIndex] = useState(0);
@@ -34,7 +34,6 @@ export function CardStack({
 
   const step = part.steps[index];
   const next = part.steps[index + 1];
-  const isLast = index === part.steps.length - 1;
 
   function go(dir: 1 | -1) {
     const t = index + dir;
@@ -100,30 +99,15 @@ export function CardStack({
               onOpenInfo={() => setInfoOpen(true)}
               onPlaySegment={playSegment}
               playing={playing && activeStepId === step.id}
-              onSeeScript={() => onSeeScript(step.startSec)}
+              onSeeScript={onSeeScript}
             />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* 넘기기 힌트 + 버튼 (스와이프가 안 되는 환경 대비) */}
-      <div className="flex items-center justify-center gap-3 pb-6">
-        <button
-          type="button"
-          onClick={() => go(-1)}
-          disabled={index === 0}
-          className="t-xs-bold rounded-pill border border-border px-4 py-2 text-zinc-600 disabled:opacity-30"
-        >
-          이전
-        </button>
+      {/* 넘기기 안내 */}
+      <div className="flex items-center justify-center pb-6">
         <span className="t-2xs-medium text-zinc-500">← 밀어서 넘기기 →</span>
-        <button
-          type="button"
-          onClick={() => go(1)}
-          className="t-xs-bold rounded-pill bg-zinc-900 px-4 py-2 text-white"
-        >
-          {isLast ? "완료" : "다음"}
-        </button>
       </div>
 
       <InfoSheetView

@@ -46,7 +46,7 @@ export function LearningCard({
             onClick={onOpenInfo}
             className="flex items-center gap-1 rounded-pill border border-border bg-zinc-100 px-2.5 py-1.5"
           >
-            <span className="t-2xs-bold grid h-[18px] w-[18px] place-items-center rounded-pill bg-white text-zinc-600">
+            <span className="t-2xs-bold grid h-[18px] w-[18px] place-items-center rounded-pill bg-border text-zinc-600">
               {infoCount}
             </span>
             <span className="t-2xs-bold text-zinc-600">더 알아보기</span>
@@ -62,11 +62,13 @@ export function LearningCard({
         />
       </div>
 
-      {/* 본문 */}
+      {/* 본문 — 피그마 355:9782 구조 그대로
+          제목 → gap 24 → 불릿 영역(104 고정) → gap 8 → 프롬프트 / 주의
+          불릿 영역을 고정해야 줄 수가 달라져도 아래 박스 위치가 안 흔들려요 */}
       <div className="absolute left-5 right-5 top-[76px] flex h-[270px] flex-col items-center gap-2">
         <div className="flex w-full flex-col gap-6">
           <h2 className="t-xl-bold text-zinc-900">{step.title}</h2>
-          <ul className="flex w-full flex-col gap-1.5">
+          <ul className="flex min-h-[104px] w-full flex-col gap-1.5">
             {step.actions.map((a, i) => (
               <li key={i} className="flex items-start gap-1.5">
                 <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />

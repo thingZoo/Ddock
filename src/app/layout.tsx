@@ -17,7 +17,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ko" className="h-full">
       <head>
-        {/* Pretendard 동적 서브셋 — 화면에 쓰인 글자 구간만 내려받아요 */}
+        {/* Pretendard 동적 서브셋 — 화면에 쓰인 글자 구간만 내려받아요.
+            public/ 에 생성되는 파일이라 next/font 로는 못 걸어서 link 로 붙입니다. */}
+        {/* eslint-disable-next-line @next/next/no-css-tags */}
         <link rel="stylesheet" href="/fonts/pretendard.css" />
       </head>
       <body className="min-h-full bg-zinc-100">{children}</body>
