@@ -37,6 +37,15 @@ export function VideoDetail({ course }: { course: Course }) {
   const activePart = course.parts.find((p) => p.id === activePartId) ?? null;
   const activeIdx = activePart ? course.parts.indexOf(activePart) : -1;
   const nextPart = activeIdx >= 0 ? course.parts[activeIdx + 1] : undefined;
+  const headerMeta = [course.channel.name, course.publishedAt, course.helpLabel].filter(
+    (value): value is string => Boolean(value),
+  );
+  const hasMoreContent =
+    headerMeta.length > 0 ||
+    course.recommend !== null ||
+    course.tools.length > 0 ||
+    course.tags.length > 0 ||
+    course.relatedVideos.length > 0;
 
   const openPart = useCallback((id: string) => {
     setActivePartId(id);
@@ -67,27 +76,28 @@ export function VideoDetail({ course }: { course: Course }) {
               ))}
             </p>
             <h1 className="t-xl-bold px-4 pt-2 text-zinc-900">{course.title}</h1>
-            <button
-              type="button"
-              onClick={() => setMoreOpen(true)}
-              className="flex items-center gap-2 px-4 pt-2.5 text-left"
-            >
-              <YouTubeIcon size={16} />
-              <span className="t-2xs-medium flex-1 text-zinc-500">
-                {course.channel.name}&nbsp;&nbsp;{course.publishedAt}&nbsp;&nbsp;
-                {course.helpLabel}
-              </span>
-              <svg width="16" height="16" viewBox="0 0 16 16" className="text-zinc-500">
-                <path
-                  d="M4 6l4 4 4-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
+            {hasMoreContent && (
+              <button
+                type="button"
+                onClick={() => setMoreOpen(true)}
+                className="flex items-center gap-2 px-4 pt-2.5 text-left"
+              >
+                <YouTubeIcon size={16} />
+                <span className="t-2xs-medium flex-1 text-zinc-500">
+                  {headerMeta.length > 0 ? headerMeta.join("\u00a0\u00a0") : "영상 정보"}
+                </span>
+                <svg width="16" height="16" viewBox="0 0 16 16" className="text-zinc-500">
+                  <path
+                    d="M4 6l4 4 4-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            )}
           </header>
         )}
 
@@ -138,7 +148,7 @@ export function VideoDetail({ course }: { course: Course }) {
         {tab === "script" && (
           <div className="app-scroll">
             <ScriptTab
-            course={course}
+              course={course}
               selectedPartNo={scriptPartNo}
               onSelectPart={setScriptPartNo}
             />

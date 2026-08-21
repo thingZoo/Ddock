@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "content:import": "node scripts/import-published-content.mjs",
     "setup:fonts": "node scripts/setup-fonts.mjs"
   },
   "dependencies": {

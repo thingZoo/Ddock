@@ -4,6 +4,18 @@ import { useEffect, useMemo } from "react";
 import type { Course } from "@/lib/types";
 import { useYouTube } from "./YouTubePlayer";
 
+export function rowBelongsToPart(
+  row: Course["script"][number],
+  partNo: number,
+): boolean {
+  return row.partNos?.includes(partNo) ?? row.partNo === partNo;
+}
+
+function membershipLabel(row: Course["script"][number]): string | null {
+  const values = row.partNos?.length ? row.partNos : row.partNo == null ? [] : [row.partNo];
+  return values.length > 0 ? `Pt. ${values.join(" · ")}` : null;
+}
+
 /**
  * 스크립트 탭 (355:9911 / 355:9971)
  *
@@ -26,7 +38,11 @@ export function ScriptTab({
     () =>
       new Set(
         course.script
-          .filter((s, i) => i === 0 || s.chapterId !== course.script[i - 1].chapterId)
+          .filter(
+            (s, i) =>
+              s.chapterId !== null &&
+              (i === 0 || s.chapterId !== course.script[i - 1].chapterId),
+          )
           .map((s) => s.id)
       ),
     [course.script]
@@ -39,7 +55,7 @@ export function ScriptTab({
 
   useEffect(() => {
     if (selectedPartNo == null) return;
-    const first = course.script.find((s) => s.partNo === selectedPartNo);
+    const first = course.script.find((s) => rowBelongsToPart(s, selectedPartNo));
     if (!first) return;
     const raf = requestAnimationFrame(() => {
       document
@@ -82,7 +98,7 @@ export function ScriptTab({
             );
           })}
         </div>
-        {selected && (
+        {selected && selected.chapterIds.length > 0 && (
           <p className="t-2xs-medium px-4 pb-1 text-zinc-500">
             {selected.title} — 챕터 {selected.chapterIds.join(", ")} 에 걸쳐 있어요
           </p>
@@ -92,10 +108,11 @@ export function ScriptTab({
       <div className="flex flex-col px-4 pb-10">
         {course.script.map((s) => {
           const showChapter = chapterHeadAt.has(s.id);
-          const active = selectedPartNo != null && s.partNo === selectedPartNo;
+          const active = selectedPartNo != null && rowBelongsToPart(s, selectedPartNo);
+          const partLabel = membershipLabel(s);
           return (
             <div key={s.id} id={`seg-${s.id}`} className="flex flex-col">
-              {showChapter && (
+              {showChapter && s.chapterId !== null && (
                 <h3 className="t-md-bold pb-2 pt-5 text-zinc-900">
                   CH {String(chapterIndex.get(s.chapterId) ?? "").padStart(2, "0")} ·{" "}
                   {s.chapterLabel}
@@ -116,13 +133,13 @@ export function ScriptTab({
                   >
                     {s.timeLabel}
                   </button>
-                  {s.partNo != null && (
+                  {partLabel && (
                     <span
                       className={`t-2xs-medium rounded-chip px-1.5 py-1 ${
                         active ? "text-orange-500" : "text-zinc-400"
                       }`}
                     >
-                      Pt. {s.partNo}
+                      {partLabel}
                     </span>
                   )}
                 </div>
