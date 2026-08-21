@@ -13,6 +13,9 @@ const profileIconActive = "/ddock/icons/tab-profile-active.svg";
 
 export type TabKey = 'home' | 'discover' | 'depot' | 'profile';
 
+/** URL 의 ?tab= 값이 진짜 탭인지 걸러낼 때 써요 */
+export const TAB_KEYS: TabKey[] = ['home', 'discover', 'depot', 'profile'];
+
 const TABS: Array<{ key: TabKey; label: string; icon: string; iconActive: string }> = [
   { key: 'home', label: '홈', icon: homeIcon, iconActive: homeIconActive },
   { key: 'discover', label: '발견', icon: discoverIcon, iconActive: discoverIconActive },

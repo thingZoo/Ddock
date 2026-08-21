@@ -21,7 +21,7 @@ export function VideoCardLarge({ video, onSelect, onMenuClick }: VideoCardLargeP
         className={styles.thumbnail}
         type="button"
         aria-label={`${video.title} 재생`}
-        onClick={() => onSelect?.(video.id)}
+        onClick={() => video.courseId && onSelect?.(video.courseId)}
       >
         <img className={styles.thumbnailImage} src={video.thumbnail} alt="" />
         <div className={styles.progressBar}>
