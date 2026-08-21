@@ -1,0 +1,541 @@
+{
+  "schema_version": "verified_correction_memory_v0.2",
+  "memory_id": "korean_longform_verified_memory_r2",
+  "created_at": "2026-08-07T14:23:08.452475+00:00",
+  "source_gold_samples": [
+    "CH-01_gold_r3",
+    "CH-02_gold_r2",
+    "ECH-03_gold_r2",
+    "CH-04_gold_r1",
+    "CH-05_gold_r1",
+    "CH-06_gold_r1"
+  ],
+  "policy": {
+    "generalize": [
+      "공식 고유명사 오인식",
+      "검증된 기계적 붙여쓰기",
+      "검증된 반복·더듬기",
+      "명백한 ASR 철자 오류"
+    ],
+    "do_not_generalize": [
+      "음성을 들어야 존재 여부를 알 수 있는 접속어",
+      "화면을 봐야만 복원 가능한 의미",
+      "사용자가 한 번만 문맥적으로 재구성한 긴 문장"
+    ]
+  },
+  "rules": [
+    {
+      "pattern": "^\\s*\\.\\s*",
+      "replacement": "",
+      "type": "regex",
+      "confidence": "high"
+    },
+    {
+      "pattern": "먼저 먼저는요",
+      "replacement": "먼저는 요",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "그래서이 ",
+      "replacement": "그래서 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "뒤에이 ",
+      "replacement": "뒤에 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "식으로이 ",
+      "replacement": "식으로 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "할 때이 ",
+      "replacement": "할 때 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "내가이 ",
+      "replacement": "내가 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "또이 ",
+      "replacement": "또 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "아직도이 ",
+      "replacement": "아직도 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "존재하는이 ",
+      "replacement": "존재하는 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "개인적으로이 ",
+      "replacement": "개인적으로 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "개인으로서의이 ",
+      "replacement": "개인으로서의 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "건데이 ",
+      "replacement": "건데 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "얘보다이 ",
+      "replacement": "얘보다 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "좀 더이 ",
+      "replacement": "좀 더 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "첫 번째요 ",
+      "replacement": "첫 번째 요 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "아까요 ",
+      "replacement": "아까 요 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "쓰던간에요",
+      "replacement": "쓰던 간에",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "프롬포트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "프론프트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "프롬프포트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "프로포트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "트럼프트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "하이포그래피",
+      "replacement": "타이포그래피",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "몽함적인",
+      "replacement": "몽환적인",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "명료하하고",
+      "replacement": "명료하고",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "불명악한",
+      "replacement": "불명확한",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "감이된",
+      "replacement": "가미된",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "것들이를",
+      "replacement": "것들을",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "재질래",
+      "replacement": "재질에",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "반딱반 깜빡하게",
+      "replacement": "반짝반짝하게",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "넣 넣으면은",
+      "replacement": "넣으면은",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "Sref 코드 Sref 코드",
+      "replacement": "Sref 코드",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "세대를 한번",
+      "replacement": "세 배를 한번",
+      "type": "literal",
+      "confidence": "medium"
+    },
+    {
+      "pattern": "아무래 ",
+      "replacement": "아무래도 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "동합책 사파",
+      "replacement": "동화책 삽화",
+      "type": "literal",
+      "confidence": "medium"
+    },
+    {
+      "pattern": "바보면",
+      "replacement": "봐보면",
+      "type": "literal",
+      "confidence": "medium"
+    },
+    {
+      "pattern": "(?<![가-힣A-Za-z0-9])(?:요리프|테리프|쓰래프|셀리프|세리피|세리포|세리프트|슬리프|쓰리프)\\s*코드",
+      "replacement": "Sref 코드",
+      "type": "regex",
+      "confidence": "high"
+    },
+    {
+      "pattern": "\\s+\\.",
+      "replacement": ".",
+      "type": "regex",
+      "confidence": "high"
+    },
+    {
+      "pattern": "\\.{2,}",
+      "replacement": ".",
+      "type": "regex",
+      "confidence": "high"
+    },
+    {
+      "pattern": "그래서요 ",
+      "replacement": "그래서 요 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "나는이 ",
+      "replacement": "나는 이 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "저는요 ",
+      "replacement": "저는 요 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "근데요 ",
+      "replacement": "근데 요 ",
+      "type": "literal",
+      "confidence": "medium",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "했을 때이 ",
+      "replacement": "했을 때 이 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "사실은이 ",
+      "replacement": "사실은 이 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "뭔지이 ",
+      "replacement": "뭔지 이 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "에서는이 ",
+      "replacement": "에서는 이 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "하나는이 ",
+      "replacement": "하나는 이 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "보면서이 ",
+      "replacement": "보면서 이 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "과정이고이 ",
+      "replacement": "과정이고 이 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "말씀을 드리면은이 ",
+      "replacement": "말씀을 드리면은 이 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "일단은요 ",
+      "replacement": "일단은 요 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "이제요 ",
+      "replacement": "이제 요 ",
+      "type": "literal",
+      "confidence": "medium",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "여기요 ",
+      "replacement": "여기 요 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "또 지금요 ",
+      "replacement": "또 지금 요 ",
+      "type": "literal",
+      "confidence": "high",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "있는요 ",
+      "replacement": "있는 요 ",
+      "type": "literal",
+      "confidence": "medium",
+      "category": "attached_demonstrative"
+    },
+    {
+      "pattern": "\\b이런이\\s+",
+      "replacement": "이런 ",
+      "type": "regex",
+      "confidence": "high",
+      "category": "spurious_syllable"
+    },
+    {
+      "pattern": "있 있는",
+      "replacement": "있는",
+      "type": "literal",
+      "confidence": "high",
+      "category": "partial_restart"
+    },
+    {
+      "pattern": "있 있으면",
+      "replacement": "있으면",
+      "type": "literal",
+      "confidence": "high",
+      "category": "partial_restart"
+    },
+    {
+      "pattern": "만만졌을 때",
+      "replacement": "만졌을 때",
+      "type": "literal",
+      "confidence": "high",
+      "category": "syllable_stutter"
+    },
+    {
+      "pattern": "만들었었고 만들었고",
+      "replacement": "만들었고",
+      "type": "literal",
+      "confidence": "high",
+      "category": "false_start"
+    },
+    {
+      "pattern": "모 모아",
+      "replacement": "모아",
+      "type": "literal",
+      "confidence": "high",
+      "category": "syllable_stutter"
+    },
+    {
+      "pattern": "여러분들의 여러분들이이",
+      "replacement": "여러분들이",
+      "type": "literal",
+      "confidence": "high",
+      "category": "restart_after_nonverbal"
+    },
+    {
+      "pattern": "Sref 코드를 를",
+      "replacement": "Sref 코드를",
+      "type": "literal",
+      "confidence": "high",
+      "category": "duplicate_particle"
+    },
+    {
+      "pattern": "법을 를",
+      "replacement": "법을",
+      "type": "literal",
+      "confidence": "high",
+      "category": "duplicate_particle"
+    },
+    {
+      "pattern": "요요건",
+      "replacement": "요건",
+      "type": "literal",
+      "confidence": "high",
+      "category": "syllable_stutter"
+    },
+    {
+      "pattern": "구동료",
+      "replacement": "구독료",
+      "type": "literal",
+      "confidence": "high",
+      "category": "asr_word"
+    },
+    {
+      "pattern": "몽적인",
+      "replacement": "몽환적인",
+      "type": "literal",
+      "confidence": "medium",
+      "category": "asr_word"
+    },
+    {
+      "pattern": "미드보드",
+      "replacement": "무드보드",
+      "type": "literal",
+      "confidence": "high",
+      "category": "asr_word"
+    },
+    {
+      "pattern": "모드보드",
+      "replacement": "무드보드",
+      "type": "literal",
+      "confidence": "high",
+      "category": "asr_word"
+    },
+    {
+      "pattern": "파스테일",
+      "replacement": "파스텔",
+      "type": "literal",
+      "confidence": "high",
+      "category": "asr_word"
+    },
+    {
+      "pattern": "프럼프트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high",
+      "category": "asr_word"
+    },
+    {
+      "pattern": "점자졌",
+      "replacement": "점잖아졌",
+      "type": "literal",
+      "confidence": "medium",
+      "category": "asr_word"
+    },
+    {
+      "pattern": "봄질",
+      "replacement": "본질",
+      "type": "literal",
+      "confidence": "high",
+      "category": "asr_word"
+    },
+    {
+      "pattern": "걸리시한데",
+      "replacement": "걸리쉬한데",
+      "type": "literal",
+      "confidence": "medium",
+      "category": "asr_word"
+    },
+    {
+      "pattern": "인무를",
+      "replacement": "인물을",
+      "type": "literal",
+      "confidence": "high",
+      "category": "asr_word"
+    },
+    {
+      "pattern": "Q&(?!A)",
+      "replacement": "Q&A",
+      "type": "regex",
+      "confidence": "high",
+      "category": "canonical_term"
+    },
+    {
+      "pattern": "^\\s*[.;:]+\\s*",
+      "replacement": "",
+      "type": "regex",
+      "confidence": "high",
+      "category": "punctuation_artifact"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+streamlit>=1.37,<2
+pandas>=2.2,<3
+requests>=2.32,<3
+isodate>=0.7,<1
+youtube-transcript-api>=1.2,<2
+
+# Apple Silicon local LLM runtime. No API key required.
+# Python 3.9 compatibility pin:
+# mlx-lm 0.28.0 requires mlx>=0.29.1, and mlx 0.29.1 still provides
+# a CPython 3.9 / macOS arm64 wheel. Newer mlx-lm releases require
+# newer mlx builds that no longer provide a Python 3.9 macOS wheel.
+mlx==0.29.1; platform_system == "Darwin"
+mlx-lm==0.28.0
