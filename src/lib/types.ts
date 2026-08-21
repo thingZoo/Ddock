@@ -64,8 +64,14 @@ export interface Part {
   startSec: number;
   endSec: number;
   steps: Step[];
-  /** 지금까지 끝낸 STEP 수 — MVP에선 시드 값 그대로 씁니다 */
-  doneCount: number;
+  /** 이 파트가 걸쳐 있는 원본 챕터들 */
+  chapterIds: string[];
+  /** 한 줄 요약 */
+  summary: string;
+  /** 대표 도구 (없으면 null) */
+  tool: string | null;
+  /** "✓ 여기까지 하면" — 항목형이거나 한 문장 */
+  checkpoint: { items?: string[]; text?: string };
 }
 
 export interface Channel {
@@ -108,15 +114,27 @@ export interface RelatedVideo {
   viewLabel: string;
 }
 
-/** 스크립트 한 문단 */
+/** 스크립트 한 문단 = 전처리된 발화 하나 */
 export interface ScriptSegment {
+  /** 전처리 파일의 utterance_id (UT-00001) */
   id: string;
-  partNo: number;
-  /** "CH 07 · Full live demo setup" */
-  chapter: string;
+  /** 원본 챕터 (CH-01 …) — 파트와는 다른 구조예요 */
+  chapterId: string;
+  chapterLabel: string;
+  /** 이 문단이 속한 파트. 캐치업에 안 쓰인 구간은 null */
+  partNo: number | null;
   timeLabel: string;
   timeSec: number;
+  endSec: number;
   text: string;
+}
+
+/** 원본 챕터 (크리에이터가 영상 설명에 적어둔 목차) */
+export interface ScriptChapter {
+  id: string;
+  label: string;
+  startSec: number;
+  endSec: number;
 }
 
 /** 영상 하나 = 상세페이지 하나 */
@@ -140,7 +158,9 @@ export interface Course {
   toolHighlight: ToolHighlight;
   relatedVideos: RelatedVideo[];
   parts: Part[];
+  scriptChapters: ScriptChapter[];
   script: ScriptSegment[];
+  durationLabel: string;
 }
 
 /** "09:51" / "1:10:08" → 초 */
@@ -164,4 +184,9 @@ export function toLabel(sec: number): string {
 /** 파트 전체 STEP 수 */
 export function totalSteps(part: Part): number {
   return part.steps.length;
+}
+
+/** 영상 전체 STEP 수 */
+export function totalStepsOfCourse(course: Course): number {
+  return course.parts.reduce((n, p) => n + p.steps.length, 0);
 }

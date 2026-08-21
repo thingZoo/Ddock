@@ -6,6 +6,7 @@ import type { Part } from "@/lib/types";
 import { LearningCard } from "./LearningCard";
 import { InfoSheetView } from "./InfoSheetView";
 import { useYouTube } from "./YouTubePlayer";
+import { useProgress } from "@/lib/progress";
 
 /**
  * 카드 스와이프 스택 (355:9749)
@@ -27,6 +28,7 @@ export function CardStack({
   const [infoOpen, setInfoOpen] = useState(false);
   const { playing, playFrom, toggle } = useYouTube();
   const [activeStepId, setActiveStepId] = useState<string | null>(null);
+  const { markDone } = useProgress();
 
   useEffect(() => {
     onIndexChange?.(index + 1);
@@ -39,6 +41,8 @@ export function CardStack({
   function go(dir: 1 | -1) {
     const t = index + dir;
     if (t < 0) return;
+    // 앞으로 넘길 때만 "여기까지 했다"로 기록해요. 뒤로 가도 줄지 않습니다.
+    if (dir === 1) markDone(part.id, index + 1);
     if (t >= part.steps.length) {
       onFinish();
       return;
