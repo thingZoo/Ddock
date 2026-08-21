@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Part } from "@/lib/types";
 import { LearningCard } from "./LearningCard";
@@ -15,25 +15,22 @@ import { useProgress } from "@/lib/progress";
  */
 export function CardStack({
   part,
+  index,
+  onIndexChange,
   onFinish,
   onSeeScript,
-  onIndexChange,
 }: {
   part: Part;
+  /** 0부터. 탭을 옮겼다 와도 자리를 지키려고 위에서 들고 있어요 */
+  index: number;
+  onIndexChange: (zeroBased: number) => void;
   onFinish: () => void;
   onSeeScript: () => void;
-  onIndexChange?: (oneBased: number) => void;
 }) {
-  const [index, setIndex] = useState(0);
   const [infoOpen, setInfoOpen] = useState(false);
   const { playing, playFrom, toggle } = useYouTube();
   const [activeStepId, setActiveStepId] = useState<string | null>(null);
   const { markDone } = useProgress();
-
-  useEffect(() => {
-    onIndexChange?.(index + 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
 
   const step = part.steps[index];
   const next = part.steps[index + 1];
@@ -47,8 +44,7 @@ export function CardStack({
       onFinish();
       return;
     }
-    setIndex(t);
-    onIndexChange?.(t + 1);
+    onIndexChange(t);
   }
 
   function playSegment() {
