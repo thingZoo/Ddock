@@ -2,16 +2,27 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
-from ddock_content_contract import OUTPUT_FILENAME, SCHEMA_VERSION
+import ddock_content_curation as curation
+from ddock_content_contract import (
+    OUTPUT_FILENAME,
+    REVIEW_OUTPUT_FILENAME,
+    REVIEW_SCHEMA_VERSION,
+    SCHEMA_VERSION,
+)
 from ddock_content_curation import (
     CurationResponseError,
+    build_published_ddock_content,
     build_script_contract,
     curate_ddock_content,
+    curate_ddock_content_review,
     ddock_content_output_path,
+    ddock_content_review_output_path,
     extract_source_backed_tool_candidates,
     final_text_for_utterance,
     hash_preprocessed_result,
@@ -20,8 +31,13 @@ from ddock_content_curation import (
     parse_video_detail_response,
     render_surface_preview,
     write_ddock_content_atomic,
+    write_ddock_content_review_atomic,
 )
-from ddock_content_validator import validate_ddock_content
+from ddock_content_validator import (
+    validate_ddock_content,
+    validate_ddock_content_review,
+    validate_review_for_publish,
+)
 
 
 def _row(number: int, chapter: int, text: str) -> dict:
@@ -283,6 +299,97 @@ def _detail_response() -> dict:
     }
 
 
+def _phase_response() -> dict:
+    return {
+        "status": "completed",
+        "phases": [
+            {
+                "phase_label": "MCP 설정 열기",
+                "operation": "MCP 탭을 연다",
+                "tool_or_surface": "Cursor",
+                "expected_result": "MCP 설정 화면이 열린다",
+                "action_utterance_ids": ["UT-00002"],
+                "context_utterance_ids": [],
+            },
+            {
+                "phase_label": "모델 선택",
+                "operation": "모델을 선택한다",
+                "tool_or_surface": "Cursor",
+                "expected_result": "Sonnet이 선택된다",
+                "action_utterance_ids": ["UT-00003"],
+                "context_utterance_ids": ["UT-00008"],
+            },
+            {
+                "phase_label": "지침 파일 생성",
+                "operation": "프로젝트 지침 파일을 만든다",
+                "tool_or_surface": "프로젝트",
+                "expected_result": "CLAUDE.md가 생성된다",
+                "action_utterance_ids": ["UT-00004"],
+                "context_utterance_ids": [],
+            },
+            {
+                "phase_label": "실행 결과 확인",
+                "operation": "실행하고 결과를 확인한다",
+                "tool_or_surface": "실행 화면",
+                "expected_result": "실행 결과를 확인한다",
+                "action_utterance_ids": ["UT-00005", "UT-00006", "UT-00007"],
+                "context_utterance_ids": [],
+            },
+        ],
+        "warnings": [],
+    }
+
+
+def _composition_response(*, two_parts: bool = False) -> dict:
+    parts = [
+        {
+            "title": "환경을 설정하고 결과를 확인해요",
+            "summary": "설정부터 실행까지 한 흐름으로 따라갑니다.",
+            "action_objective": "Cursor 환경을 설정하고 실행 결과를 확인한다",
+            "phase_indices": [0, 1, 2, 3],
+            "needs_review": False,
+        }
+    ]
+    if two_parts:
+        parts = [
+            {
+                "title": "환경을 설정해요",
+                "summary": "MCP와 프로젝트 설정을 준비합니다.",
+                "action_objective": "Cursor 환경을 설정한다",
+                "phase_indices": [0, 1, 2],
+                "needs_review": False,
+            },
+            {
+                "title": "결과를 검증해요",
+                "summary": None,
+                "action_objective": "실행 결과와 주의 사항을 확인한다",
+                "phase_indices": [3],
+                "needs_review": False,
+            },
+        ]
+    return {"status": "completed", "parts": parts, "warnings": []}
+
+
+def _raw_replay(name: str) -> dict:
+    path = Path(__file__).with_name("tests") / "fixtures" / name
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _replay_rows(values: list[dict]) -> dict[str, dict]:
+    return {
+        str(value["utterance_id"]): {
+            "utterance_id": str(value["utterance_id"]),
+            "start_seconds": float(value["start_seconds"]),
+            "end_seconds": float(value["end_seconds"]),
+            "timestamp": curation.format_timestamp(value["start_seconds"]),
+            "text": str(value["text"]),
+            "script_chapter_id": value.get("script_chapter_id"),
+            "catchup_part_ids": [],
+        }
+        for value in values
+    }
+
+
 class FixtureGenerator:
     def __init__(self, *, no_actionable: bool = False, step_response: dict | None = None):
         self.calls: list[str] = []
@@ -290,19 +397,20 @@ class FixtureGenerator:
         self.step_response = step_response
 
     def __call__(self, _model: str, system: str, _user: str, _max_tokens: int) -> str:
-        if "ddock_part_planning_v0.2" in system:
-            self.calls.append("A")
+        if "ddock_action_phase_discovery_v0.1" in system:
+            self.calls.append("A1")
             response = (
                 {
                     "status": "no_actionable_content",
-                    "content_chapter_assessments": [
-                    ],
-                    "parts": [],
+                    "phases": [],
                     "warnings": [],
                 }
                 if self.no_actionable
-                else _part_response()
+                else _phase_response()
             )
+        elif "ddock_part_composition_v0.1" in system:
+            self.calls.append("A2")
+            response = _composition_response()
         elif "ddock_step_generation_v0.2" in system:
             self.calls.append("B")
             response = self.step_response or _step_response()
@@ -326,10 +434,12 @@ class DdockContentCurationTests(unittest.TestCase):
     def test_schema_and_three_pass_metrics(self) -> None:
         self.assertEqual(self.package["schema_version"], SCHEMA_VERSION)
         metrics = self.package["curation_generation"]
-        self.assertEqual(metrics["part_planning_calls"], 1)
+        self.assertEqual(metrics["part_planning_calls"], 2)
+        self.assertEqual(metrics["action_phase_discovery_calls"], 1)
+        self.assertEqual(metrics["part_composition_calls"], 1)
         self.assertEqual(metrics["step_generation_calls"], 1)
         self.assertEqual(metrics["video_detail_calls"], 1)
-        self.assertEqual(metrics["total_model_calls"], 3)
+        self.assertEqual(metrics["total_model_calls"], 4)
 
     def test_four_script_chapters_are_not_four_parts(self) -> None:
         self.assertEqual(len(self.package["script_chapters"]), 4)
@@ -350,7 +460,11 @@ class DdockContentCurationTests(unittest.TestCase):
         response["steps"][-1]["source_utterance_ids"].remove("UT-00007")
         response["steps"][-1]["action_lines"].pop()
         response["excluded_actions"] = [
-            {"utterance_id": "UT-00007", "reason": "covered only as caution context"}
+            {
+                "utterance_id": "UT-00007",
+                "reason": "covered only as caution context",
+                "reason_category": "context_only",
+            }
         ]
         package = curate_ddock_content(
             self.result,
@@ -504,9 +618,13 @@ class DdockContentCurationTests(unittest.TestCase):
             model_name="fixture-model",
         )
         self.assertEqual(package["curation_generation"]["status"], "completed_with_review")
-        self.assertEqual(len(package["catchup_parts"][0]["steps"]), 3)
+        self.assertEqual(package["catchup_parts"], [])
+        self.assertEqual(len(package["curation_generation"]["omitted_part_candidates"]), 1)
         self.assertNotIn("npm invented-command", json.dumps(package, ensure_ascii=False))
-        self.assertTrue(any("unsupported_command_removed" in value for value in package["catchup_parts"][0]["generation_warnings"]))
+        self.assertIn(
+            "unaccounted_phase",
+            package["curation_generation"]["omitted_part_candidates"][0]["reason"],
+        )
 
     def test_invented_prompt_rejects_part_generation(self) -> None:
         response = _step_response()
@@ -539,7 +657,11 @@ class DdockContentCurationTests(unittest.TestCase):
                 }
             ],
             "excluded_actions": [
-                {"utterance_id": f"UT-{value:05d}", "reason": "not used"}
+                {
+                    "utterance_id": f"UT-{value:05d}",
+                    "reason": "not reproducible as a focused phase",
+                    "reason_category": "not_reproducible",
+                }
                 for value in range(3, 8)
             ],
             "excluded_context_utterance_ids": ["UT-00008"],
@@ -553,7 +675,7 @@ class DdockContentCurationTests(unittest.TestCase):
         )
         self.assertEqual(package["catchup_parts"], [])
         self.assertEqual(package["curation_generation"]["status"], "completed_with_review")
-        self.assertTrue(any("at_least_one_step_required" in value for value in package["curation_generation"]["warnings"]))
+        self.assertTrue(any("unaccounted_phase" in value for value in package["curation_generation"]["warnings"]))
 
     def test_atomic_writer_uses_title_based_output_path(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -596,15 +718,18 @@ class DdockContentCurationTests(unittest.TestCase):
 
     def test_one_part_generation_failure_preserves_other_part(self) -> None:
         def generator(_model: str, system: str, user: str, _max_tokens: int) -> str:
-            if "ddock_part_planning_v0.2" in system:
-                return json.dumps(_part_response(two_parts=True), ensure_ascii=False)
+            if "ddock_action_phase_discovery_v0.1" in system:
+                return json.dumps(_phase_response(), ensure_ascii=False)
+            if "ddock_part_composition_v0.1" in system:
+                return json.dumps(_composition_response(two_parts=True), ensure_ascii=False)
             if "ddock_video_detail_v0.2" in system:
                 return json.dumps(_detail_response(), ensure_ascii=False)
             part_ids = json.loads(user)["part"]["source_utterance_ids"]
-            if part_ids == ["UT-00002", "UT-00003", "UT-00004"]:
+            if "UT-00002" in part_ids and "UT-00005" not in part_ids:
                 raise RuntimeError("fixture isolated failure")
             response = _step_response()
             response["steps"] = [response["steps"][3]]
+            response["steps"][0]["learn_more"] = []
             return json.dumps(response, ensure_ascii=False)
 
         package = curate_ddock_content(
@@ -683,8 +808,10 @@ class DdockContentCurationTests(unittest.TestCase):
         calls = {"b": 0}
 
         def generator(_model: str, system: str, _user: str, _max_tokens: int) -> str:
-            if "ddock_part_planning_v0.2" in system:
-                return json.dumps(_part_response(), ensure_ascii=False)
+            if "ddock_action_phase_discovery_v0.1" in system:
+                return json.dumps(_phase_response(), ensure_ascii=False)
+            if "ddock_part_composition_v0.1" in system:
+                return json.dumps(_composition_response(), ensure_ascii=False)
             if "ddock_video_detail_v0.2" in system:
                 return json.dumps(_detail_response(), ensure_ascii=False)
             calls["b"] += 1
@@ -702,8 +829,10 @@ class DdockContentCurationTests(unittest.TestCase):
         initial["steps"][-1]["learn_more"][0]["source_utterance_ids"] = ["UT-00010"]
 
         def generator(_model: str, system: str, _user: str, _max_tokens: int) -> str:
-            if "ddock_part_planning_v0.2" in system:
-                return json.dumps(_part_response(), ensure_ascii=False)
+            if "ddock_action_phase_discovery_v0.1" in system:
+                return json.dumps(_phase_response(), ensure_ascii=False)
+            if "ddock_part_composition_v0.1" in system:
+                return json.dumps(_composition_response(), ensure_ascii=False)
             if "ddock_video_detail_v0.2" in system:
                 return json.dumps(_detail_response(), ensure_ascii=False)
             return json.dumps(_step_response() if "TARGETED_REPAIR" in system else initial, ensure_ascii=False)
@@ -793,7 +922,7 @@ class DdockContentCurationTests(unittest.TestCase):
                 json.dumps(response, ensure_ascii=False), part, rows
             )
 
-    def test_undersegmented_repair_result_is_retained_with_review_warning(self) -> None:
+    def test_broad_step_evidence_is_reduced_to_focused_line_evidence(self) -> None:
         ids = [f"UT-{value:05d}" for value in range(1, 14)]
         rows = {
             utterance_id: {
@@ -823,13 +952,12 @@ class DdockContentCurationTests(unittest.TestCase):
             "warnings": [],
         }
         raw = json.dumps(response, ensure_ascii=False)
-        with self.assertRaisesRegex(CurationResponseError, "undersegmented_long_part"):
-            parse_step_generation_response(raw, copy.deepcopy(part), rows)
         steps, _, warnings = parse_step_generation_response(
-            raw, copy.deepcopy(part), rows, allow_undersegmented=True
+            raw, copy.deepcopy(part), rows
         )
         self.assertEqual(len(steps), 1)
-        self.assertIn("undersegmented_long_part_retained_after_repair", warnings)
+        self.assertEqual(steps[0]["source_utterance_ids"], [ids[0]])
+        self.assertIn("step_density_review:1:recommended_3_to_6", warnings)
 
     def test_retry_failure_preserves_omitted_part_candidate(self) -> None:
         empty = {"steps": [], "excluded_actions": [], "excluded_context_utterance_ids": [], "warnings": []}
@@ -837,7 +965,8 @@ class DdockContentCurationTests(unittest.TestCase):
             self.result,
             self.source,
             generator=lambda _m, system, _u, _t: json.dumps(
-                _part_response() if "ddock_part_planning_v0.2" in system
+                _phase_response() if "ddock_action_phase_discovery_v0.1" in system
+                else _composition_response() if "ddock_part_composition_v0.1" in system
                 else _detail_response() if "ddock_video_detail_v0.2" in system
                 else empty,
                 ensure_ascii=False,
@@ -854,7 +983,8 @@ class DdockContentCurationTests(unittest.TestCase):
             self.result,
             self.source,
             generator=lambda _m, system, _u, _t: json.dumps(
-                _part_response() if "ddock_part_planning_v0.2" in system
+                _phase_response() if "ddock_action_phase_discovery_v0.1" in system
+                else _composition_response() if "ddock_part_composition_v0.1" in system
                 else _detail_response() if "ddock_video_detail_v0.2" in system
                 else empty,
                 ensure_ascii=False,
@@ -872,6 +1002,13 @@ class DdockContentCurationTests(unittest.TestCase):
                 "segments": [{"type": "text", "text": "근거에 없는 배포 작업 실행"}],
             }
         ]
+        response["excluded_phases"] = [
+            {
+                "phase_index": 0,
+                "reason": "unsupported surface wording could not preserve the phase",
+                "reason_category": "filtered_by_grounding",
+            }
+        ]
         package = curate_ddock_content(
             self.result, self.source, generator=FixtureGenerator(step_response=response), model_name="fixture-model"
         )
@@ -882,7 +1019,18 @@ class DdockContentCurationTests(unittest.TestCase):
         response = _step_response()
         response["steps"].pop(1)
         response["excluded_actions"] = [
-            {"utterance_id": "UT-00003", "reason": "operation duplicated in the same panel"}
+            {
+                "utterance_id": "UT-00003",
+                "reason": "operation duplicated in the same panel",
+                "reason_category": "duplicate",
+            }
+        ]
+        response["excluded_phases"] = [
+            {
+                "phase_index": 1,
+                "reason": "operation duplicated in the same panel",
+                "reason_category": "duplicate",
+            }
         ]
         package = curate_ddock_content(
             self.result, self.source, generator=FixtureGenerator(step_response=response), model_name="fixture-model"
@@ -943,8 +1091,10 @@ class DdockContentCurationTests(unittest.TestCase):
         detail["tags"] = ["커서", "MCP", "설정", "실행"]
 
         def generator(_model: str, system: str, _user: str, _max_tokens: int) -> str:
-            if "ddock_part_planning_v0.2" in system:
-                response = _part_response()
+            if "ddock_action_phase_discovery_v0.1" in system:
+                response = _phase_response()
+            elif "ddock_part_composition_v0.1" in system:
+                response = _composition_response()
             elif "ddock_step_generation_v0.2" in system:
                 response = _step_response()
             else:
@@ -1031,6 +1181,497 @@ class DdockContentCurationTests(unittest.TestCase):
         rows = {row["utterance_id"]: row for row in self.package["script"]}
         with self.assertRaises(CurationResponseError):
             parse_step_generation_response("```json\n{}\n```", part, rows)
+
+
+class DdockContentCurationArchitectureTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.result, self.source = _fixture()
+        self.script_chapters, self.script = build_script_contract(self.result)
+        self.rows = {row["utterance_id"]: row for row in self.script}
+
+    def test_a1_payload_has_no_content_chapter_metadata(self) -> None:
+        system, user = curation.build_action_phase_discovery_prompts(self.script)
+        serialized = system + user
+        self.assertNotIn("content_chapter", serialized)
+        self.assertNotIn("CCH-", serialized)
+
+    def test_a1_payload_has_no_script_chapter_metadata(self) -> None:
+        _, user = curation.build_action_phase_discovery_prompts(self.script)
+        payload = json.loads(user)
+        self.assertEqual(set(payload), {"utterances"})
+        self.assertTrue(
+            all(
+                set(row) == {"utterance_id", "start_seconds", "end_seconds", "text"}
+                for row in payload["utterances"]
+            )
+        )
+
+    def test_a1_payload_has_no_creator_chapter_title(self) -> None:
+        system, user = curation.build_action_phase_discovery_prompts(self.script)
+        serialized = system + user
+        self.assertNotIn("creator_chapter", serialized)
+        self.assertNotIn("Chapter 2", serialized)
+
+    def test_a2_payload_has_no_chapter_boundary_metadata(self) -> None:
+        phases = _phase_response()["phases"]
+        system, user = curation.build_part_composition_prompts(phases, self.rows)
+        serialized = system + user
+        for forbidden in ("content_chapter", "script_chapter", "creator_chapter", "CCH-", "CH-02"):
+            self.assertNotIn(forbidden, serialized)
+
+    def test_a2_composes_parts_from_phase_indices(self) -> None:
+        phases = _phase_response()["phases"]
+        status, plans, warnings = curation.parse_part_composition_response(
+            json.dumps(_composition_response(), ensure_ascii=False), phases, self.rows
+        )
+        self.assertEqual(status, "completed")
+        self.assertEqual(plans[0]["phase_indices"], [0, 1, 2, 3])
+        self.assertEqual(warnings, [])
+
+    def test_a2_optional_summary_may_be_omitted(self) -> None:
+        phases = _phase_response()["phases"]
+        response = _composition_response()
+        response["parts"][0].pop("summary")
+        _, plans, _ = curation.parse_part_composition_response(
+            json.dumps(response, ensure_ascii=False), phases, self.rows
+        )
+        self.assertIsNone(plans[0]["summary"])
+
+    def test_part_membership_is_materialized_from_phase_membership(self) -> None:
+        phases = _phase_response()["phases"]
+        _, plans, _ = curation.parse_part_composition_response(
+            json.dumps(_composition_response(), ensure_ascii=False), phases, self.rows
+        )
+        parts = curation.materialize_phase_parts(
+            plans, phases, self.script, self.result
+        )
+        self.assertEqual(
+            parts[0]["source_utterance_ids"],
+            [f"UT-{value:05d}" for value in range(2, 9)],
+        )
+        self.assertEqual(
+            parts[0]["action_utterance_ids"],
+            [f"UT-{value:05d}" for value in range(2, 8)],
+        )
+
+    def test_script_chapter_mapping_is_post_hoc(self) -> None:
+        phases = _phase_response()["phases"]
+        _, plans, _ = curation.parse_part_composition_response(
+            json.dumps(_composition_response(), ensure_ascii=False), phases, self.rows
+        )
+        part = curation.materialize_phase_parts(
+            plans, phases, self.script, self.result
+        )[0]
+        self.assertEqual(part["source_script_chapter_ids"], ["CH-02", "CH-03"])
+
+    def test_screenshot_mapping_is_post_hoc(self) -> None:
+        phases = _phase_response()["phases"]
+        _, plans, _ = curation.parse_part_composition_response(
+            json.dumps(_composition_response(), ensure_ascii=False), phases, self.rows
+        )
+        part = curation.materialize_phase_parts(
+            plans, phases, self.script, self.result
+        )[0]
+        self.assertEqual(part["thumbnail"]["content_chapter_id"], "CCH-03")
+
+    def test_missing_prompt_is_normalized_to_null(self) -> None:
+        response = _step_response()
+        response["steps"][0].pop("prompt")
+        part = copy.deepcopy(_part_response()["parts"][0])
+        steps, _, _ = parse_step_generation_response(
+            json.dumps(response, ensure_ascii=False), part, self.rows
+        )
+        self.assertIsNone(steps[0]["prompt"])
+
+    def test_missing_warning_is_normalized_to_null(self) -> None:
+        response = _step_response()
+        response["steps"][0].pop("warning")
+        part = copy.deepcopy(_part_response()["parts"][0])
+        steps, _, _ = parse_step_generation_response(
+            json.dumps(response, ensure_ascii=False), part, self.rows
+        )
+        self.assertIsNone(steps[0]["warning"])
+
+    def test_missing_learn_more_is_normalized_to_empty_array(self) -> None:
+        response = _step_response()
+        response["steps"][0].pop("learn_more")
+        part = copy.deepcopy(_part_response()["parts"][0])
+        steps, _, _ = parse_step_generation_response(
+            json.dumps(response, ensure_ascii=False), part, self.rows
+        )
+        self.assertEqual(steps[0]["learn_more"], [])
+
+    def test_invalid_present_prompt_shape_remains_an_error(self) -> None:
+        response = _step_response()
+        response["steps"][0]["prompt"] = ["invalid"]
+        part = copy.deepcopy(_part_response()["parts"][0])
+        with self.assertRaises(CurationResponseError):
+            parse_step_generation_response(
+                json.dumps(response, ensure_ascii=False), part, self.rows
+            )
+
+    def test_raw_part01_replay_salvages_two_steps(self) -> None:
+        fixture = _raw_replay("ddock_curation_raw_part01_replay.json")
+        rows = _replay_rows(fixture["utterances"])
+        steps, _, _ = parse_step_generation_response(
+            json.dumps(fixture["response"], ensure_ascii=False),
+            copy.deepcopy(fixture["part"]),
+            rows,
+        )
+        self.assertEqual(len(steps), 2)
+
+    def test_raw_screenflow_replay_salvages_three_steps(self) -> None:
+        fixture = _raw_replay("ddock_curation_raw_screenflow_replay.json")
+        rows = _replay_rows(fixture["utterances"])
+        steps, _, _ = parse_step_generation_response(
+            json.dumps(fixture["response"], ensure_ascii=False),
+            copy.deepcopy(fixture["part"]),
+            rows,
+        )
+        self.assertEqual(len(steps), 3)
+
+    def test_raw_pass_c_replay_salvages_supported_recommendation(self) -> None:
+        fixture = _raw_replay("ddock_curation_raw_pass_c_replay.json")
+        script = list(_replay_rows(fixture["utterances"]).values())
+        recommendation, _, _, _ = parse_video_detail_response(
+            json.dumps(fixture["response"], ensure_ascii=False), script, None
+        )
+        self.assertIsNotNone(recommendation)
+        self.assertGreaterEqual(len(recommendation["claims"]), 1)
+        self.assertTrue(
+            all(len(claim["evidence"]) <= 6 for claim in recommendation["claims"])
+        )
+
+    def test_two_workflows_are_not_forced_into_one_phase_composition(self) -> None:
+        phases = [
+            {
+                "phase_label": "원본 복사",
+                "operation": "Figma 원본을 복사한다",
+                "tool_or_surface": "Figma",
+                "expected_result": "원본이 복사된다",
+                "action_utterance_ids": ["UT-00002"],
+                "context_utterance_ids": [],
+            },
+            {
+                "phase_label": "코드 구현",
+                "operation": "React 코드를 구현한다",
+                "tool_or_surface": "Cursor",
+                "expected_result": "React 결과가 생성된다",
+                "action_utterance_ids": ["UT-00005"],
+                "context_utterance_ids": [],
+            },
+        ]
+        response = {
+            "status": "completed",
+            "parts": [
+                {"title": "원본 복사", "summary": None, "action_objective": "Figma 원본을 복사한다", "phase_indices": [0], "needs_review": False},
+                {"title": "코드 구현", "summary": None, "action_objective": "React 코드를 구현한다", "phase_indices": [1], "needs_review": False},
+            ],
+            "warnings": [],
+        }
+        _, plans, _ = curation.parse_part_composition_response(
+            json.dumps(response, ensure_ascii=False), phases, self.rows
+        )
+        self.assertEqual([value["phase_indices"] for value in plans], [[0], [1]])
+
+    def test_phase_accounting_requires_step_or_typed_exclusion(self) -> None:
+        phases = _phase_response()["phases"][:2]
+        steps = [{"source_utterance_ids": ["UT-00002"]}]
+        with self.assertRaisesRegex(CurationResponseError, "unaccounted_phase"):
+            curation.audit_phase_accounting(phases, steps, [])
+        report = curation.audit_phase_accounting(
+            phases,
+            steps,
+            [{"phase_index": 1, "reason": "duplicate operation", "reason_category": "duplicate"}],
+        )
+        self.assertEqual(report["unassigned_phase_indices"], [])
+
+    def test_runtime_has_no_video_or_concrete_fixture_ids(self) -> None:
+        source = Path(curation.__file__).read_text(encoding="utf-8")
+        self.assertNotIn("G0d9CHLpnnc", source)
+        self.assertIsNone(__import__("re").search(r"UT-\d{5}|CCH-\d{2}", source))
+
+    def test_raw_dump_env_off_creates_no_files(self) -> None:
+        with tempfile.TemporaryDirectory() as root:
+            with patch.dict(os.environ, {}, clear=False):
+                os.environ.pop("DDOCK_CURATION_DUMP_RAW", None)
+                recorder = curation._RawDumpRecorder.from_environment()
+                recorder.write("pass_a1", "system", "user", "response", 1.0, 2.0)
+            self.assertEqual(list(Path(root).iterdir()), [])
+
+    def test_raw_dump_env_on_records_required_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as root:
+            with patch.dict(os.environ, {"DDOCK_CURATION_DUMP_RAW": root}):
+                recorder = curation._RawDumpRecorder.from_environment()
+                path = recorder.write(
+                    "pass_b_PART-02_retry", "system", "user", "response", 1.0, 2.0
+                )
+            value = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(path.name, "pass_b_PART-02_retry_001.json")
+            self.assertEqual(
+                set(value),
+                {"stage", "call_index", "system_prompt", "user_payload", "raw_response", "started_at", "finished_at"},
+            )
+
+    def test_learn_more_removes_only_unsupported_sentence(self) -> None:
+        response = _step_response()
+        response["steps"][-1]["learn_more"][0]["body"] = (
+            "Sonnet은 이 작업에 적절한 균형을 제공합니다. "
+            "최근 업데이트로 속도가 두 배 빨라졌습니다."
+        )
+        part = copy.deepcopy(_part_response()["parts"][0])
+        steps, _, _ = parse_step_generation_response(
+            json.dumps(response, ensure_ascii=False), part, self.rows
+        )
+        body = steps[-1]["learn_more"][0]["body"]
+        self.assertIn("균형", body)
+        self.assertNotIn("두 배", body)
+
+    def test_unsupported_step_title_is_normalized_not_dropped(self) -> None:
+        response = _step_response()
+        response["steps"][0]["action_title"] = "근거에 없는 프로덕션 배포"
+        part = copy.deepcopy(_part_response()["parts"][0])
+        steps, _, warnings = parse_step_generation_response(
+            json.dumps(response, ensure_ascii=False), part, self.rows
+        )
+        self.assertEqual(len(steps), 4)
+        self.assertEqual(steps[0]["action_title"], steps[0]["action_lines"][0]["text"])
+        self.assertTrue(any("title_normalized_from_action_line" in value for value in warnings))
+
+
+class DdockContentReviewDraftTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.result, self.source = _fixture()
+
+    @staticmethod
+    def _partial_generator(
+        _model: str, system: str, _user: str, _max_tokens: int
+    ) -> str:
+        if "ddock_action_phase_discovery_v0.1" in system:
+            return json.dumps(_phase_response(), ensure_ascii=False)
+        if "ddock_part_composition_v0.1" in system:
+            response = _composition_response()
+            response["parts"][0]["phase_indices"] = [0, 1, 2]
+            return json.dumps(response, ensure_ascii=False)
+        if "ddock_step_generation_v0.2" in system:
+            response = _step_response()
+            response["steps"] = response["steps"][:3]
+            return json.dumps(response, ensure_ascii=False)
+        return json.dumps(_detail_response(), ensure_ascii=False)
+
+    def _draft(self) -> dict:
+        return curate_ddock_content_review(
+            self.result,
+            self.source,
+            generator=self._partial_generator,
+            model_name="fixture-model",
+        )
+
+    def test_partial_a2_preserves_draft_part_and_unassigned_phase(self) -> None:
+        draft = self._draft()
+        self.assertEqual(draft["schema_version"], REVIEW_SCHEMA_VERSION)
+        self.assertEqual(len(draft["draft_parts"]), 1)
+        self.assertEqual(len(draft["unassigned_phases"]), 1)
+        self.assertEqual(draft["unassigned_phases"][0]["phase_id"], "PHASE-004")
+        self.assertEqual(validate_ddock_content_review(draft)["errors"], [])
+
+    def test_unassigned_phase_does_not_fail_draft_generation(self) -> None:
+        draft = self._draft()
+        self.assertTrue(
+            any(
+                item["type"] == "unassigned_phase"
+                and item["severity"] == "blocking"
+                for item in draft["review_queue"]
+            )
+        )
+
+    def test_unassigned_phase_blocks_publish(self) -> None:
+        report = validate_review_for_publish(self._draft())
+        self.assertTrue(any("unassigned_phase" in value for value in report["errors"]))
+
+    def test_explicit_excluded_phase_removes_unassigned_publish_blocker(self) -> None:
+        draft = self._draft()
+        phase_id = draft["unassigned_phases"][0]["phase_id"]
+        draft["unassigned_phases"][0]["excluded_reason"] = "not needed for the published workflow"
+        draft["review_queue"] = [
+            item
+            for item in draft["review_queue"]
+            if not (item["type"] == "unassigned_phase" and item["phase_id"] == phase_id)
+        ]
+        report = validate_review_for_publish(draft)
+        self.assertFalse(any("unassigned_phase" in value for value in report["errors"]))
+
+    def test_phase_context_too_broad_is_warning_and_draft_survives(self) -> None:
+        result = copy.deepcopy(self.result)
+        for number in range(11, 41):
+            result["normalized_utterances"].append(
+                _row(number, 4, "일반적인 배경 설명을 이어갑니다.")
+            )
+
+        def broad_generator(
+            _model: str, system: str, _user: str, _max_tokens: int
+        ) -> str:
+            if "ddock_action_phase_discovery_v0.1" in system:
+                response = _phase_response()
+                response["phases"][0]["context_utterance_ids"] = [
+                    f"UT-{number:05d}" for number in range(11, 41)
+                ]
+                return json.dumps(response, ensure_ascii=False)
+            return self._partial_generator(_model, system, _user, _max_tokens)
+
+        draft = curate_ddock_content_review(
+            result, self.source, generator=broad_generator, model_name="fixture-model"
+        )
+        items = [
+            item for item in draft["review_queue"]
+            if item["type"] == "phase_context_too_broad"
+        ]
+        self.assertTrue(items)
+        self.assertTrue(all(item["severity"] == "warning" for item in items))
+        self.assertEqual(validate_ddock_content_review(draft)["errors"], [])
+
+    def test_blocking_review_item_does_not_fail_draft_but_blocks_publish(self) -> None:
+        draft = self._draft()
+        draft["review_queue"].append(
+            {
+                "review_id": "REV-999",
+                "type": "part_needs_review",
+                "severity": "blocking",
+                "part_id": draft["draft_parts"][0]["part_id"],
+                "phase_id": None,
+                "step_id": None,
+                "utterance_ids": [],
+                "message": "Admin review required.",
+            }
+        )
+        self.assertEqual(validate_ddock_content_review(draft)["errors"], [])
+        self.assertTrue(validate_review_for_publish(draft)["errors"])
+
+    def test_script_not_human_verified_is_queued(self) -> None:
+        draft = self._draft()
+        self.assertTrue(
+            any(item["type"] == "script_not_human_verified" for item in draft["review_queue"])
+        )
+
+    def test_generated_ids_are_unique_and_stable(self) -> None:
+        first = self._draft()
+        second = self._draft()
+        projection = lambda draft: {
+            "parts": [value["part_id"] for value in draft["draft_parts"]],
+            "phases": [value["phase_id"] for value in draft["action_phases"]],
+            "steps": [
+                step["step_id"]
+                for part in draft["draft_parts"]
+                for step in part["steps"]
+            ],
+            "reviews": [value["review_id"] for value in draft["review_queue"]],
+        }
+        self.assertEqual(projection(first), projection(second))
+        for values in projection(first).values():
+            self.assertEqual(len(values), len(set(values)))
+
+    def test_review_writer_uses_review_filename(self) -> None:
+        draft = self._draft()
+        with tempfile.TemporaryDirectory() as temporary:
+            path = write_ddock_content_review_atomic(
+                temporary, self.result, draft, self.source
+            )
+            self.assertEqual(path.name, REVIEW_OUTPUT_FILENAME)
+            self.assertEqual(
+                path,
+                ddock_content_review_output_path(
+                    temporary, self.result, self.source
+                ),
+            )
+
+    def test_publish_builder_keeps_published_schema_after_review_resolution(self) -> None:
+        draft = curate_ddock_content_review(
+            self.result,
+            self.source,
+            generator=FixtureGenerator(),
+            model_name="fixture-model",
+        )
+        draft["review_queue"] = [
+            item for item in draft["review_queue"]
+            if item["severity"] != "blocking"
+        ]
+        published = build_published_ddock_content(draft)
+        self.assertEqual(published["schema_version"], SCHEMA_VERSION)
+        self.assertIn("catchup_parts", published)
+        self.assertNotIn("draft_parts", published)
+        self.assertEqual(validate_ddock_content(published)["errors"], [])
+
+    def test_failed_pass_b_candidate_remains_editable_in_draft(self) -> None:
+        empty = {
+            "steps": [],
+            "excluded_actions": [],
+            "excluded_context_utterance_ids": [],
+            "warnings": [],
+        }
+
+        def generator(_model: str, system: str, _user: str, _max_tokens: int) -> str:
+            value = (
+                _phase_response()
+                if "ddock_action_phase_discovery_v0.1" in system
+                else _composition_response()
+                if "ddock_part_composition_v0.1" in system
+                else _detail_response()
+                if "ddock_video_detail_v0.2" in system
+                else empty
+            )
+            return json.dumps(value, ensure_ascii=False)
+
+        draft = curate_ddock_content_review(
+            self.result, self.source, generator=generator, model_name="fixture-model"
+        )
+        self.assertEqual(len(draft["draft_parts"]), 1)
+        self.assertEqual(draft["draft_parts"][0]["steps"], [])
+        self.assertIn("part_needs_review", draft["draft_parts"][0]["review_reasons"])
+
+    def test_publish_validation_rejects_unsupported_prompt(self) -> None:
+        draft = curate_ddock_content_review(
+            self.result,
+            self.source,
+            generator=FixtureGenerator(),
+            model_name="fixture-model",
+        )
+        draft["review_queue"] = []
+        prompt = draft["draft_parts"][0]["steps"][-1]["prompt"]
+        prompt["text"] = "근거에 없는 완성 프롬프트"
+        errors = validate_review_for_publish(draft)["errors"]
+        self.assertTrue(any("unsupported_prompt" in value for value in errors))
+
+    def test_publish_validation_rejects_unsupported_claim(self) -> None:
+        draft = curate_ddock_content_review(
+            self.result,
+            self.source,
+            generator=FixtureGenerator(),
+            model_name="fixture-model",
+        )
+        draft["review_queue"] = []
+        draft["video_detail"]["recommendation"]["claims"][0]["text"] = (
+            "근거에 없는 매출 증가와 비용 절감"
+        )
+        errors = validate_review_for_publish(draft)["errors"]
+        self.assertTrue(any("unsupported_claim" in value for value in errors))
+
+    def test_salvage_removal_is_visible_in_review_queue(self) -> None:
+        response = _step_response()
+        response["steps"][0]["action_lines"][0]["segments"].append(
+            {"type": "ui_label", "text": "Invented Control"}
+        )
+        draft = curate_ddock_content_review(
+            self.result,
+            self.source,
+            generator=FixtureGenerator(step_response=response),
+            model_name="fixture-model",
+        )
+        self.assertTrue(
+            any(
+                item["type"] == "unsupported_claim_removed"
+                for item in draft["review_queue"]
+            )
+        )
 
 
 if __name__ == "__main__":

@@ -1,12 +1,15 @@
 from __future__ import annotations
 
+import copy
 import re
 from pathlib import PurePosixPath
 from typing import Any, Iterable
 
 from ddock_content_contract import (
+    ACTION_PHASE_FIELDS,
     ACTION_LINE_FIELDS,
     EVIDENCE_FIELDS,
+    EXCLUSION_REASON_CATEGORIES,
     EXCLUDED_ACTION_FIELDS,
     FORBIDDEN_MVP_FIELDS,
     GENERATION_FIELDS,
@@ -16,6 +19,12 @@ from ddock_content_contract import (
     PROMPT_FIELDS,
     RECOMMENDATION_FIELDS,
     RECOMMENDATION_CLAIM_FIELDS,
+    REVIEW_PART_FIELDS,
+    REVIEW_QUEUE_FIELDS,
+    REVIEW_QUEUE_TYPES,
+    REVIEW_SCHEMA_VERSION,
+    REVIEW_SEVERITIES,
+    REVIEW_TOP_LEVEL_FIELDS,
     RICH_SEGMENT_TYPES,
     SCHEMA_VERSION,
     SCRIPT_CHAPTER_FIELDS,
@@ -26,6 +35,7 @@ from ddock_content_contract import (
     THUMBNAIL_FIELDS,
     TOOL_FIELDS,
     TOP_LEVEL_FIELDS,
+    UNASSIGNED_PHASE_FIELDS,
     VIDEO_DETAIL_FIELDS,
     WARNING_FIELDS,
 )
@@ -49,6 +59,15 @@ _CONCEPT_OVERRIDE_SIGNAL = re.compile(
     r"클릭|누르|입력|복사|붙여|설치|실행|요청|버튼|탭|메뉴"
 )
 _WHY_LEAK = re.compile(r"때문|왜냐|이유는|하려고|덕분")
+_GROUNDING_TOKEN = re.compile(r"[A-Za-z][A-Za-z0-9.+#/_-]*|[가-힣]{2,}|\d+(?:\.\d+)?%?")
+_PROMPT_CUE = re.compile(
+    r"프롬프트|prompt|명령어|command|라고\s*요청|요청해|입력해|입력하",
+    re.IGNORECASE,
+)
+_KOREAN_PARTICLE_SUFFIXES = (
+    "으로", "에서", "에게", "까지", "부터", "처럼", "보다", "이나", "거나",
+    "라도", "을", "를", "이", "가", "은", "는", "에", "로", "와", "과", "도", "만",
+)
 
 
 def _action_worthy_text(value: Any) -> bool:
@@ -89,6 +108,23 @@ def _safe_relative_jpg(value: Any) -> bool:
         and bool(path.parts)
         and path.suffix.lower() in {".jpg", ".jpeg"}
     )
+
+
+def _source_grounding_ratio(text: Any, source_text: str) -> float:
+    tokens: list[str] = []
+    for match in _GROUNDING_TOKEN.finditer(str(text or "")):
+        token = match.group(0).casefold()
+        if re.fullmatch(r"[가-힣]{2,}", token):
+            for suffix in _KOREAN_PARTICLE_SUFFIXES:
+                if token.endswith(suffix) and len(token) - len(suffix) >= 2:
+                    token = token[: -len(suffix)]
+                    break
+        if len(token) >= 2:
+            tokens.append(token)
+    if not tokens:
+        return 0.0
+    source = source_text.casefold()
+    return sum(token in source for token in tokens) / len(tokens)
 
 
 def _validate_evidence(
@@ -238,6 +274,8 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
             errors.append(f"{prefix}:invalid_order")
         if not _nonempty_text(part.get("title")):
             errors.append(f"{prefix}:title_required")
+        if not _nonempty_text(part.get("action_objective")):
+            errors.append(f"{prefix}:action_objective_required")
         source_ids = part.get("source_utterance_ids")
         if not isinstance(source_ids, list) or not source_ids:
             errors.append(f"{prefix}:source_utterance_ids_required")
@@ -380,7 +418,7 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
                 errors.extend(_unknown_fields(block, allowed_fields, block_prefix))
                 if not isinstance(block, dict):
                     continue
-                block_errors, _ = _validate_evidence(
+                block_errors, block_ids = _validate_evidence(
                     block.get("evidence"),
                     known_rows=known_rows,
                     allowed_ids=(step_allowed if field == "prompt" else allowed_ids),
@@ -389,6 +427,18 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
                 errors.extend(block_errors)
                 if field == "prompt" and block.get("source_kind") != "verbatim":
                     errors.append(f"{block_prefix}:source_kind_must_be_verbatim")
+                if field == "prompt" and block_ids:
+                    source_text = "\n".join(
+                        str(known_rows[value].get("text") or "")
+                        for value in block_ids
+                        if value in known_rows
+                    )
+                    prompt_text = re.sub(r"\s+", " ", str(block.get("text") or "")).strip()
+                    normalized_source = re.sub(r"\s+", " ", source_text)
+                    if not prompt_text or prompt_text not in normalized_source:
+                        errors.append(f"{block_prefix}:unsupported_prompt")
+                    elif not _PROMPT_CUE.search(source_text):
+                        errors.append(f"{block_prefix}:missing_prompt_source_cue")
             learn_more = step.get("learn_more")
             if not isinstance(learn_more, list):
                 errors.append(f"{step_prefix}:learn_more_must_be_array")
@@ -427,6 +477,11 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
                 errors.append(f"{excluded_prefix}:outside_part_action_evidence")
             if not _nonempty_text(excluded.get("reason")):
                 errors.append(f"{excluded_prefix}:reason_required")
+            reason_category = excluded.get("reason_category")
+            if reason_category is not None and reason_category not in EXCLUSION_REASON_CATEGORIES:
+                errors.append(f"{excluded_prefix}:invalid_reason_category")
+            if reason_category == "unassigned":
+                errors.append(f"{excluded_prefix}:unassigned_reason_category")
             if utterance_id in excluded_ids:
                 errors.append(f"{excluded_prefix}:duplicate_utterance_id")
             excluded_ids.add(utterance_id)
@@ -486,13 +541,20 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
                     if not isinstance(claim, dict) or not _nonempty_text(claim.get("text")):
                         errors.append(f"{prefix}:text_required")
                         continue
-                    claim_errors, _ = _validate_evidence(
+                    claim_errors, claim_ids = _validate_evidence(
                         claim.get("evidence"),
                         known_rows=known_rows,
                         allowed_ids=None,
                         prefix=prefix,
                     )
                     errors.extend(claim_errors)
+                    claim_source = "\n".join(
+                        str(known_rows[value].get("text") or "")
+                        for value in claim_ids
+                        if value in known_rows
+                    )
+                    if _source_grounding_ratio(claim.get("text"), claim_source) < 0.3:
+                        errors.append(f"{prefix}:unsupported_claim")
         tools = detail.get("tools")
         if not isinstance(tools, list):
             errors.append("video_detail:tools_must_be_array")
@@ -546,6 +608,35 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
         coverage = generation.get("high_action_coverage_warnings")
         if not isinstance(coverage, list):
             errors.append("curation_generation:high_action_coverage_warnings_must_be_array")
+        phase_accounting = generation.get("phase_accounting")
+        if not isinstance(phase_accounting, list):
+            errors.append("curation_generation:phase_accounting_must_be_array")
+        else:
+            for index, value in enumerate(phase_accounting):
+                if not isinstance(value, dict):
+                    errors.append(
+                        f"curation_generation.phase_accounting[{index}]:must_be_object"
+                    )
+                    continue
+                if value.get("unassigned_phase_indices"):
+                    errors.append(
+                        f"curation_generation.phase_accounting[{index}]:unassigned_phase"
+                    )
+        if not isinstance(generation.get("posthoc_chapter_copy_audit"), dict):
+            errors.append(
+                "curation_generation:posthoc_chapter_copy_audit_must_be_object"
+            )
+        recommendation_accounting = generation.get("recommendation_accounting")
+        if not isinstance(recommendation_accounting, dict):
+            errors.append(
+                "curation_generation:recommendation_accounting_must_be_object"
+            )
+        elif recommendation_accounting.get("unaccounted_prose_claims"):
+            errors.append(
+                "curation_generation:recommendation_has_unaccounted_prose_claims"
+            )
+        if not isinstance(generation.get("script_review_status"), dict):
+            errors.append("curation_generation:script_review_status_must_be_object")
         if int(generation.get("needs_review_count") or 0) != len(
             generation.get("review_reasons") or []
         ):
@@ -558,4 +649,293 @@ def require_valid_ddock_content(package: Any) -> dict[str, list[str]]:
     report = validate_ddock_content(package)
     if report["errors"]:
         raise ValueError("ddock_content_validation_failed:" + ";".join(report["errors"]))
+    return report
+
+
+def validate_ddock_content_review(package: Any) -> dict[str, list[str]]:
+    """Validate the editable review artifact without enforcing publish readiness."""
+    errors: list[str] = []
+    warnings: list[str] = []
+    if not isinstance(package, dict):
+        return {"errors": ["review:must_be_object"], "warnings": []}
+    errors.extend(_unknown_fields(package, REVIEW_TOP_LEVEL_FIELDS, "review"))
+    if package.get("schema_version") != REVIEW_SCHEMA_VERSION:
+        errors.append("review:invalid_schema_version")
+
+    source = package.get("source")
+    errors.extend(_unknown_fields(source, SOURCE_FIELDS, "source"))
+    if not isinstance(source, dict) or not _nonempty_text(source.get("video_id")):
+        errors.append("source:video_id_required")
+
+    script = package.get("script")
+    if not isinstance(script, list):
+        errors.append("script:must_be_array")
+        script = []
+    known_rows: dict[str, dict[str, Any]] = {}
+    for index, row in enumerate(script):
+        prefix = f"script[{index}]"
+        errors.extend(_unknown_fields(row, SCRIPT_ROW_FIELDS, prefix))
+        if not isinstance(row, dict):
+            continue
+        utterance_id = str(row.get("utterance_id") or "")
+        if not utterance_id:
+            errors.append(f"{prefix}:utterance_id_required")
+            continue
+        if utterance_id in known_rows:
+            errors.append(f"{prefix}:duplicate_utterance_id:{utterance_id}")
+        if not _number(row.get("start_seconds")) or not _number(row.get("end_seconds")):
+            errors.append(f"{prefix}:timestamp_range_required")
+        if not _nonempty_text(row.get("text")):
+            errors.append(f"{prefix}:text_required")
+        known_rows[utterance_id] = row
+
+    chapters = package.get("script_chapters")
+    if not isinstance(chapters, list):
+        errors.append("script_chapters:must_be_array")
+        chapters = []
+    for index, chapter in enumerate(chapters):
+        errors.extend(
+            _unknown_fields(chapter, SCRIPT_CHAPTER_FIELDS, f"script_chapters[{index}]")
+        )
+
+    parts = package.get("draft_parts")
+    if not isinstance(parts, list):
+        errors.append("draft_parts:must_be_array")
+        parts = []
+    part_ids: list[str] = []
+    step_ids: list[str] = []
+    for index, part in enumerate(parts):
+        prefix = f"draft_parts[{index}]"
+        errors.extend(_unknown_fields(part, REVIEW_PART_FIELDS, prefix))
+        if not isinstance(part, dict):
+            continue
+        part_id = str(part.get("part_id") or "")
+        part_ids.append(part_id)
+        if not part_id:
+            errors.append(f"{prefix}:part_id_required")
+        if part.get("order") != index + 1:
+            errors.append(f"{prefix}:invalid_order")
+        if not _nonempty_text(part.get("title")):
+            errors.append(f"{prefix}:title_required")
+        if not _nonempty_text(part.get("action_objective")):
+            errors.append(f"{prefix}:action_objective_required")
+        source_ids = part.get("source_utterance_ids")
+        action_ids = part.get("action_utterance_ids")
+        if not isinstance(source_ids, list) or not source_ids:
+            errors.append(f"{prefix}:source_utterance_ids_required")
+            source_ids = []
+        if not isinstance(action_ids, list) or not action_ids:
+            errors.append(f"{prefix}:action_utterance_ids_required")
+            action_ids = []
+        if not set(action_ids).issubset(source_ids):
+            errors.append(f"{prefix}:action_source_outside_part_context")
+        for utterance_id in source_ids:
+            if utterance_id not in known_rows:
+                errors.append(f"{prefix}:unknown_source_utterance_id:{utterance_id}")
+        if not isinstance(part.get("review_reasons"), list):
+            errors.append(f"{prefix}:review_reasons_must_be_array")
+        steps = part.get("steps")
+        if not isinstance(steps, list):
+            errors.append(f"{prefix}:steps_must_be_array")
+            steps = []
+        for step_index, step in enumerate(steps):
+            step_prefix = f"{prefix}.steps[{step_index}]"
+            errors.extend(_unknown_fields(step, STEP_FIELDS, step_prefix))
+            if not isinstance(step, dict):
+                continue
+            step_id = str(step.get("step_id") or "")
+            step_ids.append(step_id)
+            if not step_id:
+                errors.append(f"{step_prefix}:step_id_required")
+            if step.get("parent_part_id") != part_id:
+                errors.append(f"{step_prefix}:parent_part_id_mismatch")
+            evidence_errors, _ = _validate_evidence(
+                step.get("evidence"),
+                known_rows=known_rows,
+                allowed_ids=set(action_ids),
+                prefix=step_prefix,
+            )
+            errors.extend(evidence_errors)
+    if not _unique(part_ids):
+        errors.append("draft_parts:duplicate_part_id")
+    if not _unique(step_ids):
+        errors.append("draft_parts:duplicate_step_id")
+
+    phases = package.get("action_phases")
+    if not isinstance(phases, list):
+        errors.append("action_phases:must_be_array")
+        phases = []
+    phase_ids: list[str] = []
+    for index, phase in enumerate(phases):
+        prefix = f"action_phases[{index}]"
+        errors.extend(_unknown_fields(phase, ACTION_PHASE_FIELDS, prefix))
+        if not isinstance(phase, dict):
+            continue
+        phase_id = str(phase.get("phase_id") or "")
+        phase_ids.append(phase_id)
+        if phase.get("order") != index + 1:
+            errors.append(f"{prefix}:invalid_order")
+        if not phase_id or not _nonempty_text(phase.get("phase_label")):
+            errors.append(f"{prefix}:phase_id_and_label_required")
+        assigned = phase.get("assigned_part_id")
+        if assigned is not None and assigned not in part_ids:
+            errors.append(f"{prefix}:unknown_assigned_part_id")
+        for field in ("action_utterance_ids", "context_utterance_ids", "review_reasons"):
+            if not isinstance(phase.get(field), list):
+                errors.append(f"{prefix}:{field}_must_be_array")
+        for utterance_id in (phase.get("action_utterance_ids") or []) + (
+            phase.get("context_utterance_ids") or []
+        ):
+            if utterance_id not in known_rows:
+                errors.append(f"{prefix}:unknown_utterance_id:{utterance_id}")
+    if not _unique(phase_ids):
+        errors.append("action_phases:duplicate_phase_id")
+
+    unassigned = package.get("unassigned_phases")
+    if not isinstance(unassigned, list):
+        errors.append("unassigned_phases:must_be_array")
+        unassigned = []
+    seen_unassigned: set[str] = set()
+    phase_id_set = set(phase_ids)
+    for index, phase in enumerate(unassigned):
+        prefix = f"unassigned_phases[{index}]"
+        errors.extend(_unknown_fields(phase, UNASSIGNED_PHASE_FIELDS, prefix))
+        if not isinstance(phase, dict):
+            continue
+        phase_id = str(phase.get("phase_id") or "")
+        if phase_id not in phase_id_set:
+            errors.append(f"{prefix}:unknown_phase_id")
+        if phase_id in seen_unassigned:
+            errors.append(f"{prefix}:duplicate_phase_id")
+        seen_unassigned.add(phase_id)
+        if phase.get("assigned_part_id") is not None:
+            errors.append(f"{prefix}:assigned_part_id_must_be_null")
+        reason = phase.get("excluded_reason")
+        if reason is not None and not _nonempty_text(reason):
+            errors.append(f"{prefix}:excluded_reason_must_be_nonempty_or_null")
+
+    queue = package.get("review_queue")
+    if not isinstance(queue, list):
+        errors.append("review_queue:must_be_array")
+        queue = []
+    review_ids: list[str] = []
+    for index, item in enumerate(queue):
+        prefix = f"review_queue[{index}]"
+        errors.extend(_unknown_fields(item, REVIEW_QUEUE_FIELDS, prefix))
+        if not isinstance(item, dict):
+            continue
+        review_id = str(item.get("review_id") or "")
+        review_ids.append(review_id)
+        if not review_id:
+            errors.append(f"{prefix}:review_id_required")
+        if item.get("type") not in REVIEW_QUEUE_TYPES:
+            errors.append(f"{prefix}:invalid_type")
+        if item.get("severity") not in REVIEW_SEVERITIES:
+            errors.append(f"{prefix}:invalid_severity")
+        if not isinstance(item.get("utterance_ids"), list):
+            errors.append(f"{prefix}:utterance_ids_must_be_array")
+        if not _nonempty_text(item.get("message")):
+            errors.append(f"{prefix}:message_required")
+        if item.get("part_id") is not None and item.get("part_id") not in part_ids:
+            errors.append(f"{prefix}:unknown_part_id")
+        if item.get("phase_id") is not None and item.get("phase_id") not in phase_id_set:
+            errors.append(f"{prefix}:unknown_phase_id")
+        if item.get("step_id") is not None and item.get("step_id") not in step_ids:
+            errors.append(f"{prefix}:unknown_step_id")
+    if not _unique(review_ids):
+        errors.append("review_queue:duplicate_review_id")
+    if not isinstance(package.get("curation_generation"), dict):
+        errors.append("curation_generation:must_be_object")
+    return {"errors": errors, "warnings": warnings}
+
+
+def published_projection_from_review(review: dict[str, Any]) -> dict[str, Any]:
+    parts = copy.deepcopy(review.get("draft_parts") or [])
+    for part in parts:
+        if isinstance(part, dict):
+            part.pop("review_reasons", None)
+    detail = copy.deepcopy(review.get("video_detail") or {})
+    detail["part_preview"] = [
+        {
+            "part_id": part.get("part_id"),
+            "title": part.get("title"),
+            "start_seconds": part.get("start_seconds"),
+            "end_seconds": part.get("end_seconds"),
+            "thumbnail": copy.deepcopy(part.get("thumbnail")),
+        }
+        for part in parts
+        if isinstance(part, dict)
+    ]
+    generation = copy.deepcopy(review.get("curation_generation") or {})
+    generation["status"] = "published"
+    generation["needs_review_count"] = 0
+    generation["review_reasons"] = []
+    generation["phase_accounting"] = []
+    script = copy.deepcopy(review.get("script") or [])
+    memberships: dict[str, list[str]] = {}
+    for part in parts:
+        if not isinstance(part, dict):
+            continue
+        for utterance_id in part.get("source_utterance_ids") or []:
+            memberships.setdefault(str(utterance_id), []).append(
+                str(part.get("part_id") or "")
+            )
+    for row in script:
+        if isinstance(row, dict):
+            row["catchup_part_ids"] = memberships.get(
+                str(row.get("utterance_id") or ""), []
+            )
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "source": copy.deepcopy(review.get("source")),
+        "video_detail": detail,
+        "script_chapters": copy.deepcopy(review.get("script_chapters") or []),
+        "catchup_parts": parts,
+        "script": script,
+        "curation_generation": generation,
+    }
+
+
+def validate_review_for_publish(review: Any) -> dict[str, list[str]]:
+    """Apply publish-only blockers after the draft itself has been preserved."""
+    draft_report = validate_ddock_content_review(review)
+    errors = list(draft_report["errors"])
+    warnings = list(draft_report["warnings"])
+    if not isinstance(review, dict):
+        return {"errors": errors, "warnings": warnings}
+    resolved_exclusions = {
+        str(value.get("phase_id") or "")
+        for value in review.get("unassigned_phases") or []
+        if isinstance(value, dict) and _nonempty_text(value.get("excluded_reason"))
+    }
+    for value in review.get("unassigned_phases") or []:
+        if not isinstance(value, dict):
+            continue
+        phase_id = str(value.get("phase_id") or "")
+        if phase_id not in resolved_exclusions:
+            errors.append(f"publish:unassigned_phase:{phase_id}")
+    for value in review.get("review_queue") or []:
+        if not isinstance(value, dict) or value.get("severity") != "blocking":
+            continue
+        if (
+            value.get("type") == "unassigned_phase"
+            and str(value.get("phase_id") or "") in resolved_exclusions
+        ):
+            continue
+        errors.append(
+            f"publish:blocking_review_item:{value.get('review_id')}:{value.get('type')}"
+        )
+    if not errors:
+        published_report = validate_ddock_content(published_projection_from_review(review))
+        errors.extend(f"publish:{value}" for value in published_report["errors"])
+        warnings.extend(published_report["warnings"])
+    return {"errors": errors, "warnings": warnings}
+
+
+def require_review_ready_for_publish(review: Any) -> dict[str, list[str]]:
+    report = validate_review_for_publish(review)
+    if report["errors"]:
+        raise ValueError(
+            "ddock_content_publish_validation_failed:" + ";".join(report["errors"])
+        )
     return report

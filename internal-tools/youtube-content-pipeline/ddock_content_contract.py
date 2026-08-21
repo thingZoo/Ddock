@@ -5,8 +5,12 @@ from typing import Final
 
 SCHEMA_VERSION: Final = "ddock_content_v0.1"
 OUTPUT_FILENAME: Final = "ddock_content_v0_1.json"
+REVIEW_SCHEMA_VERSION: Final = "ddock_content_review_v0.1"
+REVIEW_OUTPUT_FILENAME: Final = "ddock_content_review_v0_1.json"
 CURATION_GENERATION_SCHEMA_VERSION: Final = "ddock_content_curation_generation_v0.2"
 PART_PLANNING_CONTRACT_VERSION: Final = "ddock_part_planning_v0.2"
+ACTION_PHASE_DISCOVERY_CONTRACT_VERSION: Final = "ddock_action_phase_discovery_v0.1"
+PART_COMPOSITION_CONTRACT_VERSION: Final = "ddock_part_composition_v0.1"
 STEP_GENERATION_CONTRACT_VERSION: Final = "ddock_step_generation_v0.2"
 VIDEO_DETAIL_CONTRACT_VERSION: Final = "ddock_video_detail_v0.2"
 
@@ -22,6 +26,21 @@ TOP_LEVEL_FIELDS: Final = frozenset(
         "script_chapters",
         "catchup_parts",
         "script",
+        "curation_generation",
+    }
+)
+
+REVIEW_TOP_LEVEL_FIELDS: Final = frozenset(
+    {
+        "schema_version",
+        "source",
+        "video_detail",
+        "script_chapters",
+        "script",
+        "draft_parts",
+        "action_phases",
+        "unassigned_phases",
+        "review_queue",
         "curation_generation",
     }
 )
@@ -91,6 +110,49 @@ PART_FIELDS: Final = frozenset(
         "excluded_actions",
     }
 )
+REVIEW_PART_FIELDS: Final = PART_FIELDS.union({"review_reasons"})
+
+ACTION_PHASE_FIELDS: Final = frozenset(
+    {
+        "phase_id",
+        "order",
+        "phase_label",
+        "operation",
+        "tool_or_surface",
+        "expected_result",
+        "action_utterance_ids",
+        "context_utterance_ids",
+        "assigned_part_id",
+        "needs_review",
+        "review_reasons",
+    }
+)
+UNASSIGNED_PHASE_FIELDS: Final = ACTION_PHASE_FIELDS.union({"excluded_reason"})
+REVIEW_QUEUE_FIELDS: Final = frozenset(
+    {
+        "review_id",
+        "type",
+        "severity",
+        "part_id",
+        "phase_id",
+        "step_id",
+        "utterance_ids",
+        "message",
+    }
+)
+REVIEW_QUEUE_TYPES: Final = frozenset(
+    {
+        "unassigned_phase",
+        "phase_context_too_broad",
+        "part_needs_review",
+        "step_needs_review",
+        "excluded_action",
+        "unattached_context",
+        "unsupported_claim_removed",
+        "script_not_human_verified",
+    }
+)
+REVIEW_SEVERITIES: Final = frozenset({"warning", "blocking"})
 
 STEP_FIELDS: Final = frozenset(
     {
@@ -113,7 +175,20 @@ STEP_FIELDS: Final = frozenset(
 ACTION_LINE_FIELDS: Final = frozenset(
     {"text", "segments", "source_utterance_ids"}
 )
-EXCLUDED_ACTION_FIELDS: Final = frozenset({"utterance_id", "reason"})
+EXCLUDED_ACTION_FIELDS: Final = frozenset(
+    {"utterance_id", "reason", "reason_category"}
+)
+EXCLUSION_REASON_CATEGORIES: Final = frozenset(
+    {
+        "duplicate",
+        "not_reproducible",
+        "context_only",
+        "superseded_by_adjacent_action",
+        "filtered_by_grounding",
+        "ambiguous_source",
+        "unassigned",
+    }
+)
 SEGMENT_FIELDS: Final = frozenset({"type", "text"})
 EVIDENCE_FIELDS: Final = frozenset(
     {"utterance_id", "start_seconds", "end_seconds"}
@@ -150,6 +225,8 @@ GENERATION_FIELDS: Final = frozenset(
         "model",
         "pass_architecture",
         "part_planning_calls",
+        "action_phase_discovery_calls",
+        "part_composition_calls",
         "step_generation_calls",
         "step_generation_initial_calls",
         "step_generation_retry_calls",
@@ -163,6 +240,10 @@ GENERATION_FIELDS: Final = frozenset(
         "review_reasons",
         "omitted_part_candidates",
         "high_action_coverage_warnings",
+        "phase_accounting",
+        "posthoc_chapter_copy_audit",
+        "recommendation_accounting",
+        "script_review_status",
         "deterministic_generation",
         "source_preprocessed_sha256",
     }
