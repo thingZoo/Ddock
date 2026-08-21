@@ -59,7 +59,9 @@ Korean selective audio re-ASR은 선택 기능입니다. 검증된 조합은 `ml
 ## Runtime data
 
 - 복구용 autosave와 screenshot candidate cache: `autosave/`
-- 최종 결과: `output/{video_id}/{source_chapter_id}/`
+- 현재 최종 결과: `output/{safe_video_title} [{video_id}]/{source_chapter_id}/`
+- 예: `output/우리 디자인 시스템으로 바이브코딩 해봐요 [G0d9CHLpnnc]/FULL/`
+- Legacy restore 호환 경로: `output/{video_id}/{source_chapter_id}/`
 - 최종 JSON: `{source_chapter_id}_preprocessed.json`
 - 선택된 대표 이미지: `{content_chapter_id}.jpg`
 
