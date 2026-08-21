@@ -1,41 +1,37 @@
 import Link from "next/link";
+import Image from "next/image";
 import { allCourses } from "@/data/course";
-import { TagChip } from "@/components/TagChip";
 
+/**
+ * 임시 홈 — 메인 홈 화면은 팀원이 만들어요 (feature/home).
+ * 여기서는 상세페이지로 들어가는 입구만 둡니다.
+ */
 export default function HomePage() {
   return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col gap-6 px-4 py-10">
-      <header>
-        <p className="text-sm font-medium text-neutral-400">디자이너를 위한 AI 브리핑</p>
-        <h1 className="mt-1 text-2xl font-bold text-neutral-900">Ddock</h1>
-        <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-          영상 하나를 안 봐도 손으로 따라할 수 있는 학습 카드로 바꿔드려요. 액션만 표면에 남기고,
-          궁금한 건 ⓘ로 열어보세요.
+    <main className="mx-auto flex min-h-screen w-full max-w-[var(--app-w)] flex-col gap-4 bg-white px-4 py-10">
+      <div>
+        <p className="t-xs-medium text-zinc-500">디자이너를 위한 AI 브리핑</p>
+        <h1 className="t-xl-bold pt-1 text-zinc-900">Ddock</h1>
+        <p className="t-xs-body pt-2 text-zinc-600">
+          메인 홈 화면은 팀원이 만들고 있어요. 지금은 상세페이지로 바로 들어가는 입구만 있습니다.
         </p>
-      </header>
+      </div>
 
-      <section className="flex flex-col gap-3">
-        {allCourses.map((c) => (
-          <Link
-            key={c.id}
-            href={`/videos/${c.id}`}
-            className="block rounded-2xl border border-neutral-200 bg-white p-4 transition hover:border-neutral-400"
-          >
-            <p className="text-xs font-medium text-neutral-400">{c.durationLabel}</p>
-            <h2 className="mt-1 text-base font-semibold leading-snug text-neutral-900">
-              {c.title}
-            </h2>
-            <p className="mt-1.5 text-sm leading-relaxed text-neutral-600 line-clamp-2">
-              {c.description}
-            </p>
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {c.tags.slice(0, 4).map((t) => (
-                <TagChip key={t} label={t} />
-              ))}
-            </div>
-          </Link>
-        ))}
-      </section>
+      {allCourses.map((c) => (
+        <Link
+          key={c.id}
+          href={`/videos/${c.id}`}
+          className="flex flex-col gap-3 rounded-card border border-border bg-white p-4"
+        >
+          <div className="relative h-[144px] w-full overflow-hidden rounded-lg">
+            <Image src={c.thumbnail} alt="" fill sizes="343px" className="object-cover" />
+          </div>
+          <p className="t-sm-bold text-zinc-900">{c.title}</p>
+          <p className="t-xs-medium text-zinc-500">
+            {c.channel.name} · {c.publishedLabel}
+          </p>
+        </Link>
+      ))}
     </main>
   );
 }
