@@ -120,6 +120,7 @@ export interface VideoListItem extends VideoItem {
 export const videoListItems: VideoListItem[] = [
   {
     id: 'v-1',
+    courseId: 'claude-code-video-edit',
     title: '클로드 코드로 영상 편집 완전 자동화하기',
     thumbnail: "/ddock/explore/vid-1.png",
     duration: '5:46',

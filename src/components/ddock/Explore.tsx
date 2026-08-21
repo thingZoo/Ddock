@@ -20,10 +20,15 @@ const chevron = "/ddock/icons/chevron.svg";
 
 interface ExploreProps {
   onVideoSelect?: (videoId: string) => void;
+  /** 주면 상단 탭을 바깥(URL)에서 잡아요. 안 주면 안에서 알아서 들고 있습니다. */
+  tab?: ExploreTab;
+  onTabChange?: (tab: ExploreTab) => void;
 }
 
-export function Explore({ onVideoSelect }: ExploreProps) {
-  const [tab, setTab] = useState<ExploreTab>('ALL');
+export function Explore({ onVideoSelect, tab: tabProp, onTabChange }: ExploreProps) {
+  const [innerTab, setInnerTab] = useState<ExploreTab>('ALL');
+  const tab = tabProp ?? innerTab;
+  const setTab = onTabChange ?? setInnerTab;
   const [chip, setChip] = useState<VideoChip>('전체');
   const [query, setQuery] = useState('');
 

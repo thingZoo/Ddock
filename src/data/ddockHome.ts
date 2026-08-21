@@ -21,6 +21,8 @@ export interface Poll {
 
 export interface VideoItem {
   id: string;
+  /** 상세페이지가 준비된 영상만 갖는다. 있으면 카드를 누를 때 /videos/[courseId] 로 간다. */
+  courseId?: string;
   title: string;
   thumbnail: string;
   duration: string;
@@ -76,6 +78,7 @@ export const heroPolls: Poll[] = [
 export const weeklyVideos: VideoItem[] = [
   {
     id: 'weekly-1',
+    courseId: 'claude-code-video-edit', // TODO 임시 연결 — 실제 코스 붙으면 교체
     title: 'Figma Motion과 생성형 플러그인/셰이더를 활용해 30분 만에 바이럴 광고 캠페인 제작하기',
     thumbnail: "/ddock/mock/video-1.png",
     duration: '11:27',

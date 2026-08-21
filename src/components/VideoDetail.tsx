@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import { YouTubeIcon } from "./YouTubeIcon";
 import type { Course } from "@/lib/types";
 import { YouTubeProvider } from "./YouTubePlayer";
@@ -22,6 +23,16 @@ export function VideoDetail({ course }: { course: Course }) {
   /** 0부터. 탭을 옮겼다 돌아와도 보던 카드가 그대로 나와요 */
   const [stepIndex, setStepIndex] = useState(0);
   const [scriptPartNo, setScriptPartNo] = useState<number | null>(null);
+  const router = useRouter();
+
+  /*
+   * 들어온 길로 되돌린다 — 발견 탭에서 왔으면 발견 탭으로.
+   * 링크를 바로 열어 히스토리가 없을 때만 홈으로 보낸다.
+   */
+  const goBack = useCallback(() => {
+    if (typeof window !== "undefined" && window.history.length > 1) router.back();
+    else router.push("/");
+  }, [router]);
 
   const activePart = course.parts.find((p) => p.id === activePartId) ?? null;
   const activeIdx = activePart ? course.parts.indexOf(activePart) : -1;
@@ -43,7 +54,7 @@ export function VideoDetail({ course }: { course: Course }) {
 
   return (
     <div className="app-shell">
-      <YouTubeProvider videoId={course.youtubeId} poster={course.thumbnail}>
+      <YouTubeProvider videoId={course.youtubeId} poster={course.thumbnail} onBack={goBack}>
         {/* 파트 목록 화면일 때만 제목/메타 노출 (355:8868) */}
         {!activePart && (
           <header className="flex flex-col pb-3 pt-3">

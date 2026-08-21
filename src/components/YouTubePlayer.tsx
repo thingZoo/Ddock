@@ -69,10 +69,13 @@ function loadApi(): Promise<void> {
 export function YouTubeProvider({
   videoId,
   poster,
+  onBack,
   children,
 }: {
   videoId: string;
   poster: string;
+  /** 주면 영상 왼쪽 위에 뒤로가기 버튼이 얹혀요 */
+  onBack?: () => void;
   children: React.ReactNode;
 }) {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -159,9 +162,35 @@ export function YouTubeProvider({
           />
         )}
         <HeroPlayButton />
+        {onBack && <BackButton onBack={onBack} />}
       </div>
       {children}
     </PlayerCtx.Provider>
+  );
+}
+
+/**
+ * 영상 왼쪽 위 뒤로가기. 아이폰 스와이프가 되는 자리지만, 손이 닿는 버튼도 같이 둬요.
+ * 노치가 있는 기기에서 상태바에 안 가리게 safe-area 만큼 내려요.
+ */
+function BackButton({ onBack }: { onBack: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onBack}
+      aria-label="뒤로"
+      className="absolute left-3 top-[max(12px,env(safe-area-inset-top))] z-20 grid h-9 w-9 place-items-center rounded-full bg-black/45 backdrop-blur-sm transition-colors active:bg-black/65"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M16 4L8 12L16 20"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
   );
 }
 

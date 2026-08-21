@@ -20,9 +20,11 @@ import styles from './Home.module.css';
 interface HomeProps {
   /** 투표 결과 화면으로 이동한다 */
   onPollSelect?: (pollId: string) => void;
+  /** 영상 상세페이지로 이동한다 (courseId) */
+  onVideoSelect?: (courseId: string) => void;
 }
 
-export function Home({ onPollSelect }: HomeProps) {
+export function Home({ onPollSelect, onVideoSelect }: HomeProps) {
   /** 투표 결과는 답한 뒤에만 공개되므로 pollId → 선택 인덱스로 들고 있는다. */
   const [votes, setVotes] = useState<Record<string, number>>({});
   /** 배경에 흐리게 깔아둘 이미지. 앞으로 올라온 투표를 따라간다. */
@@ -73,7 +75,7 @@ export function Home({ onPollSelect }: HomeProps) {
           />
           <ScrollRow className={styles.videoRow}>
             {weeklyVideos.map((video) => (
-              <VideoCard key={video.id} video={video} />
+              <VideoCard key={video.id} video={video} onSelect={onVideoSelect} />
             ))}
             <div className={styles.rowEnd} />
           </ScrollRow>
@@ -83,7 +85,7 @@ export function Home({ onPollSelect }: HomeProps) {
           <SectionHeading title="디독 인기 TOP 10" subtitle="최근 유저들이 많이 본 요즘 대세 콘텐츠" />
           <ScrollRow className={styles.videoRow}>
             {popularVideos.map((video) => (
-              <VideoCard key={video.id} video={video} />
+              <VideoCard key={video.id} video={video} onSelect={onVideoSelect} />
             ))}
             <div className={styles.rowEnd} />
           </ScrollRow>
