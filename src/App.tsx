@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Home } from './pages/Home';
+import { Explore } from './pages/Explore';
 import { PollResult } from './pages/PollResult';
 import { TabBar, type TabKey } from './components/TabBar';
 
@@ -42,6 +43,7 @@ export default function App() {
   return (
     <>
       {tab === 'home' ? <Home onPollSelect={openPollResult} /> : null}
+      {tab === 'discover' ? <Explore /> : null}
       <TabBar active={tab} onChange={setTab} />
     </>
   );

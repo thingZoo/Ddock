@@ -1,3 +1,5 @@
+import doneRing from '../assets/icons/done-ring.svg';
+import doneCheck from '../assets/icons/done-check.svg';
 import type { Poll } from '../data/home';
 import styles from './PollCard.module.css';
 
@@ -51,7 +53,7 @@ export function PollCard({ poll, selected, onVote }: PollCardProps) {
 
           <div className={styles.sliderWrap}>
             <div
-              className={styles.track}
+              className={`${styles.track} ${voted ? styles.trackVoted : ''}`}
               role="img"
               aria-label={
                 voted
@@ -59,29 +61,48 @@ export function PollCard({ poll, selected, onVote }: PollCardProps) {
                   : '투표하면 결과를 볼 수 있어요'
               }
             >
-              <div className={styles.fill} style={{ width: `${voted ? firstRatio : 50}%` }} />
+              <div
+                className={`${styles.fill} ${voted ? styles.fillVoted : ''}`}
+                style={{ width: `${voted ? firstRatio : 50}%` }}
+              />
             </div>
           </div>
         </div>
 
         <div className={styles.actions}>
-          {poll.options.map((option, index) => (
-            <button
-              key={option}
-              type="button"
-              className={[
-                styles.button,
-                index === 0 ? styles.buttonPrimary : styles.buttonSecondary,
-                selected === index ? styles.buttonSelected : '',
-              ]
-                .filter(Boolean)
-                .join(' ')}
-              aria-pressed={selected === index}
-              onClick={() => onVote(poll.id, index)}
-            >
-              {option}
-            </button>
-          ))}
+          {poll.options.map((option, index) => {
+            const isSelected = selected === index;
+            /*
+             * 투표 전에는 위치로 밝은/어두운 스타일이 갈리고,
+             * 투표 후에는 고른 쪽이 어두운 스타일 + 체크 아이콘을 갖는다.
+             */
+            const isDark = voted ? isSelected : index === 1;
+            return (
+              <button
+                key={option}
+                type="button"
+                className={[
+                  styles.button,
+                  isDark ? styles.buttonDark : styles.buttonLight,
+                  isSelected ? styles.buttonSelected : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                aria-pressed={isSelected}
+                onClick={() => onVote(poll.id, index)}
+              >
+                {isSelected && (
+                  <span className={styles.checkIcon}>
+                    <img className={styles.checkRing} src={doneRing} alt="" />
+                    <span className={styles.checkMarkBox}>
+                      <img className={styles.checkMark} src={doneCheck} alt="" />
+                    </span>
+                  </span>
+                )}
+                {option}
+              </button>
+            );
+          })}
         </div>
       </div>
     </article>

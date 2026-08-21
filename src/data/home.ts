@@ -1,5 +1,5 @@
-import pollCharacter from '../assets/mock/poll-character.png';
 import pollCinema from '../assets/mock/poll-cinema.png';
+import pollPrompt from '../assets/mock/poll-prompt.png';
 import videoThumb1 from '../assets/mock/video-1.png';
 import videoThumb2 from '../assets/mock/video-2.png';
 import avatar1 from '../assets/mock/avatar-1.png';
@@ -8,8 +8,8 @@ import top10Thumb1 from '../assets/mock/top10-1.png';
 import top10Thumb2 from '../assets/mock/top10-2.png';
 import top10Avatar1 from '../assets/mock/top10-avatar-1.png';
 import top10Avatar2 from '../assets/mock/top10-avatar-2.png';
-import issueThumb1 from '../assets/mock/issue-1.png';
-import issueThumb2 from '../assets/mock/issue-2.png';
+import issueDesignSystem from '../assets/mock/issue-design-system.png';
+import issueCharacter from '../assets/mock/issue-character.png';
 
 /** 두 선택지 중 하나를 고르는 투표. YES/NO 도, 도구 이름 대결도 같은 모양이다. */
 export interface Poll {
@@ -57,18 +57,11 @@ export const newsHeadlines: NewsHeadline[] = [
   { rank: 4, title: '오픈AI Presence : 기업용 AI 상담원', trend: 'up' },
 ];
 
+/*
+ * 홈 상단 덱은 '진행중인 투표'만 담는다.
+ * 마감된 투표는 아래 issuePolls 로만 노출되고, 같은 투표가 양쪽에 겹치지 않게 한다.
+ */
 export const heroPolls: Poll[] = [
-  {
-    id: 'poll-character-animation',
-    question: 'AI로 캐릭터 애니메이션 만들어 봤어?',
-    thumbnail: pollCharacter,
-    // 세로로 긴 원본에서 시안이 잘라 쓰는 구간(높이 36~89%)의 가운데
-    thumbnailPosition: 'center 62%',
-    voterCount: 35,
-    options: ['YES', 'NO'],
-    firstRatio: 40,
-    remainingLabel: '3일 06:59 남음',
-  },
   {
     id: 'poll-image-generator',
     question: '2026년 최고의 AI 이미지 생성기는?',
@@ -77,7 +70,17 @@ export const heroPolls: Poll[] = [
     thumbnailPosition: '62% center',
     voterCount: 72,
     options: ['Gemini', 'ChatGPT'],
-    firstRatio: 60,
+    // 시안 홈_투표 후 기준: Gemini 40% / ChatGPT 60%
+    firstRatio: 40,
+    remainingLabel: '3일 06:59 남음',
+  },
+  {
+    id: 'poll-prompt-sense',
+    question: '프롬프트에도 디자인 감각이 필요할까?',
+    thumbnail: pollPrompt,
+    voterCount: 35,
+    options: ['YES', 'NO'],
+    firstRatio: 68,
     remainingLabel: '3일 06:59 남음',
   },
 ];
@@ -134,20 +137,22 @@ export const popularVideos: VideoItem[] = [
 
 export const issuePolls: Poll[] = [
   {
-    id: 'issue-character',
-    question: 'AI로 캐릭터 애니메이션 만들어 봤어?',
-    thumbnail: issueThumb1,
-    voterCount: 40,
+    id: 'issue-design-system',
+    question: '클로드 코드로 디자인 시스템 만들어봤어?',
+    thumbnail: issueDesignSystem,
+    voterCount: 80,
     options: ['YES', 'NO'],
-    firstRatio: 40,
+    firstRatio: 65,
     periodLabel: '2026. 7. 20 ~ 2026. 7. 26',
     participated: true,
   },
   {
-    id: 'issue-design-system',
-    question: '클로드 코드로 디자인 시스템 만들어봤어?',
-    thumbnail: issueThumb2,
-    voterCount: 40,
+    id: 'issue-character',
+    question: 'AI로 캐릭터 애니메이션 만들어 봤어?',
+    thumbnail: issueCharacter,
+    // 세로로 긴 원본에서 캐릭터가 보이는 구간
+    thumbnailPosition: 'center 62%',
+    voterCount: 72,
     options: ['YES', 'NO'],
     firstRatio: 40,
     periodLabel: '2026. 7. 20 ~ 2026. 7. 26',

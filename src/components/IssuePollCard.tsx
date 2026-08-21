@@ -25,7 +25,12 @@ export function IssuePollCard({ poll, onSelect }: IssuePollCardProps) {
         aria-label={`${poll.question} 자세히 보기`}
         onClick={() => onSelect?.(poll.id)}
       >
-        <img className={styles.thumbnailImage} src={poll.thumbnail} alt="" />
+        <img
+          className={styles.thumbnailImage}
+          src={poll.thumbnail}
+          alt=""
+          style={poll.thumbnailPosition ? { objectPosition: poll.thumbnailPosition } : undefined}
+        />
         {poll.participated && (
           <span className={styles.badgeWrap}>
             <span className={styles.badge}>

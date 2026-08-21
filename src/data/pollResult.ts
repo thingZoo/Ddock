@@ -37,20 +37,21 @@ export interface PollResultData {
   comments: CommentItem[];
 }
 
-const imageGeneratorResult: PollResultData = {
-  category: '이미지 생성',
-  periodLabel: '2026. 7. 20 ~ 2026. 7. 23',
-  votes: [30, 42],
+const designSystemResult: PollResultData = {
+  category: '업무 생산성',
+  periodLabel: '2026. 7. 20 ~ 2026. 7. 26',
+  // 시안 결과 페이지 기준: YES 45표 / NO 35표, 합계 80명
+  votes: [45, 35],
   daily: [
     { day: '월', first: 0, second: 0, empty: true },
-    { day: '화', first: 4, second: 9 },
-    { day: '수', first: 5, second: 7 },
-    { day: '목', first: 7, second: 8 },
-    { day: '금', first: 5, second: 9 },
-    { day: '토', first: 5, second: 6 },
-    { day: '일', first: 4, second: 3 },
+    { day: '화', first: 11, second: 5 },
+    { day: '수', first: 4, second: 10 },
+    { day: '목', first: 10, second: 11 },
+    { day: '금', first: 11, second: 4 },
+    { day: '토', first: 8, second: 2 },
+    { day: '일', first: 1, second: 3 },
   ],
-  likeCount: 5,
+  likeCount: 6,
   viewCount: 52,
   reactionUser: '갓생러',
   reactionOthers: 4,
@@ -60,7 +61,7 @@ const imageGeneratorResult: PollResultData = {
       author: '갓생러',
       avatar: avatar1,
       timeLabel: '4시간 전',
-      text: '역시 GPT를 많이 쓰네요',
+      text: '토큰만 정리해두면 확실히 빠르네요',
       replies: [
         {
           id: 'c1-r1',
@@ -76,35 +77,36 @@ const imageGeneratorResult: PollResultData = {
       author: '인생은즐겁게',
       avatar: avatar2,
       timeLabel: '3시간 전',
-      text: '제미나이가 앞으로 더 좋아질듯요',
+      text: '컴포넌트 네이밍부터 맞춰야 하더라고요',
     },
     {
       id: 'c3',
       author: '아식은치킨',
       avatar: avatar1,
       timeLabel: '41분 전',
-      text: '이미지 생성은 다른 툴로 더 많이 하지 않나요?',
+      text: '디자인 QA까지 맡기는 건 아직 이른 듯요',
     },
   ],
 };
 
 const characterAnimationResult: PollResultData = {
-  category: '캐릭터 애니메이션',
+  category: '영상 제작',
   periodLabel: '2026. 7. 20 ~ 2026. 7. 26',
-  votes: [14, 21],
+  // 시안 결과 페이지 기준: YES 26표 / NO 46표, 합계 72명
+  votes: [26, 46],
   daily: [
     { day: '월', first: 0, second: 0, empty: true },
-    { day: '화', first: 2, second: 4 },
-    { day: '수', first: 3, second: 3 },
-    { day: '목', first: 3, second: 5 },
-    { day: '금', first: 2, second: 4 },
-    { day: '토', first: 2, second: 3 },
-    { day: '일', first: 2, second: 2 },
+    { day: '화', first: 4, second: 10 },
+    { day: '수', first: 6, second: 6 },
+    { day: '목', first: 6, second: 13 },
+    { day: '금', first: 4, second: 10 },
+    { day: '토', first: 4, second: 6 },
+    { day: '일', first: 2, second: 1 },
   ],
-  likeCount: 3,
-  viewCount: 28,
+  likeCount: 5,
+  viewCount: 52,
   reactionUser: '갓생러',
-  reactionOthers: 2,
+  reactionOthers: 4,
   comments: [
     {
       id: 'a1',
@@ -125,10 +127,8 @@ const characterAnimationResult: PollResultData = {
 
 /** pollId → 결과 데이터. 아직 결과가 없는 투표는 첫 번째 데이터를 재사용한다. */
 const RESULTS: Record<string, PollResultData> = {
-  'poll-image-generator': imageGeneratorResult,
-  'poll-character-animation': characterAnimationResult,
+  'issue-design-system': designSystemResult,
   'issue-character': characterAnimationResult,
-  'issue-design-system': imageGeneratorResult,
 };
 
 const ALL_POLLS: Poll[] = [...heroPolls, ...issuePolls];
@@ -138,5 +138,5 @@ export function findPoll(pollId: string): Poll | undefined {
 }
 
 export function findPollResult(pollId: string): PollResultData {
-  return RESULTS[pollId] ?? imageGeneratorResult;
+  return RESULTS[pollId] ?? designSystemResult;
 }

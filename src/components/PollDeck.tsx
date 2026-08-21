@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PollCard } from './PollCard';
 import type { Poll } from '../data/home';
 import styles from './PollDeck.module.css';
@@ -16,28 +16,43 @@ interface PollDeckProps {
 const BACK_SCALE = 0.8796;
 const BACK_SHIFT = 38.5;
 /** 이만큼 끌면 다음 카드로 넘어간다 */
-const SWIPE_THRESHOLD = 80;
+const SWIPE_THRESHOLD = 60;
+/** 짧게 튕겨도 넘어가도록 하는 속도 기준 (px/ms) */
+const FLICK_VELOCITY = 0.35;
 /** 넘길 때 카드가 화면 밖으로 빠져나가는 거리 */
 const EXIT_DISTANCE = 420;
 /** 드래그를 클릭이 아닌 스와이프로 볼 최소 이동 거리 */
 const DRAG_THRESHOLD = 4;
+/** 카드 전환 애니메이션 길이. CSS transition 과 맞춘다. */
+const ANIMATION_MS = 280;
 
 export function PollDeck({ polls, votes, onVote, onActivePollChange }: PollDeckProps) {
   const [index, setIndex] = useState(0);
   const [dragX, setDragX] = useState(0);
   const [dragging, setDragging] = useState(false);
-  /** 전환 애니메이션 중에는 transition을 켜둔다 */
+  /** 전환 애니메이션이 도는 동안 true. 새 제스처를 막는 데 쓴다. */
   const [animating, setAnimating] = useState(false);
 
   const activeRef = useRef(false);
   const movedRef = useRef(false);
-  const exitingRef = useRef(false);
-  const startXRef = useRef(0);
+  /** 다음(+1) 또는 이전(-1)으로 넘길 때의 방향. 0이면 제자리로 돌아온다. */
+  const stepRef = useRef(0);
+  const startRef = useRef({ x: 0, time: 0 });
+  const lastRef = useRef({ x: 0, time: 0 });
+  const timerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) window.clearTimeout(timerRef.current);
+    };
+  }, []);
 
   if (polls.length === 0) return null;
 
-  const frontPoll = polls[index % polls.length];
-  const backPoll = polls[(index + 1) % polls.length];
+  const wrap = (value: number) => ((value % polls.length) + polls.length) % polls.length;
+  const frontPoll = polls[wrap(index)];
+  /* 끌고 있는 방향에 따라 뒤에 비칠 카드가 달라진다 */
+  const backPoll = polls[wrap(index + (dragX > 0 ? -1 : 1))];
 
   // 끈 거리에 비례해 뒤 카드가 제자리로 올라온다 (0 = 뒤, 1 = 앞)
   const progress = Math.min(Math.abs(dragX) / SWIPE_THRESHOLD, 1);
@@ -45,17 +60,36 @@ export function PollDeck({ polls, votes, onVote, onActivePollChange }: PollDeckP
   const backShift = BACK_SHIFT * (1 - progress);
   const backOpacity = 0.8 + 0.2 * progress;
 
+  /**
+   * 전환을 마무리한다.
+   * transitionend 는 브라우저가 트랜지션을 시작하지 않으면 아예 오지 않아
+   * 상태가 고착되므로, 시간 기준으로 직접 끝낸다.
+   */
+  const finishGesture = () => {
+    timerRef.current = null;
+    setAnimating(false);
+    setDragX(0);
+    if (stepRef.current !== 0) {
+      const next = index + stepRef.current;
+      setIndex(next);
+      onActivePollChange?.(polls[wrap(next)]);
+      stepRef.current = 0;
+    }
+  };
+
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     if (animating || polls.length < 2) return;
     activeRef.current = true;
     movedRef.current = false;
-    startXRef.current = event.clientX;
+    const now = event.timeStamp;
+    startRef.current = { x: event.clientX, time: now };
+    lastRef.current = { x: event.clientX, time: now };
     setDragging(true);
   };
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
     if (!activeRef.current) return;
-    const dx = event.clientX - startXRef.current;
+    const dx = event.clientX - startRef.current.x;
 
     if (!movedRef.current && Math.abs(dx) > DRAG_THRESHOLD) {
       movedRef.current = true;
@@ -65,7 +99,10 @@ export function PollDeck({ polls, votes, onVote, onActivePollChange }: PollDeckP
         /* 캡처할 수 없는 포인터면 그냥 넘어간다 */
       }
     }
-    if (movedRef.current) setDragX(dx);
+    if (movedRef.current) {
+      lastRef.current = { x: event.clientX, time: event.timeStamp };
+      setDragX(dx);
+    }
   };
 
   const handlePointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -81,26 +118,23 @@ export function PollDeck({ polls, votes, onVote, onActivePollChange }: PollDeckP
       /* 이미 해제됐으면 무시한다 */
     }
 
+    const dx = event.clientX - startRef.current.x;
+    const elapsed = Math.max(event.timeStamp - lastRef.current.time, 1);
+    const velocity = Math.abs(event.clientX - lastRef.current.x) / elapsed;
+    // 충분히 끌었거나, 짧아도 빠르게 튕겼으면 넘긴다
+    const passed = Math.abs(dx) >= SWIPE_THRESHOLD || velocity >= FLICK_VELOCITY;
+
     setAnimating(true);
-    if (Math.abs(dragX) >= SWIPE_THRESHOLD) {
-      exitingRef.current = true;
-      setDragX(dragX > 0 ? EXIT_DISTANCE : -EXIT_DISTANCE);
+    if (passed && Math.abs(dx) > DRAG_THRESHOLD) {
+      stepRef.current = dx > 0 ? -1 : 1;
+      setDragX(dx > 0 ? EXIT_DISTANCE : -EXIT_DISTANCE);
     } else {
+      stepRef.current = 0;
       setDragX(0);
     }
-  };
 
-  const handleTransitionEnd = () => {
-    if (!animating) return;
-    setAnimating(false);
-
-    if (exitingRef.current) {
-      exitingRef.current = false;
-      // transition을 끈 상태에서 다음 카드를 앞으로 당겨 놓아야 되돌아가는 잔상이 없다
-      setIndex((prev) => prev + 1);
-      setDragX(0);
-      onActivePollChange?.(backPoll);
-    }
+    if (timerRef.current !== null) window.clearTimeout(timerRef.current);
+    timerRef.current = window.setTimeout(finishGesture, ANIMATION_MS);
   };
 
   // 카드를 끌었을 뿐인데 투표가 눌리지 않도록 직후의 click은 버린다
@@ -111,20 +145,13 @@ export function PollDeck({ polls, votes, onVote, onActivePollChange }: PollDeckP
     movedRef.current = false;
   };
 
-  const frontClasses = [
-    styles.layer,
-    styles.front,
-    dragging ? styles.dragging : '',
-    animating ? styles.animated : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const exiting = animating && stepRef.current !== 0;
 
   return (
     <div className={styles.deck}>
       {polls.length > 1 && (
         <div
-          className={`${styles.layer} ${styles.back} ${animating ? styles.animated : ''}`}
+          className={`${styles.layer} ${styles.back} ${dragging ? styles.instant : ''}`}
           style={{
             transform: `translateX(${backShift}px) scale(${backScale})`,
             opacity: backOpacity,
@@ -136,17 +163,16 @@ export function PollDeck({ polls, votes, onVote, onActivePollChange }: PollDeckP
       )}
 
       <div
-        className={frontClasses}
+        className={`${styles.layer} ${styles.front} ${dragging ? styles.instant : ''}`}
         style={{
           transform: `translateX(${dragX}px)`,
-          opacity: exitingRef.current && animating ? 0 : 1,
+          opacity: exiting ? 0 : 1,
         }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
         onClickCapture={handleClickCapture}
-        onTransitionEnd={handleTransitionEnd}
       >
         <PollCard poll={frontPoll} selected={votes[frontPoll.id] ?? null} onVote={onVote} />
       </div>

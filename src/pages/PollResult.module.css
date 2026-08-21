@@ -298,14 +298,15 @@
   border-top-right-radius: 2px;
 }
 
+/* 첫 번째 선택지는 진행 막대와 같은 주황, 두 번째는 라임으로 맞춘다 */
 .segmentFirst {
-  border-color: var(--lime-400);
-  background-image: linear-gradient(to bottom, var(--lime-200), var(--lime-100));
+  border-color: var(--orange-400);
+  background-image: linear-gradient(to bottom, var(--orange-200), var(--orange-100));
 }
 
 .segmentSecond {
-  border-color: var(--orange-400);
-  background-image: linear-gradient(to bottom, var(--orange-200), var(--orange-100));
+  border-color: var(--lime-400);
+  background-image: linear-gradient(to bottom, var(--lime-200), var(--lime-100));
 }
 
 .segmentEmpty {

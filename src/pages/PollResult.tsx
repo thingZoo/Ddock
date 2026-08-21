@@ -71,15 +71,18 @@ export function PollResult({ pollId, onBack }: PollResultProps) {
   }
 
   const totalVotes = result.votes[0] + result.votes[1];
-  const firstPercent = Math.round((result.votes[0] / totalVotes) * 100);
+  /*
+   * 시안은 표 수와 퍼센트를 각각 따로 적어두고 서로 정확히 나누어떨어지지 않는다.
+   * 홈 카드와 결과 화면의 퍼센트가 어긋나지 않도록 비율은 투표 데이터의 값을 그대로 쓰고,
+   * 표 수는 결과 데이터의 값을 그대로 보여준다.
+   */
+  const firstPercent = poll.firstRatio ?? Math.round((result.votes[0] / totalVotes) * 100);
   const secondPercent = 100 - firstPercent;
 
   const chartMax = Math.max(...result.daily.map((d) => d.first + d.second), 1);
   const axis = buildAxis(chartMax);
-  const commentCount = result.comments.reduce(
-    (sum, comment) => sum + 1 + (comment.replies?.length ?? 0),
-    0,
-  );
+  // 시안은 답글을 빼고 최상위 댓글 수만 센다
+  const commentCount = result.comments.length;
 
   return (
     <div className={styles.page}>
@@ -166,12 +169,12 @@ export function PollResult({ pollId, onBack }: PollResultProps) {
                   return (
                     <div className={styles.barGroup} key={entry.day}>
                       <div
-                        className={`${styles.segment} ${styles.segmentSecond}`}
-                        style={{ height: `${(entry.second / chartMax) * 100}%` }}
-                      />
-                      <div
                         className={`${styles.segment} ${styles.segmentFirst}`}
                         style={{ height: `${(entry.first / chartMax) * 100}%` }}
+                      />
+                      <div
+                        className={`${styles.segment} ${styles.segmentSecond}`}
+                        style={{ height: `${(entry.second / chartMax) * 100}%` }}
                       />
                     </div>
                   );
@@ -190,17 +193,17 @@ export function PollResult({ pollId, onBack }: PollResultProps) {
 
           <div className={styles.legend}>
             <div className={styles.legendItem}>
-              <span className={styles.legendName}>{poll.options[1]}</span>
+              <span className={styles.legendName}>{poll.options[0]}</span>
               <span className={styles.legendValue}>
-                <span className={styles.legendCount}>{result.votes[1]}</span>
+                <span className={styles.legendCount}>{result.votes[0]}</span>
                 <span className={styles.legendUnit}>표</span>
               </span>
             </div>
             <img className={styles.legendDivider} src={dividerIcon} alt="" />
             <div className={styles.legendItem}>
-              <span className={styles.legendName}>{poll.options[0]}</span>
+              <span className={styles.legendName}>{poll.options[1]}</span>
               <span className={styles.legendValue}>
-                <span className={styles.legendCount}>{result.votes[0]}</span>
+                <span className={styles.legendCount}>{result.votes[1]}</span>
                 <span className={styles.legendUnit}>표</span>
               </span>
             </div>

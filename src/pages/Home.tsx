@@ -26,10 +26,12 @@ export function Home({ onPollSelect }: HomeProps) {
   /** 배경에 흐리게 깔아둘 이미지. 앞으로 올라온 투표를 따라간다. */
   const [activePoll, setActivePoll] = useState(heroPolls[0]);
 
+  /*
+   * 상단 덱은 '진행중인 투표'라 답하고 나면 그 자리에서 결과 비율만 공개한다.
+   * 결과 화면으로 넘어가는 건 아래 '투표로 알아보는 AI 이슈'의 마감된 투표뿐이다.
+   */
   const handleVote = (pollId: string, optionIndex: number) => {
     setVotes((prev) => ({ ...prev, [pollId]: optionIndex }));
-    // 투표하면 바로 결과 화면으로 넘어간다
-    onPollSelect?.(pollId);
   };
 
   return (

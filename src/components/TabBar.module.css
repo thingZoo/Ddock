@@ -33,14 +33,13 @@
   padding: 10px;
 }
 
+/*
+ * 아이콘 원본 색이 제각각이라(홈만 진한 색, 나머지는 회색) 활성/비활성
+ * 두 벌(active #27272A, inactive #A1A1AA)을 만들어 src 를 교체한다.
+ */
 .icon {
   width: 24px;
   height: 24px;
-  opacity: 0.45;
-}
-
-.iconActive {
-  opacity: 1;
 }
 
 .label {
