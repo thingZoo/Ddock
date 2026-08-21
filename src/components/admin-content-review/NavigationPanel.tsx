@@ -42,19 +42,19 @@ export function NavigationPanel({
     <aside className={styles.leftPanel} aria-label="콘텐츠 구조">
       <div className={styles.navScroll}>
         <section className={styles.navSection}>
-          <p className={styles.navLabel}>VIDEO</p>
+          <p className={styles.navLabel}>영상</p>
           <button
             className={selected(selection, "video") ? styles.navItemActive : styles.navItem}
             onClick={() => onSelect({ kind: "video" })}
           >
-            <span>Video Detail</span>
-            <span className={styles.navMeta}>Metadata</span>
+            <span>영상 정보</span>
+            <span className={styles.navMeta}>기본 정보</span>
           </button>
         </section>
 
         <section className={styles.navSection}>
           <div className={styles.navSectionHeader}>
-            <p className={styles.navLabel}>PARTS</p>
+            <p className={styles.navLabel}>PART</p>
             <button className={styles.smallTextButton} onClick={onAddPart}>
               + 추가
             </button>
@@ -96,7 +96,7 @@ export function NavigationPanel({
 
         <section className={styles.navSection}>
           <div className={styles.navSectionHeader}>
-            <p className={styles.navLabel}>UNASSIGNED PHASES</p>
+            <p className={styles.navLabel}>미배치 작업</p>
             <span className={unresolvedPhases ? styles.blockingBadge : styles.countBadge}>
               {unresolvedPhases}
             </span>
@@ -125,7 +125,7 @@ export function NavigationPanel({
             className={selected(selection, "review") ? styles.navSummaryActive : styles.navSummary}
             onClick={() => onSelect({ kind: "review" })}
           >
-            <span>Review Queue</span>
+            <span>검토 필요</span>
             <span className={styles.navBadges}>
               <span className={styles.blockingBadge}>{blocking}</span>
               <span className={styles.warningBadge}>{warnings}</span>
@@ -135,7 +135,7 @@ export function NavigationPanel({
             className={selected(selection, "script") ? styles.navSummaryActive : styles.navSummary}
             onClick={() => onSelect({ kind: "script" })}
           >
-            <span>Source Script</span>
+            <span>원본 스크립트</span>
             <span className={styles.countBadge}>{draft.script.length}</span>
           </button>
         </section>

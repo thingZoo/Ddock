@@ -10,6 +10,30 @@ import styles from "./AdminContentReview.module.css";
 export type RightPanelTab = "source" | "queue" | "phases";
 export type QueueFilter = "all" | "blocking" | "warning";
 
+const tabLabels: Record<RightPanelTab, string> = {
+  source: "원본 근거",
+  queue: "검토 필요",
+  phases: "작업 단계",
+};
+
+const reviewTypeLabels: Record<ReviewQueueItem["type"], string> = {
+  unassigned_phase: "미배치 작업",
+  phase_context_too_broad: "작업 맥락 범위 확인",
+  part_needs_review: "PART 검토 필요",
+  step_needs_review: "STEP 검토 필요",
+  excluded_action: "제외된 작업",
+  unattached_context: "연결되지 않은 맥락",
+  unsupported_claim_removed: "근거 없는 문장 제거",
+  script_not_human_verified: "스크립트 검수 필요",
+};
+
+function evidenceModeLabel(mode: Exclude<EvidenceMode, null>): string {
+  if (mode.kind === "step") return "STEP";
+  if (mode.kind === "prompt") return "프롬프트";
+  if (mode.kind === "warning") return "주의";
+  return "더 알아보기";
+}
+
 interface SourceReviewPanelProps {
   draft: ReviewDraft;
   selection: EditorSelection;
@@ -93,7 +117,7 @@ export function SourceReviewPanel({
   );
 
   return (
-    <aside className={styles.rightPanel} aria-label="Source evidence와 review">
+    <aside className={styles.rightPanel} aria-label="원본 근거와 검토 항목">
       <div className={styles.rightTabs} role="tablist" aria-label="검수 자료">
         {(["source", "queue", "phases"] as const).map((value) => (
           <button
@@ -103,7 +127,7 @@ export function SourceReviewPanel({
             className={tab === value ? styles.rightTabActive : styles.rightTab}
             onClick={() => onTabChange(value)}
           >
-            {value === "source" ? "Source" : value === "queue" ? "Queue" : "Phases"}
+            {tabLabels[value]}
           </button>
         ))}
       </div>
@@ -113,8 +137,8 @@ export function SourceReviewPanel({
           {evidenceMode && (
             <div className={styles.evidenceModeBar}>
               <div>
-                <strong>Evidence 선택 모드</strong>
-                <span>{evidenceMode.kind.replace("_", " ")}</span>
+                <strong>근거 구간 선택</strong>
+                <span>{evidenceModeLabel(evidenceMode)}</span>
               </div>
               <button onClick={onEvidenceModeClose}>완료</button>
             </div>
@@ -131,11 +155,11 @@ export function SourceReviewPanel({
                 <div key={row.utterance_id}>
                   {showChapter && (
                     <div className={styles.chapterHeader}>
-                      <span>{row.script_chapter_id ?? "NO CHAPTER"}</span>
+                      <span>{row.script_chapter_id ?? "챕터 없음"}</span>
                       <strong>
                         {row.script_chapter_id
                           ? chapterMap.get(row.script_chapter_id)?.title
-                          : "Unassigned script"}
+                          : "미배치 스크립트"}
                       </strong>
                     </div>
                   )}
@@ -148,7 +172,7 @@ export function SourceReviewPanel({
                         checked={isPicked}
                         disabled={!canPick}
                         onChange={() => onEvidenceToggle(row.utterance_id)}
-                        aria-label={`${row.utterance_id} evidence 선택`}
+                        aria-label={`${row.utterance_id} 근거 구간 선택`}
                       />
                     )}
                     <span className={styles.scriptTime}>{row.timestamp}</span>
@@ -178,7 +202,7 @@ export function SourceReviewPanel({
                 className={queueFilter === value ? styles.filterActive : styles.filterButton}
                 onClick={() => onQueueFilterChange(value)}
               >
-                {value === "all" ? "전체" : value === "blocking" ? "Blocking" : "Warning"}
+                {value === "all" ? "전체" : value === "blocking" ? "필수 확인" : "주의"}
               </button>
             ))}
           </div>
@@ -192,8 +216,8 @@ export function SourceReviewPanel({
                   onClick={() => onSelect(reviewTarget(item))}
                 >
                   <span className={styles.queueCardTop}>
-                    <strong>{item.type}</strong>
-                    <span>{resolved ? "Resolved" : item.severity}</span>
+                    <strong>{reviewTypeLabels[item.type]}</strong>
+                    <span>{resolved ? "해결됨" : item.severity === "blocking" ? "필수 확인" : "주의"}</span>
                   </span>
                   <span className={styles.queueMessage}>{item.message}</span>
                   <small>
@@ -229,7 +253,7 @@ export function SourceReviewPanel({
                   <b>{phase.phase_label}</b>
                   <span>{phase.operation}</span>
                   <small>
-                    action {phase.action_utterance_ids.length} · context {phase.context_utterance_ids.length}
+                    작업 {phase.action_utterance_ids.length} · 맥락 {phase.context_utterance_ids.length}
                   </small>
                 </button>
               );

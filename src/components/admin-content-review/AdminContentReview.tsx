@@ -27,13 +27,13 @@ function EmptyImport({ restored, onRestore, onImport }: { restored: ReviewDraft 
   return (
     <main className={styles.emptyRoot}>
       <section className={styles.emptyImport}>
-        <span className={styles.brandMark}>D:ock</span>
-        <p className={styles.eyebrow}>ADMIN CONTENT REVIEW</p>
-        <h1>AI draft를 검수하고<br />발행 후보를 만드세요.</h1>
-        <p>지원 형식은 <code>ddock_content_review_v0.1</code> JSON입니다. 파일은 브라우저에서만 읽습니다.</p>
+        <span className={styles.brandMark}>D:ock 관리자</span>
+        <p className={styles.eyebrow}>콘텐츠 검수</p>
+        <h1>AI 초안을 검수하고<br />발행 파일을 만드세요.</h1>
+        <p><code>ddock_content_review_v0.1</code> 형식의 JSON을 불러오세요. 파일은 브라우저에서만 읽습니다.</p>
         <div className={styles.emptyActions}>
-          <button className={styles.primaryButton} onClick={onImport}>Review JSON 가져오기</button>
-          {restored && <button className={styles.secondaryButton} onClick={onRestore}>마지막 autosave 복원 · {restored.source.video_id}</button>}
+          <button className={styles.primaryButton} onClick={onImport}>Review JSON 불러오기</button>
+          {restored && <button className={styles.secondaryButton} onClick={onRestore}>마지막 자동 저장 복원 · {restored.source.video_id}</button>}
         </div>
       </section>
     </main>
@@ -129,7 +129,7 @@ export function AdminContentReview() {
       <>
         <input ref={inputRef} hidden type="file" accept="application/json,.json" onChange={(event) => void importFile(event.target.files?.[0])} />
         <EmptyImport restored={restored} onRestore={() => { if (restored) { setDraft(restored); setSaveState("saved"); } }} onImport={() => inputRef.current?.click()} />
-        {importError && <div className={styles.importToast} role="alert"><strong>Import 실패</strong><span>{importError}</span><button onClick={() => setImportError(null)}>닫기</button></div>}
+        {importError && <div className={styles.importToast} role="alert"><strong>불러오기 실패</strong><span>{importError}</span><button onClick={() => setImportError(null)}>닫기</button></div>}
       </>
     );
   }
@@ -139,33 +139,33 @@ export function AdminContentReview() {
     <div className={styles.adminRoot}>
       <input ref={inputRef} hidden type="file" accept="application/json,.json" onChange={(event) => void importFile(event.target.files?.[0])} />
       <header className={styles.topBar}>
-        <div className={styles.brandBlock}><strong>D:ock</strong><span>Admin Content Review</span></div>
-        <div className={styles.documentIdentity}><b>{draft.source.title ?? "Untitled video"}</b><span>{draft.source.video_id} · <code>{draft.schema_version}</code></span></div>
+        <div className={styles.brandBlock}><strong>D:ock</strong><span>관리자 콘텐츠 검수</span></div>
+        <div className={styles.documentIdentity}><b>{draft.source.title ?? "제목 없는 영상"}</b><span>{draft.source.video_id} · <code>{draft.schema_version}</code></span></div>
         <div className={styles.headerActions}>
-          <span className={styles.saveState} data-state={saveState}><i />{saveState === "saved" ? "Saved" : saveState === "saving" ? "Saving…" : "Unsaved"}</span>
-          <button className={styles.headerButton} onClick={() => inputRef.current?.click()}>Import</button>
-          <button className={styles.headerButton} onClick={() => downloadJson(draftFilename(draft.source.video_id), draft)}>Export Draft</button>
-          <button className={styles.headerButton} onClick={validate}>Validate</button>
-          <button className={styles.headerButton} onClick={() => setShowPreview(true)}>Admin Preview</button>
-          <button className={styles.publishButton} onClick={publish}>Publish Candidate</button>
+          <span className={styles.saveState} data-state={saveState}><i />{saveState === "saved" ? "저장됨" : saveState === "saving" ? "저장 중…" : "변경사항 있음"}</span>
+          <button className={styles.headerButton} onClick={() => inputRef.current?.click()}>JSON 불러오기</button>
+          <button className={styles.headerButton} onClick={() => downloadJson(draftFilename(draft.source.video_id), draft)}>초안 내보내기</button>
+          <button className={styles.headerButton} onClick={validate}>발행 전 검사</button>
+          <button className={styles.headerButton} onClick={() => setShowPreview(true)}>미리보기</button>
+          <button className={styles.publishButton} onClick={publish}>발행 파일 만들기</button>
         </div>
       </header>
 
       {report && (
-        <section className={report.canPublish ? styles.validationSuccess : styles.validationPanel} aria-label="Preflight 결과">
+        <section className={report.canPublish ? styles.validationSuccess : styles.validationPanel} aria-label="검사 결과">
           <div className={styles.validationSummary}>
-            <span className={styles.eyebrow}>BROWSER PREFLIGHT</span>
-            <strong>{report.canPublish ? "Publish candidate 생성 가능" : `${report.blockingCount} blocking · ${report.warningCount} warning`}</strong>
-            <small>Python publish validator가 canonical source of truth입니다.</small>
+            <span className={styles.eyebrow}>발행 전 검사</span>
+            <strong>{report.canPublish ? "발행 준비 완료" : `${report.blockingCount}개 필수 확인 · ${report.warningCount}개 주의`}</strong>
+            <small>최종 발행 검증 기준은 Python validator입니다.</small>
           </div>
           <div className={styles.validationIssues}>
             {report.issues.slice(0, 8).map((issue) => (
               <button key={issue.id} onClick={() => choose(issueSelection(issue))}>
-                <span>{issue.severity}</span><b>{issue.code}</b><small>{issue.message}</small>
+                <span>{issue.severity === "blocking" ? "필수 확인" : "주의"}</span><b>검사 항목</b><small>{issue.message}</small>
               </button>
             ))}
           </div>
-          <button className={styles.iconButton} onClick={() => setReport(null)} aria-label="Validation 결과 닫기">×</button>
+          <button className={styles.iconButton} onClick={() => setReport(null)} aria-label="검사 결과 닫기">×</button>
         </section>
       )}
 
@@ -191,7 +191,7 @@ export function AdminContentReview() {
           onEvidenceModeClose={() => setEvidenceMode(null)}
         />
       </div>
-      {importError && <div className={styles.importToast} role="alert"><strong>Import 실패</strong><span>{importError}</span><button onClick={() => setImportError(null)}>닫기</button></div>}
+      {importError && <div className={styles.importToast} role="alert"><strong>불러오기 실패</strong><span>{importError}</span><button onClick={() => setImportError(null)}>닫기</button></div>}
       {showPreview && <PreviewDialog content={preview} onClose={() => setShowPreview(false)} />}
     </div>
   );

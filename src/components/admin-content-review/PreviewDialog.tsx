@@ -20,11 +20,11 @@ export function PreviewDialog({ content, onClose }: PreviewDialogProps) {
       >
         <header className={styles.dialogHeader}>
           <div>
-            <span className={styles.eyebrow}>ADMIN PREVIEW</span>
+            <span className={styles.eyebrow}>관리자 미리보기</span>
             <h2 id="preview-title">{content.source.title ?? content.source.video_id}</h2>
-            <p>Publish Candidate의 읽기 전용 surface preview입니다.</p>
+            <p>발행 파일에 표시될 내용을 읽기 전용으로 확인합니다.</p>
           </div>
-          <button className={styles.iconButton} onClick={onClose} aria-label="Preview 닫기">×</button>
+          <button className={styles.iconButton} onClick={onClose} aria-label="미리보기 닫기">×</button>
         </header>
         <div className={styles.previewBody}>
           {content.video_detail.recommendation && (
@@ -48,7 +48,7 @@ export function PreviewDialog({ content, onClose }: PreviewDialogProps) {
                     <div key={step.step_id}>
                       <strong>{step.order}. {step.action_title}</strong>
                       {step.action_lines.map((line, index) => <p key={`${step.step_id}-${index}`}>{line.text}</p>)}
-                      {step.prompt && <blockquote><b>Prompt</b>{step.prompt.text}</blockquote>}
+                      {step.prompt && <blockquote><b>프롬프트</b>{step.prompt.text}</blockquote>}
                       {step.warning && <aside><b>{step.warning.title}</b><span>{step.warning.body}</span></aside>}
                       {step.learn_more.map((item, index) => (
                         <details key={`${step.step_id}-more-${index}`}>
