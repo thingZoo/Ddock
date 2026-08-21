@@ -5,10 +5,10 @@ from typing import Final
 
 SCHEMA_VERSION: Final = "ddock_content_v0.1"
 OUTPUT_FILENAME: Final = "ddock_content_v0_1.json"
-CURATION_GENERATION_SCHEMA_VERSION: Final = "ddock_content_curation_generation_v0.1"
-PART_PLANNING_CONTRACT_VERSION: Final = "ddock_part_planning_v0.1"
-STEP_GENERATION_CONTRACT_VERSION: Final = "ddock_step_generation_v0.1"
-VIDEO_DETAIL_CONTRACT_VERSION: Final = "ddock_video_detail_v0.1"
+CURATION_GENERATION_SCHEMA_VERSION: Final = "ddock_content_curation_generation_v0.2"
+PART_PLANNING_CONTRACT_VERSION: Final = "ddock_part_planning_v0.2"
+STEP_GENERATION_CONTRACT_VERSION: Final = "ddock_step_generation_v0.2"
+VIDEO_DETAIL_CONTRACT_VERSION: Final = "ddock_video_detail_v0.2"
 
 RICH_SEGMENT_TYPES: Final = frozenset(
     {"text", "command", "ui_label", "filename", "path"}
@@ -77,6 +77,7 @@ PART_FIELDS: Final = frozenset(
         "summary",
         "action_objective",
         "source_utterance_ids",
+        "action_utterance_ids",
         "source_script_chapter_ids",
         "start_seconds",
         "end_seconds",
@@ -87,6 +88,7 @@ PART_FIELDS: Final = frozenset(
         "steps",
         "needs_review",
         "generation_warnings",
+        "excluded_actions",
     }
 )
 
@@ -108,7 +110,10 @@ STEP_FIELDS: Final = frozenset(
     }
 )
 
-ACTION_LINE_FIELDS: Final = frozenset({"text", "segments"})
+ACTION_LINE_FIELDS: Final = frozenset(
+    {"text", "segments", "source_utterance_ids"}
+)
+EXCLUDED_ACTION_FIELDS: Final = frozenset({"utterance_id", "reason"})
 SEGMENT_FIELDS: Final = frozenset({"type", "text"})
 EVIDENCE_FIELDS: Final = frozenset(
     {"utterance_id", "start_seconds", "end_seconds"}
@@ -128,8 +133,9 @@ THUMBNAIL_FIELDS: Final = frozenset(
     }
 )
 RECOMMENDATION_FIELDS: Final = frozenset(
-    {"eyebrow", "title", "body", "evidence"}
+    {"eyebrow", "title", "body", "claims", "evidence"}
 )
+RECOMMENDATION_CLAIM_FIELDS: Final = frozenset({"text", "evidence"})
 TOOL_FIELDS: Final = frozenset(
     {"name", "canonical_name", "url", "description", "evidence"}
 )
@@ -145,6 +151,8 @@ GENERATION_FIELDS: Final = frozenset(
         "pass_architecture",
         "part_planning_calls",
         "step_generation_calls",
+        "step_generation_initial_calls",
+        "step_generation_retry_calls",
         "video_detail_calls",
         "total_model_calls",
         "model_generation_seconds",
@@ -152,6 +160,10 @@ GENERATION_FIELDS: Final = frozenset(
         "created_at",
         "warnings",
         "needs_review_count",
+        "review_reasons",
+        "omitted_part_candidates",
+        "high_action_coverage_warnings",
+        "deterministic_generation",
         "source_preprocessed_sha256",
     }
 )

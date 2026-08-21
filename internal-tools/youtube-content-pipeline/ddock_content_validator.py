@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+import re
 from pathlib import PurePosixPath
 from typing import Any, Iterable
 
 from ddock_content_contract import (
     ACTION_LINE_FIELDS,
     EVIDENCE_FIELDS,
+    EXCLUDED_ACTION_FIELDS,
     FORBIDDEN_MVP_FIELDS,
     GENERATION_FIELDS,
     LEARN_MORE_FIELDS,
@@ -13,6 +15,7 @@ from ddock_content_contract import (
     PART_PREVIEW_FIELDS,
     PROMPT_FIELDS,
     RECOMMENDATION_FIELDS,
+    RECOMMENDATION_CLAIM_FIELDS,
     RICH_SEGMENT_TYPES,
     SCHEMA_VERSION,
     SCRIPT_CHAPTER_FIELDS,
@@ -26,6 +29,35 @@ from ddock_content_contract import (
     VIDEO_DETAIL_FIELDS,
     WARNING_FIELDS,
 )
+
+
+_ACTION_SIGNAL = re.compile(
+    r"열|들어가|접속|클릭|누르|버튼|입력|붙여|작성|복사|가져오|"
+    r"불러오|추출|선택|고르|지정|연결|추가|설치|등록|생성|만들|"
+    r"구성|구축|구현|실행|빌드|요청|적용|확인|검토|비교|수정|변경|저장"
+)
+_DIRECT_OPERATION_SIGNAL = re.compile(
+    r"클릭|누르|버튼|입력|붙여|복사|선택|연결|추가|설치|등록|"
+    r"검색|요청|실행|저장|파일|탭|메뉴|플러그인|사이트|모드|"
+    r"켜|끄|열어|들어가|가져오|불러오|리네임|변경|수정|만들어|구성해"
+)
+_CONCEPT_ONLY_SIGNAL = re.compile(
+    r"개념|정의|차이|의미|이유|왜|때문|과정|구조|원리|"
+    r"라고 생각|이라고 보|설명|배경"
+)
+_CONCEPT_OVERRIDE_SIGNAL = re.compile(
+    r"클릭|누르|입력|복사|붙여|설치|실행|요청|버튼|탭|메뉴"
+)
+_WHY_LEAK = re.compile(r"때문|왜냐|이유는|하려고|덕분")
+
+
+def _action_worthy_text(value: Any) -> bool:
+    text = str(value or "")
+    if not _ACTION_SIGNAL.search(text) or not _DIRECT_OPERATION_SIGNAL.search(text):
+        return False
+    if _CONCEPT_ONLY_SIGNAL.search(text) and not _CONCEPT_OVERRIDE_SIGNAL.search(text):
+        return False
+    return True
 
 
 def _unknown_fields(value: Any, allowed: frozenset[str], prefix: str) -> list[str]:
@@ -215,6 +247,20 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
         unknown = [value for value in source_ids if value not in known_rows]
         errors.extend(f"{prefix}:unknown_source_utterance_id:{value}" for value in unknown)
         allowed_ids = set(source_ids)
+        action_ids = part.get("action_utterance_ids")
+        if not isinstance(action_ids, list) or not action_ids:
+            errors.append(f"{prefix}:action_utterance_ids_required")
+            action_ids = []
+        if not _unique(action_ids):
+            errors.append(f"{prefix}:duplicate_action_utterance_ids")
+        action_allowed = set(str(value) for value in action_ids)
+        if not action_allowed.issubset(allowed_ids):
+            errors.append(f"{prefix}:action_source_outside_part_context")
+        if action_ids and not any(
+            value in known_rows and _action_worthy_text(known_rows[value].get("text"))
+            for value in action_ids
+        ):
+            errors.append(f"{prefix}:concept_only_part_without_action_signal")
         evidence_errors, evidence_ids = _validate_evidence(
             part.get("evidence"),
             known_rows=known_rows,
@@ -239,7 +285,10 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
         if not isinstance(steps, list):
             errors.append(f"{prefix}:steps_must_be_array")
             steps = []
+        if steps and not 3 <= len(steps) <= 6:
+            warnings.append(f"{prefix}:step_density_review:{len(steps)}:recommended_3_to_6")
         previous_step_ids: set[str] | None = None
+        used_part_action_ids: set[str] = set()
         for step_index, step in enumerate(steps):
             step_prefix = f"{prefix}.steps[{step_index}]"
             errors.extend(_unknown_fields(step, STEP_FIELDS, step_prefix))
@@ -280,18 +329,36 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
                     joined += str(segment.get("text") or "")
                 if joined != line.get("text"):
                     errors.append(f"{line_prefix}:text_must_equal_joined_segments")
+                line_ids = line.get("source_utterance_ids")
+                if not isinstance(line_ids, list) or not line_ids:
+                    errors.append(f"{line_prefix}:source_utterance_ids_required")
+                elif not set(str(value) for value in line_ids).issubset(
+                    set(str(value) for value in step.get("source_utterance_ids") or [])
+                ):
+                    errors.append(f"{line_prefix}:source_outside_step_evidence")
+                elif not any(
+                    value in known_rows
+                    and _action_worthy_text(known_rows[value].get("text"))
+                    for value in line_ids
+                ):
+                    errors.append(f"{line_prefix}:concept_only_action_line")
+                if _WHY_LEAK.search(str(line.get("text") or "")):
+                    warnings.append(f"{line_prefix}:surface_why_context_should_move_to_learn_more")
+                if len(str(line.get("text") or "")) > 80:
+                    warnings.append(f"{line_prefix}:surface_text_over_80_characters")
 
             step_source = step.get("source_utterance_ids")
             if not isinstance(step_source, list) or not step_source:
                 errors.append(f"{step_prefix}:source_utterance_ids_required")
                 step_source = []
             step_allowed = set(str(value) for value in step_source)
-            if not step_allowed.issubset(allowed_ids):
-                errors.append(f"{step_prefix}:source_outside_parent_part")
+            if not step_allowed.issubset(action_allowed):
+                errors.append(f"{step_prefix}:source_outside_parent_action_evidence")
+            used_part_action_ids.update(step_allowed)
             evidence_errors, evidence_ids = _validate_evidence(
                 step.get("evidence"),
                 known_rows=known_rows,
-                allowed_ids=allowed_ids,
+                allowed_ids=action_allowed,
                 prefix=step_prefix,
             )
             errors.extend(evidence_errors)
@@ -305,10 +372,7 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
                 if not _number(step.get("playback_end_seconds")) or float(step["playback_end_seconds"]) not in ends:
                     errors.append(f"{step_prefix}:playback_end_not_in_evidence")
 
-            for field, allowed_fields in (
-                ("prompt", PROMPT_FIELDS),
-                ("warning", WARNING_FIELDS),
-            ):
+            for field, allowed_fields in (("prompt", PROMPT_FIELDS), ("warning", WARNING_FIELDS)):
                 block = step.get(field)
                 if block is None:
                     continue
@@ -319,7 +383,7 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
                 block_errors, _ = _validate_evidence(
                     block.get("evidence"),
                     known_rows=known_rows,
-                    allowed_ids=step_allowed,
+                    allowed_ids=(step_allowed if field == "prompt" else allowed_ids),
                     prefix=block_prefix,
                 )
                 errors.extend(block_errors)
@@ -337,7 +401,7 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
                 learn_errors, _ = _validate_evidence(
                     item.get("evidence"),
                     known_rows=known_rows,
-                    allowed_ids=step_allowed,
+                    allowed_ids=allowed_ids,
                     prefix=learn_prefix,
                 )
                 errors.extend(learn_errors)
@@ -347,6 +411,29 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
                 if denominator and overlap / denominator >= 0.8:
                     warnings.append(f"{step_prefix}:large_adjacent_step_overlap")
             previous_step_ids = step_allowed
+
+        excluded_actions = part.get("excluded_actions")
+        if not isinstance(excluded_actions, list):
+            errors.append(f"{prefix}:excluded_actions_must_be_array")
+            excluded_actions = []
+        excluded_ids: set[str] = set()
+        for index, excluded in enumerate(excluded_actions):
+            excluded_prefix = f"{prefix}.excluded_actions[{index}]"
+            errors.extend(_unknown_fields(excluded, EXCLUDED_ACTION_FIELDS, excluded_prefix))
+            if not isinstance(excluded, dict):
+                continue
+            utterance_id = str(excluded.get("utterance_id") or "")
+            if utterance_id not in action_allowed:
+                errors.append(f"{excluded_prefix}:outside_part_action_evidence")
+            if not _nonempty_text(excluded.get("reason")):
+                errors.append(f"{excluded_prefix}:reason_required")
+            if utterance_id in excluded_ids:
+                errors.append(f"{excluded_prefix}:duplicate_utterance_id")
+            excluded_ids.add(utterance_id)
+        if used_part_action_ids.intersection(excluded_ids):
+            errors.append(f"{prefix}:action_used_and_excluded")
+        if used_part_action_ids.union(excluded_ids) != action_allowed:
+            errors.append(f"{prefix}:action_evidence_not_fully_accounted")
 
     if not _unique(part_ids):
         errors.append("catchup_parts:duplicate_part_id")
@@ -389,6 +476,23 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
                     prefix="video_detail.recommendation",
                 )
                 errors.extend(rec_errors)
+                claims = recommendation.get("claims")
+                if not isinstance(claims, list) or not claims:
+                    errors.append("video_detail.recommendation:claims_required")
+                    claims = []
+                for index, claim in enumerate(claims):
+                    prefix = f"video_detail.recommendation.claims[{index}]"
+                    errors.extend(_unknown_fields(claim, RECOMMENDATION_CLAIM_FIELDS, prefix))
+                    if not isinstance(claim, dict) or not _nonempty_text(claim.get("text")):
+                        errors.append(f"{prefix}:text_required")
+                        continue
+                    claim_errors, _ = _validate_evidence(
+                        claim.get("evidence"),
+                        known_rows=known_rows,
+                        allowed_ids=None,
+                        prefix=prefix,
+                    )
+                    errors.extend(claim_errors)
         tools = detail.get("tools")
         if not isinstance(tools, list):
             errors.append("video_detail:tools_must_be_array")
@@ -426,11 +530,26 @@ def validate_ddock_content(package: Any) -> dict[str, list[str]]:
     if isinstance(generation, dict):
         counts = [
             int(generation.get("part_planning_calls") or 0),
-            int(generation.get("step_generation_calls") or 0),
+            int(generation.get("step_generation_initial_calls") or 0),
+            int(generation.get("step_generation_retry_calls") or 0),
             int(generation.get("video_detail_calls") or 0),
         ]
         if int(generation.get("total_model_calls") or 0) != sum(counts):
             errors.append("curation_generation:total_model_calls_mismatch")
+        if int(generation.get("step_generation_calls") or 0) != sum(counts[1:3]):
+            errors.append("curation_generation:step_generation_calls_mismatch")
+        if not isinstance(generation.get("review_reasons"), list):
+            errors.append("curation_generation:review_reasons_must_be_array")
+        omitted = generation.get("omitted_part_candidates")
+        if not isinstance(omitted, list):
+            errors.append("curation_generation:omitted_part_candidates_must_be_array")
+        coverage = generation.get("high_action_coverage_warnings")
+        if not isinstance(coverage, list):
+            errors.append("curation_generation:high_action_coverage_warnings_must_be_array")
+        if int(generation.get("needs_review_count") or 0) != len(
+            generation.get("review_reasons") or []
+        ):
+            errors.append("curation_generation:needs_review_count_mismatch")
 
     return {"errors": errors, "warnings": warnings}
 
