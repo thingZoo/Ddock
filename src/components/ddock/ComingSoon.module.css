@@ -1,0 +1,54 @@
+.page {
+  /* ddock-frame */
+  width: 375px;
+  margin: 0 auto;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  padding-bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px) + 16px);
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--page-gutter);
+  text-align: center;
+}
+
+.iconWrap {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--zinc-100);
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  opacity: 0.55;
+}
+
+.title {
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  line-height: var(--lh-md);
+  letter-spacing: var(--track-md);
+  color: var(--zinc-800);
+}
+
+.text {
+  font-size: var(--font-sm);
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-sm);
+  letter-spacing: var(--track-sm);
+  color: var(--l-gray-07);
+  white-space: pre-line;
+}

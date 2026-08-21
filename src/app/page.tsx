@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Home } from "@/components/ddock/Home";
 import { Explore } from "@/components/ddock/Explore";
+import { ComingSoon } from "@/components/ddock/ComingSoon";
 import { TabBar, TAB_KEYS, type TabKey } from "@/components/ddock/TabBar";
 import { exploreTabs, type ExploreTab } from "@/data/ddockExplore";
 
@@ -50,6 +51,7 @@ function Shell() {
       {tab === "discover" ? (
         <Explore tab={subTab} onTabChange={goSubTab} onVideoSelect={openVideo} />
       ) : null}
+      {tab === "depot" || tab === "profile" ? <ComingSoon which={tab} /> : null}
       <TabBar active={tab} onChange={goTab} />
     </>
   );
