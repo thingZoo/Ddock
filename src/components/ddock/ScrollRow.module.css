@@ -1,0 +1,36 @@
+.row {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  /* 가로 스와이프는 이 영역이 처리하고, 세로 스크롤은 페이지로 넘긴다 */
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+/*
+ * 드래그 중에는 스냅을 꺼야 손을 따라온다. 미디어 쿼리 안에 두면
+ * 터치 에뮬레이션 환경에서 규칙이 빠져 카드가 되돌아가므로 밖에 둔다.
+ */
+/* .row 를 함께 붙여 행별 scroll-snap-type 지정보다 우선하게 한다 */
+.row.dragging {
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+/* 잡아끄는 커서는 마우스 환경에서만 의미가 있다 */
+@media (hover: hover) and (pointer: fine) {
+  .row {
+    cursor: grab;
+  }
+
+  .dragging {
+    cursor: grabbing;
+  }
+}

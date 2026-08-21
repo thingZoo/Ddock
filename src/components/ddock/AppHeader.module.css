@@ -1,0 +1,47 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 12px var(--page-gutter);
+  /* 흐린 투표 이미지 배경이 헤더 뒤로 비쳐야 하므로 색을 칠하지 않는다 */
+  background: transparent;
+}
+
+.left,
+.right {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.right {
+  justify-content: flex-end;
+}
+
+.logo {
+  width: 72px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.iconButton {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Figma: 24x24 박스 안의 종 글리프는 19.69 x 21.64 */
+.iconBell {
+  width: 19.69px;
+  height: 21.64px;
+}

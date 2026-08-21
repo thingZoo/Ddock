@@ -1,0 +1,52 @@
+.section {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  overflow: hidden;
+  padding: var(--space-4) var(--page-gutter) 0;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.title {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  line-height: var(--lh-md);
+  letter-spacing: var(--track-md);
+  color: var(--l-gray-10);
+}
+
+.more {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Figma: 20x20 박스 안의 실제 글리프는 7.03 x 12.87 */
+.moreIcon {
+  width: 7.03px;
+  height: 12.87px;
+  transform: rotate(180deg) scaleY(-1);
+}
+
+.subtitle {
+  margin: 0;
+  font-size: var(--font-xs);
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-xs);
+  letter-spacing: var(--track-xs);
+  color: var(--l-gray-07);
+}
