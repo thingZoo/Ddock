@@ -1,0 +1,21 @@
+{
+  "schema_version": "korean_human_verified_regressions_v0.1",
+  "runtime_usage": "test_fixture_only",
+  "video_id": "G0d9CHLpnnc",
+  "cases": [
+    {"source": "조시님 말씀처럼", "target": "조쉬님 말씀처럼", "category": "person_identity", "evidence": ["channel_title", "human_audio_review"], "expected_decision": "repair", "auto_apply_allowed": true, "canonical_entity": "빌더 조쉬 Builder Josh"},
+    {"source": "조씨 님이 운영하신", "target": "조쉬님이 운영하신", "category": "person_identity", "evidence": ["channel_title", "human_audio_review"], "expected_decision": "repair", "auto_apply_allowed": true, "canonical_entity": "빌더 조쉬 Builder Josh"},
+    {"source": "빌더주씨도", "target": "빌더 조쉬도", "category": "person_identity", "evidence": ["channel_title", "human_audio_review"], "expected_decision": "repair", "auto_apply_allowed": true, "canonical_entity": "빌더 조쉬 Builder Josh"},
+    {"source": "부모드는 유료 사용자만", "target": "Dev Mode는 유료 사용자만", "category": "official_entity_continuity", "evidence": ["nearby_confirmed_entity", "human_audio_review"], "expected_decision": "repair", "auto_apply_allowed": true, "canonical_entity": "Dev Mode"},
+    {"source": "LM 토큰이죠", "target": "LLM 토큰이죠", "category": "acronym_discourse_continuity", "evidence": ["immediately_previous_utterance", "human_audio_review"], "expected_decision": "repair", "auto_apply_allowed": true, "canonical_entity": "LLM"},
+    {"source": "타이퍼 컬러랑 스페이스 토큰", "target": "타이포그래피 컬러랑 스페이싱 토큰", "category": "technical_compound_phrase", "evidence": ["timestamp_aligned_audio", "domain_vocabulary"], "expected_decision": "repair", "auto_apply_allowed": true, "canonical_entity": null},
+    {"source": "극기 단계", "target": "극초기 단계", "category": "severe_korean_asr", "evidence": ["human_audio_review"], "expected_decision": "audio_evidence_needed", "auto_apply_allowed": false, "canonical_entity": null},
+    {"source": "레이지브라고 하는 팀", "target": "레이지데브즈라고 하는 팀", "category": "team_name", "evidence": ["human_audio_review"], "expected_decision": "unresolved_without_audio", "auto_apply_allowed": false, "canonical_entity": null},
+    {"source": "플로그램부터", "target": "플러그인부터", "category": "generic_term", "evidence": ["timestamp_aligned_audio", "domain_vocabulary"], "expected_decision": "repair", "auto_apply_allowed": true, "canonical_entity": null},
+    {"source": "개발을을 하고 구퇴화를 하고 조시님과 상님께서", "target": "개발을 하고 구체화를 하고 조쉬님과 상혁님께서", "category": "multi_span_row", "evidence": ["timestamp_aligned_audio", "channel_title"], "expected_decision": "partial_or_full_repair", "auto_apply_allowed": true, "canonical_entity": "빌더 조쉬 Builder Josh"},
+    {"source": "완벽하게이 스크린 플로우", "target": "완벽하게 스크린 플로우", "category": "attached_token_boundary", "evidence": ["korean_grammar"], "expected_decision": "repair", "auto_apply_allowed": true, "canonical_entity": null},
+    {"source": "LN 툴", "target": "LN 툴", "category": "ambiguous_keep", "evidence": ["insufficient_evidence"], "expected_decision": "needs_review", "auto_apply_allowed": false, "canonical_entity": null},
+    {"source": "ICP", "target": "ICP", "category": "ambiguous_keep", "evidence": ["insufficient_evidence"], "expected_decision": "needs_review", "auto_apply_allowed": false, "canonical_entity": null},
+    {"source": "HTML2 디자인", "target": "HTML2 디자인", "category": "ambiguous_keep", "evidence": ["insufficient_evidence"], "expected_decision": "needs_review", "auto_apply_allowed": false, "canonical_entity": null}
+  ]
+}

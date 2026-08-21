@@ -1,0 +1,41 @@
+# Local Python environment and bytecode
+/.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+/.pytest_cache/
+
+# Runtime and generated results
+/autosave/
+/output/
+/tmp/
+/temp/
+/validation_output/
+
+# Local caches and model assets
+/.cache/
+/.huggingface/
+/models/
+*.safetensors
+*.gguf
+
+# Downloaded media
+*.mp3
+*.m4a
+*.wav
+*.mp4
+*.mov
+*.mkv
+*.webm
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+credentials*
+secrets*
+
+# OS and temporary files
+.DS_Store
+*.tmp
+*.log

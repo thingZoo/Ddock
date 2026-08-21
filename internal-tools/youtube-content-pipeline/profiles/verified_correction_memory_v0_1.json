@@ -1,0 +1,261 @@
+{
+  "schema_version": "verified_correction_memory_v0.1",
+  "memory_id": "korean_longform_verified_memory_r1",
+  "created_at": "2026-08-07T13:23:21.683315+00:00",
+  "source_gold_samples": [
+    "CH-01_gold_r3",
+    "CH-02_gold_r2",
+    "ECH-03_gold_r2",
+    "CH-04_gold_r1"
+  ],
+  "policy": {
+    "generalize_only": "반복 검증된 기계적 ASR/띄어쓰기/고유명사 오류",
+    "never_generalize": [
+      "음성 확인이 필요한 접속어 삭제",
+      "화면 없이는 알 수 없는 의미 복원",
+      "화자가 말하지 않은 설명 추가"
+    ]
+  },
+  "rules": [
+    {
+      "pattern": "^\\s*\\.\\s*",
+      "replacement": "",
+      "type": "regex",
+      "confidence": "high"
+    },
+    {
+      "pattern": "먼저 먼저는요",
+      "replacement": "먼저는 요",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "그래서이 ",
+      "replacement": "그래서 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "뒤에이 ",
+      "replacement": "뒤에 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "식으로이 ",
+      "replacement": "식으로 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "할 때이 ",
+      "replacement": "할 때 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "내가이 ",
+      "replacement": "내가 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "또이 ",
+      "replacement": "또 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "아직도이 ",
+      "replacement": "아직도 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "존재하는이 ",
+      "replacement": "존재하는 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "개인적으로이 ",
+      "replacement": "개인적으로 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "개인으로서의이 ",
+      "replacement": "개인으로서의 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "건데이 ",
+      "replacement": "건데 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "얘보다이 ",
+      "replacement": "얘보다 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "좀 더이 ",
+      "replacement": "좀 더 이 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "첫 번째요 ",
+      "replacement": "첫 번째 요 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "아까요 ",
+      "replacement": "아까 요 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "쓰던간에요",
+      "replacement": "쓰던 간에",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "프롬포트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "프론프트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "프롬프포트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "프로포트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "트럼프트",
+      "replacement": "프롬프트",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "하이포그래피",
+      "replacement": "타이포그래피",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "몽함적인",
+      "replacement": "몽환적인",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "명료하하고",
+      "replacement": "명료하고",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "불명악한",
+      "replacement": "불명확한",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "감이된",
+      "replacement": "가미된",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "것들이를",
+      "replacement": "것들을",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "재질래",
+      "replacement": "재질에",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "반딱반 깜빡하게",
+      "replacement": "반짝반짝하게",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "넣 넣으면은",
+      "replacement": "넣으면은",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "Sref 코드 Sref 코드",
+      "replacement": "Sref 코드",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "세대를 한번",
+      "replacement": "세 배를 한번",
+      "type": "literal",
+      "confidence": "medium"
+    },
+    {
+      "pattern": "아무래 ",
+      "replacement": "아무래도 ",
+      "type": "literal",
+      "confidence": "high"
+    },
+    {
+      "pattern": "동합책 사파",
+      "replacement": "동화책 삽화",
+      "type": "literal",
+      "confidence": "medium"
+    },
+    {
+      "pattern": "바보면",
+      "replacement": "봐보면",
+      "type": "literal",
+      "confidence": "medium"
+    },
+    {
+      "pattern": "(?<![가-힣A-Za-z0-9])(?:요리프|테리프|쓰래프|셀리프|세리피|세리포|세리프트|슬리프|쓰리프)\\s*코드",
+      "replacement": "Sref 코드",
+      "type": "regex",
+      "confidence": "high"
+    },
+    {
+      "pattern": "\\s+\\.",
+      "replacement": ".",
+      "type": "regex",
+      "confidence": "high"
+    },
+    {
+      "pattern": "\\.{2,}",
+      "replacement": ".",
+      "type": "regex",
+      "confidence": "high"
+    }
+  ]
+}

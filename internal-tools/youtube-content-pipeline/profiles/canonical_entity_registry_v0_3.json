@@ -1,0 +1,200 @@
+{
+  "schema_version": "canonical_entity_registry_v0.3",
+  "extends": "canonical_entity_registry_v0_2.json",
+  "policy": {
+    "tier_a": "Verified product, tool, service, framework, model, platform, and UI feature names use official Latin spelling.",
+    "tier_b": "Verified protocols, file formats, and technical acronyms preserve their official Latin identifiers.",
+    "tier_c": "General design and development concepts remain natural Korean and are not globally translated.",
+    "unknown_entity_policy": "Unverified names remain unchanged and are recorded for review instead of being invented.",
+    "runtime_persistence": "Video-local evidence is never written back to the global registry automatically."
+  },
+  "entities": [
+    {
+      "canonical_name": "Figma",
+      "category": "tool",
+      "tier": "A",
+      "known_aliases": ["Figma"],
+      "korean_pronunciations": ["피그마"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "Figma Make",
+      "category": "UI_feature",
+      "tier": "A",
+      "known_aliases": ["Figma Make", "Figma 메이크"],
+      "korean_pronunciations": ["피그마 메이크"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "Dev Mode",
+      "category": "UI_feature",
+      "tier": "A",
+      "known_aliases": ["Dev Mode"],
+      "korean_pronunciations": ["데브 모드", "데브모드"],
+      "context_anchors": ["Figma", "MCP", "UI", "디자인", "모드"],
+      "confidence_policy": "high_with_exact_alias_or_repeated_video_evidence"
+    },
+    {
+      "canonical_name": "Claude",
+      "category": "model",
+      "tier": "A",
+      "known_aliases": ["Claude"],
+      "korean_pronunciations": ["클로드", "클러드"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "Claude Code",
+      "category": "tool",
+      "tier": "A",
+      "known_aliases": ["Claude Code", "Claude 코드"],
+      "korean_pronunciations": ["클로드 코드", "클러드 코드"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "ChatGPT",
+      "category": "service",
+      "tier": "A",
+      "known_aliases": ["ChatGPT"],
+      "korean_pronunciations": ["챗지피티", "채집피티", "채지피티"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "Cursor",
+      "category": "tool",
+      "tier": "A",
+      "known_aliases": ["Cursor"],
+      "korean_pronunciations": ["커서"],
+      "context_anchors": ["AI", "Claude", "MCP", "코드", "코딩", "채팅", "에디터", "툴"],
+      "confidence_policy": "high_only_with_coding_tool_context"
+    },
+    {
+      "canonical_name": "React",
+      "category": "framework",
+      "tier": "A",
+      "known_aliases": ["React"],
+      "korean_pronunciations": ["리액트"],
+      "context_anchors": ["코드", "코딩", "구현", "framework", "프레임워크"],
+      "confidence_policy": "high_with_framework_context"
+    },
+    {
+      "canonical_name": "Plan Mode",
+      "category": "UI_feature",
+      "tier": "A",
+      "known_aliases": ["Plan Mode"],
+      "korean_pronunciations": ["플랜 모드", "플랜모드"],
+      "context_anchors": ["agent", "Claude", "Cursor", "계획", "검토", "구현", "모드"],
+      "confidence_policy": "high_only_with_explicit_planning_workflow_context"
+    },
+    {
+      "canonical_name": "shadcn/ui",
+      "category": "framework",
+      "tier": "A",
+      "known_aliases": ["shadcn/ui", "shadcn UI"],
+      "korean_pronunciations": [],
+      "context_anchors": ["UI", "디자인 시스템", "오픈 소스", "킷", "컴포넌트"],
+      "confidence_policy": "high_only_with_explicit_name_or_strong_local_model_evidence"
+    },
+    {
+      "canonical_name": "Product Hunt",
+      "category": "platform",
+      "tier": "A",
+      "known_aliases": ["Product Hunt"],
+      "korean_pronunciations": ["프로덕트 헌트", "프로덕트헌트"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "AI",
+      "category": "technical_acronym",
+      "tier": "B",
+      "known_aliases": ["AI"],
+      "korean_pronunciations": ["에이아이"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "LLM",
+      "category": "technical_acronym",
+      "tier": "B",
+      "known_aliases": ["LLM"],
+      "korean_pronunciations": ["엘엘엠"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "MCP",
+      "category": "protocol",
+      "tier": "B",
+      "known_aliases": ["MCP"],
+      "korean_pronunciations": ["엠씨피"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "HTML",
+      "category": "file_format",
+      "tier": "B",
+      "known_aliases": ["HTML"],
+      "korean_pronunciations": ["에이치티엠엘"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "JSON",
+      "category": "file_format",
+      "tier": "B",
+      "known_aliases": ["JSON"],
+      "korean_pronunciations": ["제이슨"],
+      "context_anchors": ["파일", "데이터", "API", "포맷", "형식"],
+      "confidence_policy": "high_only_with_file_or_data_context"
+    },
+    {
+      "canonical_name": "API",
+      "category": "protocol",
+      "tier": "B",
+      "known_aliases": ["API"],
+      "korean_pronunciations": ["에이피아이"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "PR",
+      "category": "technical_acronym",
+      "tier": "B",
+      "known_aliases": ["PR"],
+      "korean_pronunciations": ["피알"],
+      "context_anchors": ["GitHub", "git", "코드", "리뷰", "pull request"],
+      "confidence_policy": "high_only_with_source_control_context"
+    },
+    {
+      "canonical_name": "UI",
+      "category": "technical_acronym",
+      "tier": "B",
+      "known_aliases": ["UI"],
+      "korean_pronunciations": ["유아이"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    },
+    {
+      "canonical_name": "UX",
+      "category": "technical_acronym",
+      "tier": "B",
+      "known_aliases": ["UX"],
+      "korean_pronunciations": ["유엑스"],
+      "confidence_policy": "high_when_exact_pronunciation"
+    }
+  ],
+  "protected_korean_concepts": [
+    "컴포넌트",
+    "프로퍼티",
+    "레이어",
+    "디자인 시스템",
+    "디자인 토큰",
+    "토큰",
+    "타이포그래피",
+    "스페이싱",
+    "컬러",
+    "버라이언트",
+    "속성",
+    "확장 프로그램",
+    "어노테이션",
+    "계층 구조",
+    "플러그인",
+    "랜딩 페이지",
+    "프롬프트",
+    "워크플로우"
+  ]
+}

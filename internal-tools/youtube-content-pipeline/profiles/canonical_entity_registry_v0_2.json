@@ -1,0 +1,130 @@
+{
+  "schema_version": "canonical_entity_registry_v0.2",
+  "created_at": "2026-08-07T14:23:08.452475+00:00",
+  "policy": {
+    "output_policy": "검증된 제품·모델·기능 고유명사는 normalized_text에서 공식 표기를 우선한다.",
+    "unknown_entity_policy": "등록되지 않은 이름을 문맥만으로 임의 발명하지 않는다."
+  },
+  "entities": [
+    {
+      "canonical_name": "Midjourney",
+      "entity_type": "product",
+      "spoken_aliases": [
+        "미드저니",
+        "미드전이",
+        "미드전일",
+        "미드전니",
+        "미드전위",
+        "민드전위",
+        "미느전이",
+        "미드이",
+        "미드니",
+        "이드니",
+        "무드전이전이"
+      ]
+    },
+    {
+      "canonical_name": "Higgsfield",
+      "entity_type": "product",
+      "spoken_aliases": [
+        "힉스필드",
+        "익스필드",
+        "픽스필드",
+        "익스피드"
+      ]
+    },
+    {
+      "canonical_name": "ChatGPT",
+      "entity_type": "product",
+      "spoken_aliases": [
+        "챗지피티",
+        "채집피티",
+        "채집비티",
+        "채지피티"
+      ]
+    },
+    {
+      "canonical_name": "Nano Banana Pro",
+      "entity_type": "product",
+      "spoken_aliases": [
+        "나노바나나 프로",
+        "나노바나 프로",
+        "나호바나 프로"
+      ]
+    },
+    {
+      "canonical_name": "Seedance",
+      "entity_type": "product",
+      "spoken_aliases": [
+        "시댄스",
+        "시덴스",
+        "시든지",
+        "C댄스",
+        "씨댄스"
+      ]
+    },
+    {
+      "canonical_name": "Sora",
+      "entity_type": "product",
+      "spoken_aliases": [
+        "쏘라"
+      ]
+    },
+    {
+      "canonical_name": "Kling",
+      "entity_type": "product",
+      "spoken_aliases": [
+        "클링"
+      ]
+    },
+    {
+      "canonical_name": "Sref",
+      "entity_type": "feature",
+      "context": "followed_by_code",
+      "spoken_aliases": [
+        "세리프",
+        "세프",
+        "쓰리프",
+        "슬리프",
+        "세리피",
+        "슬래프",
+        "스트랩",
+        "셀프",
+        "쓰래프",
+        "요리프",
+        "테리프",
+        "세리포",
+        "세리프트"
+      ]
+    },
+    {
+      "canonical_name": "덕테이프",
+      "entity_type": "product_or_workflow_term",
+      "spoken_aliases": [
+        "덕테이프",
+        "덕제이프",
+        "독대프",
+        "독테이프",
+        "독테잎",
+        "덕테잎"
+      ]
+    }
+  ],
+  "contextual_entities": [
+    {
+      "pattern": "익스피드 솔 시네마",
+      "replacement": "Higgsfield Soul Cinema",
+      "reason": "CH-05 editor verified"
+    },
+    {
+      "pattern": "Higgsfield 솔 시네마",
+      "replacement": "Higgsfield Soul Cinema",
+      "reason": "CH-05 editor verified"
+    },
+    {
+      "pattern": "요 툴은 필드입니다",
+      "replacement": "요 툴은 Higgsfield입니다",
+      "reason": "CH-05 editor verified; standalone 필드 is otherwise ambiguous"
+    }
+  ]
+}
