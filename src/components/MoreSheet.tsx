@@ -6,6 +6,7 @@ import { BottomSheet } from "./BottomSheet";
 import { PillChip, SquareChip } from "./Chip";
 import { YouTubeIcon } from "./YouTubeIcon";
 import { ProgressGauge } from "./ProgressGauge";
+import { useProgress } from "@/lib/progress";
 
 /** 더보기 시트 (355:9050) — 8개 섹션 */
 export function MoreSheet({
@@ -19,6 +20,7 @@ export function MoreSheet({
   course: Course;
   onPickPart: (partId: string) => void;
 }) {
+  const { doneOf } = useProgress();
   return (
     <BottomSheet open={open} onClose={onClose}>
       <div className="flex flex-col gap-4 px-4">
@@ -99,7 +101,7 @@ export function MoreSheet({
                   </span>
                 </div>
                 <p className="t-xs-medium clamp-2 text-zinc-700">{p.title}</p>
-                <ProgressGauge done={Math.min(p.doneCount, p.steps.length)} total={p.steps.length} />
+                <ProgressGauge done={Math.min(doneOf(p.id), p.steps.length)} total={p.steps.length} />
               </button>
             ))}
           </div>

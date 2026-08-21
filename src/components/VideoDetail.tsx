@@ -93,6 +93,7 @@ export function VideoDetail({ course }: { course: Course }) {
               />
               {finished ? (
                 <CompleteCard
+                  part={activePart}
                   hasNext={Boolean(nextPart)}
                   onNext={() => nextPart && openPart(nextPart.id)}
                   onRestart={() => setActivePartId(null)}

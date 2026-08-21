@@ -1,14 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import type { Part } from "@/lib/types";
 import { ProgressGauge } from "./ProgressGauge";
+import { useProgress } from "@/lib/progress";
 
 /**
  * 파트 카드 (357:13400 / 13414 / 13428)
  * 배경이 상태에 따라 달라요 — 완료면 zinc/100, 아니면 흰색.
  */
 export function PartCard({ part, onClick }: { part: Part; onClick?: () => void }) {
+  const { doneOf } = useProgress();
   const total = part.steps.length;
-  const done = Math.min(part.doneCount, total);
+  const done = Math.min(doneOf(part.id), total);
   const complete = done >= total && total > 0;
 
   return (
