@@ -9,7 +9,8 @@ import { useYouTube } from "./YouTubePlayer";
 
 /**
  * 카드 스와이프 스택 (355:9749)
- * 앞 카드 335×420, 뒤 카드는 0.9배로 뒤에 깔려요.
+ * 앞 카드 위에 뒤 카드가 0.9배로 깔려요. 좌우로 밀어서 넘깁니다.
+ * 카드 크기는 남는 공간에 맞춰 줄어들어요 (피그마 기준 335 × 420).
  */
 export function CardStack({
   part,
@@ -56,15 +57,12 @@ export function CardStack({
   }
 
   return (
-    <div className="relative">
-      <div className="relative flex h-[424px] w-full items-start justify-center pt-1">
+    <div className="flex min-h-0 flex-1 flex-col">
+      <div className="relative flex min-h-0 flex-1 items-stretch justify-center px-5 pb-1 pt-1">
         {/* 뒤 카드 */}
         {next && (
-          <div
-            className="absolute top-[29px] origin-top scale-90 opacity-60"
-            style={{ filter: "blur(0.2px)" }}
-          >
-            <div className="pointer-events-none">
+          <div className="pointer-events-none absolute inset-x-5 inset-y-1 flex justify-center overflow-hidden opacity-60">
+            <div className="h-full w-full max-w-[335px] origin-top translate-y-6 scale-90">
               <LearningCard
                 step={next}
                 onOpenInfo={() => {}}
@@ -81,7 +79,7 @@ export function CardStack({
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
             key={step.id}
-            className="absolute top-1 z-10"
+            className="z-10 h-full w-full max-w-[335px]"
             initial={{ x: 40, opacity: 0, scale: 0.96 }}
             animate={{ x: 0, opacity: 1, scale: 1 }}
             exit={{ x: -320, opacity: 0 }}
@@ -106,7 +104,7 @@ export function CardStack({
       </div>
 
       {/* 넘기기 안내 */}
-      <div className="flex items-center justify-center pb-6">
+      <div className="flex shrink-0 items-center justify-center py-3">
         <span className="t-2xs-medium text-zinc-500">← 밀어서 넘기기 →</span>
       </div>
 

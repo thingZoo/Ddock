@@ -28,14 +28,14 @@ export function BottomSheet({
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-50 flex justify-center"
+          className="absolute inset-0 z-50 flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <div className="absolute inset-0 bg-black/40" onClick={onClose} />
           <motion.div
-            className="absolute bottom-0 w-full max-w-[var(--app-w)] overflow-hidden rounded-t-card bg-[var(--bg-modal)]"
+            className="absolute bottom-0 w-full overflow-hidden rounded-t-card bg-[var(--bg-modal)]"
             style={{ maxHeight }}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
@@ -51,7 +51,7 @@ export function BottomSheet({
             <div className="flex justify-center py-3">
               <span className="h-1 w-10 rounded-pill bg-zinc-300" />
             </div>
-            <div className="max-h-[calc(88vh-40px)] overflow-y-auto overscroll-contain pb-8">
+            <div className="max-h-[calc(100%-40px)] overflow-y-auto overscroll-contain pb-8">
               {children}
             </div>
           </motion.div>

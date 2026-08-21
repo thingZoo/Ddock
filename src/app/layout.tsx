@@ -10,7 +10,9 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#ffffff",
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: "#f4f4f5",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -22,7 +24,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* eslint-disable-next-line @next/next/no-css-tags */}
         <link rel="stylesheet" href="/fonts/pretendard.css" />
       </head>
-      <body className="min-h-full bg-zinc-100">{children}</body>
+      <body className="flex min-h-[100dvh] justify-center bg-[var(--shell-bg)] sm:items-center">
+        {children}
+      </body>
     </html>
   );
 }
