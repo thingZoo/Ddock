@@ -935,6 +935,31 @@ class DdockContentCurationTests(unittest.TestCase):
         candidates = extract_source_backed_tool_candidates(script)
         self.assertIn("Cursor", [value["canonical_name"] for value in candidates])
 
+    def test_generated_aliases_restore_source_backed_official_latin_names(self) -> None:
+        detail = _detail_response()
+        detail["recommendation"]["title"] = "커서 설정을 직접 따라 해보고 싶은 분"
+        detail["recommendation"]["body"] = "커서에서 MCP 설정부터 실행 결과까지 따라갈 수 있어요."
+        detail["tools"][0]["name"] = "커서"
+        detail["tags"] = ["커서", "MCP", "설정", "실행"]
+
+        def generator(_model: str, system: str, _user: str, _max_tokens: int) -> str:
+            if "ddock_part_planning_v0.2" in system:
+                response = _part_response()
+            elif "ddock_step_generation_v0.2" in system:
+                response = _step_response()
+            else:
+                response = detail
+            return json.dumps(response, ensure_ascii=False)
+
+        package = curate_ddock_content(
+            self.result, self.source, generator=generator, model_name="fixture-model"
+        )
+        recommendation = package["video_detail"]["recommendation"]
+        self.assertIn("Cursor", recommendation["title"])
+        self.assertIn("Cursor", recommendation["body"])
+        self.assertEqual(package["video_detail"]["tools"][0]["name"], "Cursor")
+        self.assertEqual(package["video_detail"]["tags"][0], "Cursor")
+
     def test_unsupported_tool_is_not_added(self) -> None:
         _, script = build_script_contract(self.result)
         response = _detail_response()

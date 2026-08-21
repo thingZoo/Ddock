@@ -124,6 +124,8 @@ STEP 하단의 “구간 스크립트 보기”는 STEP 일부가 아니라 `par
 - Tags는 업무 유형, 도구, 핵심 작업 중심의 최대 8개 semantic string입니다.
 - PART preview는 final PART에서 deterministic하게 만듭니다.
 
+Model이 recommendation, PART/STEP surface, Learn More, warning, tag, tool description에서 source-backed alias를 다시 한국어 음역으로 쓰더라도, canonical registry와 현재 영상의 exact evidence가 함께 있는 이름만 공식 Latin 표기로 복원합니다. Script 원문과 verbatim prompt는 provenance 보존을 위해 이 후처리에서 제외합니다.
+
 조회수와 좋아요는 acquisition metadata가 있을 때만 `source`에 포함합니다.
 
 ## Model passes

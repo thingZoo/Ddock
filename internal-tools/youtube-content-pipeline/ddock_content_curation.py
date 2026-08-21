@@ -1225,6 +1225,86 @@ def extract_source_backed_tool_candidates(
     return candidates
 
 
+def _canonicalize_source_backed_names(
+    value: str,
+    candidates: list[dict[str, Any]],
+) -> str:
+    text = str(value or "")
+    replacements: list[tuple[str, str]] = []
+    source_backed = {
+        str(candidate.get("canonical_name") or "").strip().casefold()
+        for candidate in candidates
+        if str(candidate.get("canonical_name") or "").strip()
+    }
+    for entity in _canonical_registry_entities():
+        canonical = str(entity.get("canonical_name") or "").strip()
+        if not canonical or canonical.casefold() not in source_backed:
+            continue
+        aliases = [canonical]
+        for key in ("known_aliases", "korean_pronunciations", "spoken_aliases"):
+            aliases.extend(str(alias) for alias in entity.get(key) or [])
+        for alias in aliases:
+            alias_text = str(alias or "").strip()
+            if alias_text and alias_text.casefold() != canonical.casefold():
+                replacements.append((alias_text, canonical))
+    for alias, canonical in sorted(
+        set(replacements),
+        key=lambda item: (-len(item[0]), item[0].casefold(), item[1].casefold()),
+    ):
+        text = re.sub(re.escape(alias), canonical, text, flags=re.IGNORECASE)
+    return text
+
+
+def _canonicalize_generated_names(
+    parts: list[dict[str, Any]],
+    recommendation: dict[str, Any] | None,
+    tools: list[dict[str, Any]],
+    tags: list[str],
+    omitted_part_candidates: list[dict[str, Any]],
+    script: list[dict[str, Any]],
+) -> tuple[dict[str, Any] | None, list[str]]:
+    """Restore evidenced official names without changing script or verbatim prompts."""
+    candidates = extract_source_backed_tool_candidates(script)
+
+    def official(value: Any) -> str:
+        return _canonicalize_source_backed_names(str(value or ""), candidates)
+
+    for part in parts:
+        for field in ("title", "summary", "action_objective"):
+            if part.get(field) is not None:
+                part[field] = official(part[field])
+        for excluded in part.get("excluded_actions") or []:
+            excluded["reason"] = official(excluded.get("reason"))
+        for step in part.get("steps") or []:
+            step["action_title"] = official(step.get("action_title"))
+            for line in step.get("action_lines") or []:
+                for segment in line.get("segments") or []:
+                    segment["text"] = official(segment.get("text"))
+                line["text"] = "".join(
+                    str(segment.get("text") or "")
+                    for segment in line.get("segments") or []
+                )
+            warning = step.get("warning")
+            if isinstance(warning, dict):
+                warning["title"] = official(warning.get("title"))
+                warning["body"] = official(warning.get("body"))
+            for learn_more in step.get("learn_more") or []:
+                learn_more["question"] = official(learn_more.get("question"))
+                learn_more["body"] = official(learn_more.get("body"))
+    for omitted in omitted_part_candidates:
+        omitted["title"] = official(omitted.get("title"))
+        omitted["action_objective"] = official(omitted.get("action_objective"))
+    if recommendation is not None:
+        for field in ("title", "body"):
+            recommendation[field] = official(recommendation.get(field))
+        for claim in recommendation.get("claims") or []:
+            claim["text"] = official(claim.get("text"))
+    for tool in tools:
+        tool["name"] = str(tool.get("canonical_name") or tool.get("name") or "")
+        tool["description"] = official(tool.get("description"))
+    return recommendation, [official(value) for value in tags]
+
+
 def build_video_detail_prompts(
     source: dict[str, Any],
     script: list[dict[str, Any]],
@@ -1825,6 +1905,15 @@ def curate_ddock_content(
         warnings.append(f"pass_c_failed:{type(exc).__name__}:{str(exc)[:300]}")
         if status == "completed":
             status = "partial"
+
+    recommendation, tags = _canonicalize_generated_names(
+        parts,
+        recommendation,
+        tools,
+        tags,
+        omitted_part_candidates,
+        script,
+    )
 
     _attach_script_part_membership(script, parts)
     review_reasons: list[str] = []
