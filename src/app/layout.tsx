@@ -1,29 +1,28 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Ddock — 디자이너를 위한 AI 브리핑",
-  description: "영상을 안 봐도 손으로 따라할 수 있는 학습 카드 서비스",
+  description: "영상을 안 봐도 손으로 따라할 수 있는 학습 카드",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="ko"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-neutral-50 text-neutral-900">{children}</body>
+    <html lang="ko" className="h-full">
+      <head>
+        {/* Pretendard 동적 서브셋 — 화면에 쓰인 글자 구간만 내려받아요.
+            public/ 에 생성되는 파일이라 next/font 로는 못 걸어서 link 로 붙입니다. */}
+        {/* eslint-disable-next-line @next/next/no-css-tags */}
+        <link rel="stylesheet" href="/fonts/pretendard.css" />
+      </head>
+      <body className="min-h-full bg-zinc-100">{children}</body>
     </html>
   );
 }
