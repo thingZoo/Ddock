@@ -7,7 +7,7 @@ import { YouTubeProvider } from "./YouTubePlayer";
 import { Tabs, type TabKey } from "./Tabs";
 import { PartCard } from "./PartCard";
 import { MoreSheet } from "./MoreSheet";
-import { ChapterBar } from "./ChapterBar";
+import { PartBar } from "./PartBar";
 import { CardStack } from "./CardStack";
 import { CompleteCard } from "./CompleteCard";
 import { ScriptTab } from "./ScriptTab";
@@ -19,7 +19,8 @@ export function VideoDetail({ course }: { course: Course }) {
   /** null 이면 파트 목록, 값이 있으면 그 파트의 가이드 */
   const [activePartId, setActivePartId] = useState<string | null>(null);
   const [finished, setFinished] = useState(false);
-  const [stepNo, setStepNo] = useState(1);
+  /** 0부터. 탭을 옮겼다 돌아와도 보던 카드가 그대로 나와요 */
+  const [stepIndex, setStepIndex] = useState(0);
   const [scriptPartNo, setScriptPartNo] = useState<number | null>(null);
 
   const activePart = course.parts.find((p) => p.id === activePartId) ?? null;
@@ -29,7 +30,7 @@ export function VideoDetail({ course }: { course: Course }) {
   const openPart = useCallback((id: string) => {
     setActivePartId(id);
     setFinished(false);
-    setStepNo(1);
+    setStepIndex(0);
     setTab("catchup");
     setMoreOpen(false);
   }, []);
@@ -84,12 +85,12 @@ export function VideoDetail({ course }: { course: Course }) {
         {tab === "catchup" &&
           (activePart ? (
             <div className="flex min-h-0 flex-1 flex-col">
-              <ChapterBar
+              <PartBar
                 part={activePart}
-                current={finished ? activePart.steps.length : stepNo}
+                current={finished ? activePart.steps.length : stepIndex + 1}
                 total={activePart.steps.length}
                 finished={finished}
-                onPickPart={() => setActivePartId(null)}
+                onBack={() => setActivePartId(null)}
               />
               {finished ? (
                 <CompleteCard
@@ -102,9 +103,10 @@ export function VideoDetail({ course }: { course: Course }) {
                 <CardStack
                   key={activePart.id}
                   part={activePart}
+                  index={stepIndex}
+                  onIndexChange={setStepIndex}
                   onFinish={() => setFinished(true)}
                   onSeeScript={seeScript}
-                  onIndexChange={setStepNo}
                 />
               )}
             </div>
