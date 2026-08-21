@@ -1,0 +1,56 @@
+/*
+ * Figma 시안대로 전체 폭 고정 바를 유지한다 (2026-08-19 결정).
+ * 앱인토스 비게임 출시 가이드는 "탭바를 사용하는 경우, 토스 앱과 동일한
+ * 플로팅 형태로 구현돼 있어요"를 요구하므로, 검수 제출 전에 이 형태로
+ * 통과 가능한지 확인이 필요하다.
+ */
+.tabBar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  z-index: 10;
+  width: 375px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: stretch;
+  padding: 0 var(--page-gutter);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  border-top: 1px solid var(--zinc-100);
+  border-top-left-radius: var(--radius-xl);
+  border-top-right-radius: var(--radius-xl);
+  background: #ffffff;
+}
+
+.segment {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+  height: var(--tabbar-height);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px;
+}
+
+/*
+ * 아이콘 원본 색이 제각각이라(홈만 진한 색, 나머지는 회색) 활성/비활성
+ * 두 벌(active #27272A, inactive #A1A1AA)을 만들어 src 를 교체한다.
+ */
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.label {
+  font-size: var(--font-xs);
+  font-weight: var(--weight-medium);
+  line-height: var(--lh-xs);
+  letter-spacing: var(--track-xs);
+  color: var(--zinc-400);
+  text-align: center;
+}
+
+.labelActive {
+  color: var(--zinc-800);
+}
