@@ -1,0 +1,1286 @@
+```json
+{
+  "mode": "practice",
+  "mode_reason": "비디오 내에서 구체적인 작업 절차와 명령어가 제시됨",
+  "classifications": [
+    {
+      "utterance_id": "UT-00001",
+      "label": "STEP",
+      "workflow_hint": "디자인 시스템 구현",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00002",
+      "label": "STEP",
+      "workflow_hint": "화면 캡처 확인",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00003",
+      "label": "INFO",
+      "workflow_hint": "AI 도구 발전 배경",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00004",
+      "label": "HOOK",
+      "workflow_hint": "인터뷰 시작",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00005",
+      "label": "INFO",
+      "workflow_hint": "경력 정보",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00006",
+      "label": "INFO",
+      "workflow_hint": "전문 분야 설명",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00007",
+      "label": "HOOK",
+      "workflow_hint": "활동 시작 질문",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00008",
+      "label": "INFO",
+      "workflow_hint": "Figma 접점",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00009",
+      "label": "INFO",
+      "workflow_hint": "공유 시작 계기",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00010",
+      "label": "INFO",
+      "workflow_hint": "지속적 활동 이유",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00011",
+      "label": "INFO",
+      "workflow_hint": "성공 및 영감",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00012",
+      "label": "HOOK",
+      "workflow_hint": "내용 소개 요청",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00013",
+      "label": "INFO",
+      "workflow_hint": "디자인 시스템 이점",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00014",
+      "label": "INFO",
+      "workflow_hint": "Figma 메이크 도구 소개",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00015",
+      "label": "INFO",
+      "workflow_hint": "AI 도구 연동 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00016",
+      "label": "INFO",
+      "workflow_hint": "작업 과정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00017",
+      "label": "INFO",
+      "workflow_hint": "대상 청중 설명",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00018",
+      "label": "INFO",
+      "workflow_hint": "내용 설명 요청",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00019",
+      "label": "STEP",
+      "workflow_hint": "디자인 시스템 파일 로드",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00020",
+      "label": "STEP_PREVIEW",
+      "workflow_hint": "작업 진행 설명",
+      "drop_reason": "preview"
+    },
+    {
+      "utterance_id": "UT-00021",
+      "label": "INFO",
+      "workflow_hint": "커뮤니티 자료 활용",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00022",
+      "label": "INFO",
+      "workflow_hint": "스타일 가이드 및 컴포넌트 준비",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00023",
+      "label": "STEP",
+      "workflow_hint": "MCP를 통한 디자인 시스템 추출",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00024",
+      "label": "HOOK",
+      "workflow_hint": "초보자 설명 요청",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00025",
+      "label": "INFO",
+      "workflow_hint": "설명 요청 응답",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00026",
+      "label": "INFO",
+      "workflow_hint": "컴포넌트 단위 관리 이유",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00027",
+      "label": "INFO",
+      "workflow_hint": "하드코딩의 비효율성",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00028",
+      "label": "INFO",
+      "workflow_hint": "AI 코딩 효율성",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00029",
+      "label": "INFO",
+      "workflow_hint": "시스템 프롬프트 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00030",
+      "label": "INFO",
+      "workflow_hint": "기획 문서 세부화",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00031",
+      "label": "INFO",
+      "workflow_hint": "기획 문서 세부화",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00032",
+      "label": "INFO",
+      "workflow_hint": "기획 문서 세부화",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00033",
+      "label": "INFO",
+      "workflow_hint": "기획 문서 세부화",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00034",
+      "label": "INFO",
+      "workflow_hint": "작업 진행 요청",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00035",
+      "label": "INFO",
+      "workflow_hint": "일관성 유지 이유",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00036",
+      "label": "INFO",
+      "workflow_hint": "AI 도구 연동 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00037",
+      "label": "STEP",
+      "workflow_hint": "Figma MCP 연결",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00038",
+      "label": "STEP",
+      "workflow_hint": "코드 복사 및 붙여넣기",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00039",
+      "label": "STEP",
+      "workflow_hint": "MCP 파일 추가",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00040",
+      "label": "INFO",
+      "workflow_hint": "노드 정보 읽기 요청",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00041",
+      "label": "INFO",
+      "workflow_hint": "메타데이터 읽기",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00042",
+      "label": "INFO",
+      "workflow_hint": "기본 소스 활용",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00043",
+      "label": "STEP",
+      "workflow_hint": "데브 모드 활성화",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00044",
+      "label": "WARNING_EVIDENCE",
+      "workflow_hint": "데브 모드 사용 제한",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00045",
+      "label": "INFO",
+      "workflow_hint": "프로 이상 사용자",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00046",
+      "label": "INFO",
+      "workflow_hint": "무료 플러그인 대안",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00047",
+      "label": "STEP",
+      "workflow_hint": "MCP 연결 확인 요청",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00048",
+      "label": "INFO",
+      "workflow_hint": "섹션 단위 읽기",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00049",
+      "label": "STEP",
+      "workflow_hint": "스타일 가이드 섹션 읽기",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00050",
+      "label": "INFO",
+      "workflow_hint": "토큰화 과정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00051",
+      "label": "INFO",
+      "workflow_hint": "토큰화 목적",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00052",
+      "label": "INFO",
+      "workflow_hint": "재사용성 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00053",
+      "label": "INFO",
+      "workflow_hint": "디자인 토큰 정의",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00054",
+      "label": "INFO",
+      "workflow_hint": "토큰과 컴포넌트 차이 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00055",
+      "label": "INFO",
+      "workflow_hint": "토큰 정의",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00056",
+      "label": "HOOK",
+      "workflow_hint": "질문 요청",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00057",
+      "label": "INFO",
+      "workflow_hint": "토큰 정의",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00058",
+      "label": "INFO",
+      "workflow_hint": "토큰 기반 컴포넌트 구성",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00059",
+      "label": "HOOK",
+      "workflow_hint": "협업 질문",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00060",
+      "label": "INFO",
+      "workflow_hint": "협업 방식 변화",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00061",
+      "label": "INFO",
+      "workflow_hint": "전문성 분담",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00062",
+      "label": "INFO",
+      "workflow_hint": "실시간 수정 협업",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00063",
+      "label": "INFO",
+      "workflow_hint": "개발자 집중 영역",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00064",
+      "label": "INFO",
+      "workflow_hint": "협업 방식 변화",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00065",
+      "label": "CHECKPOINT",
+      "workflow_hint": "토큰 구현 완료",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00066",
+      "label": "STEP",
+      "workflow_hint": "컴포넌트 구성 요청",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00067",
+      "label": "INFO",
+      "workflow_hint": "컴포넌트 소스 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00068",
+      "label": "INFO",
+      "workflow_hint": "프로퍼티 적용 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00069",
+      "label": "INFO",
+      "workflow_hint": "프로퍼티 포함 요청",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00070",
+      "label": "INFO",
+      "workflow_hint": "프로퍼티 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00071",
+      "label": "INFO",
+      "workflow_hint": "버라이언트 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00072",
+      "label": "INFO",
+      "workflow_hint": "컴포넌트 구조 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00073",
+      "label": "INFO",
+      "workflow_hint": "아이콘 포함 여부 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00074",
+      "label": "INFO",
+      "workflow_hint": "프로퍼티 포함 구성",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00075",
+      "label": "INFO",
+      "workflow_hint": "컴포넌트 구성 이점",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00076",
+      "label": "INFO",
+      "workflow_hint": "초보자 고민 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00077",
+      "label": "INFO",
+      "workflow_hint": "커뮤니티 자료 활용",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00078",
+      "label": "INFO",
+      "workflow_hint": "오픈소스 디자인 시스템 예시",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00079",
+      "label": "INFO",
+      "workflow_hint": "글로벌 기업 디자인 시스템",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00080",
+      "label": "INFO",
+      "workflow_hint": "오픈소스 활용 추천",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00081",
+      "label": "STEP",
+      "workflow_hint": "디자인 시스템닷컴 방문",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00082",
+      "label": "STEP",
+      "workflow_hint": "Figma 디자인 원본 복사",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00083",
+      "label": "INFO",
+      "workflow_hint": "디자인 시스템 활용 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00084",
+      "label": "INFO",
+      "workflow_hint": "디자인 시스템 활용 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00085",
+      "label": "INFO",
+      "workflow_hint": "기본 소스 활용 추천",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00086",
+      "label": "INFO",
+      "workflow_hint": "오픈소스 활용 추천",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00087",
+      "label": "HOOK",
+      "workflow_hint": "다음 설명 요청",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00088",
+      "label": "STEP",
+      "workflow_hint": "컴포넌트 섹션 선택",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00089",
+      "label": "STEP",
+      "workflow_hint": "리액트 코드로 구현 요청",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00090",
+      "label": "INFO",
+      "workflow_hint": "플랫 모드 사용 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00091",
+      "label": "STEP",
+      "workflow_hint": "전체 컴포넌트 구현 요청",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00092",
+      "label": "STEP_PREVIEW",
+      "workflow_hint": "작업 진행 중",
+      "drop_reason": "preview"
+    },
+    {
+      "utterance_id": "UT-00093",
+      "label": "INFO",
+      "workflow_hint": "이미지 기반 인식",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00094",
+      "label": "INFO",
+      "workflow_hint": "이미지 인식 개선",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00095",
+      "label": "INFO",
+      "workflow_hint": "이미지 인식 개선",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00096",
+      "label": "INFO",
+      "workflow_hint": "작업 설정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00097",
+      "label": "INFO",
+      "workflow_hint": "MCP 속도 개선",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00098",
+      "label": "INFO",
+      "workflow_hint": "작업 진행 중",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00099",
+      "label": "INFO",
+      "workflow_hint": "작업 계획 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00100",
+      "label": "INFO",
+      "workflow_hint": "계획 읽기 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00101",
+      "label": "INFO",
+      "workflow_hint": "가이드 파일 읽기",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00102",
+      "label": "INFO",
+      "workflow_hint": "작업 진행 중",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00103",
+      "label": "INFO",
+      "workflow_hint": "유사성 높은 결과",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00104",
+      "label": "INFO",
+      "workflow_hint": "작업 진행 중",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00105",
+      "label": "INFO",
+      "workflow_hint": "결과 검토 필요",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00106",
+      "label": "INFO",
+      "workflow_hint": "작업 진행 중",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00107",
+      "label": "INFO",
+      "workflow_hint": "작업 진행 중",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00108",
+      "label": "INFO",
+      "workflow_hint": "정리된 디자인의 이점",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00109",
+      "label": "INFO",
+      "workflow_hint": "초기 단계의 부족",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00110",
+      "label": "INFO",
+      "workflow_hint": "LLM 토큰 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00111",
+      "label": "INFO",
+      "workflow_hint": "LLM 토큰 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00112",
+      "label": "INFO",
+      "workflow_hint": "실무 방식 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00113",
+      "label": "INFO",
+      "workflow_hint": "초기 단계의 작업 방식",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00114",
+      "label": "INFO",
+      "workflow_hint": "규칙 설정의 중요성",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00115",
+      "label": "INFO",
+      "workflow_hint": "실무자 관심 증가",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00116",
+      "label": "INFO",
+      "workflow_hint": "기술 도입 질문",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00117",
+      "label": "INFO",
+      "workflow_hint": "기존 협업 방식 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00118",
+      "label": "INFO",
+      "workflow_hint": "레이어명 자동 변경 기능",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00119",
+      "label": "INFO",
+      "workflow_hint": "레이어명 자동 변경 기능",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00120",
+      "label": "INFO",
+      "workflow_hint": "레이어명 자동 변경 기능",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00121",
+      "label": "STEP",
+      "workflow_hint": "레이어명 일괄 변경",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00122",
+      "label": "STEP",
+      "workflow_hint": "레이어명 일괄 변경",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00123",
+      "label": "INFO",
+      "workflow_hint": "레이어명 규칙 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00124",
+      "label": "INFO",
+      "workflow_hint": "레이어명 자동 변경 기능",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00125",
+      "label": "INFO",
+      "workflow_hint": "레이어명 자동 변경 기능",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00126",
+      "label": "INFO",
+      "workflow_hint": "레이어명 자동 변경 기능",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00127",
+      "label": "INFO",
+      "workflow_hint": "레이어명 자동 변경 기능",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00128",
+      "label": "INFO",
+      "workflow_hint": "빌드 완료 확인",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00129",
+      "label": "STEP",
+      "workflow_hint": "브라우저에 띄우기",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00130",
+      "label": "INFO",
+      "workflow_hint": "결과 품질 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00131",
+      "label": "INFO",
+      "workflow_hint": "결과 품질 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00132",
+      "label": "INFO",
+      "workflow_hint": "간단한 수정",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00133",
+      "label": "INFO",
+      "workflow_hint": "디자인 편집 사용",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00134",
+      "label": "INFO",
+      "workflow_hint": "레이아웃 편집 편의성",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00135",
+      "label": "HOOK",
+      "workflow_hint": "추가 질문 요청",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00136",
+      "label": "INFO",
+      "workflow_hint": "후속 작업 추천",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00137",
+      "label": "INFO",
+      "workflow_hint": "실무 반영 시기 조기화",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00138",
+      "label": "INFO",
+      "workflow_hint": "워크플로우 참고 추천",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00139",
+      "label": "HOOK",
+      "workflow_hint": "다음 파트 요청",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00140",
+      "label": "STEP",
+      "workflow_hint": "스크린 플로우 소개",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00141",
+      "label": "STEP",
+      "workflow_hint": "링크 입력 및 캡처",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00142",
+      "label": "INFO",
+      "workflow_hint": "사이트 맵 트리 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00143",
+      "label": "INFO",
+      "workflow_hint": "극기 단계 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00144",
+      "label": "HOOK",
+      "workflow_hint": "제품 배경 질문",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00145",
+      "label": "INFO",
+      "workflow_hint": "기존 작업 방식 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00146",
+      "label": "INFO",
+      "workflow_hint": "작업 번거로움 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00147",
+      "label": "INFO",
+      "workflow_hint": "제품 출시 목적",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00148",
+      "label": "STEP",
+      "workflow_hint": "해상도별 캡처 확인",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00149",
+      "label": "STEP",
+      "workflow_hint": "Figma 플러그인 설치",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00150",
+      "label": "STEP",
+      "workflow_hint": "플러그인 연결",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00151",
+      "label": "STEP",
+      "workflow_hint": "이미지 또는 레이어 원본 선택",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00152",
+      "label": "STEP",
+      "workflow_hint": "HTML 원본 가져오기",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00153",
+      "label": "INFO",
+      "workflow_hint": "HTML 원본 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00154",
+      "label": "INFO",
+      "workflow_hint": "HTML 원본 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00155",
+      "label": "INFO",
+      "workflow_hint": "HTML 원본 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00156",
+      "label": "INFO",
+      "workflow_hint": "비주얼 커뮤니케이션 중요성",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00157",
+      "label": "INFO",
+      "workflow_hint": "비주얼 커뮤니케이션 중요성",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00158",
+      "label": "INFO",
+      "workflow_hint": "HTML2 디자인 개발 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00159",
+      "label": "INFO",
+      "workflow_hint": "제품 사용 감정",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00160",
+      "label": "INFO",
+      "workflow_hint": "다중 페이지 벌크 가져오기",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00161",
+      "label": "INFO",
+      "workflow_hint": "제품 사용 감정",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00162",
+      "label": "HOOK",
+      "workflow_hint": "제품 개발 배경 질문",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00163",
+      "label": "INFO",
+      "workflow_hint": "제품 개발 초기 단계",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00164",
+      "label": "INFO",
+      "workflow_hint": "제품 개발 초기 단계",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00165",
+      "label": "INFO",
+      "workflow_hint": "제품 개발 초기 단계",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00166",
+      "label": "INFO",
+      "workflow_hint": "제품 개발 초기 단계",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00167",
+      "label": "INFO",
+      "workflow_hint": "제품 개발 초기 단계",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00168",
+      "label": "INFO",
+      "workflow_hint": "제품 개발 초기 단계",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00169",
+      "label": "INFO",
+      "workflow_hint": "제품 개발 초기 단계",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00170",
+      "label": "INFO",
+      "workflow_hint": "유저 인터뷰 피드백",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00171",
+      "label": "INFO",
+      "workflow_hint": "유저 인터뷰 피드백",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00172",
+      "label": "INFO",
+      "workflow_hint": "유저 인터뷰 피드백",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00173",
+      "label": "INFO",
+      "workflow_hint": "유저 인터뷰 피드백",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00174",
+      "label": "HOOK",
+      "workflow_hint": "피드백 반영 질문",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00175",
+      "label": "INFO",
+      "workflow_hint": "피드백 반영 과정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00176",
+      "label": "INFO",
+      "workflow_hint": "피드백 반영 과정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00177",
+      "label": "INFO",
+      "workflow_hint": "피드백 반영 과정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00178",
+      "label": "INFO",
+      "workflow_hint": "피드백 반영 과정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00179",
+      "label": "INFO",
+      "workflow_hint": "피드백 반영 과정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00180",
+      "label": "INFO",
+      "workflow_hint": "피드백 반영 과정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00181",
+      "label": "INFO",
+      "workflow_hint": "피드백 반영 과정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00182",
+      "label": "INFO",
+      "workflow_hint": "피드백 반영 과정 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00183",
+      "label": "HOOK",
+      "workflow_hint": "미래 계획 질문",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00184",
+      "label": "INFO",
+      "workflow_hint": "오픈 베타 상태 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00185",
+      "label": "INFO",
+      "workflow_hint": "유료화 계획",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00186",
+      "label": "INFO",
+      "workflow_hint": "유료화 계획",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00187",
+      "label": "INFO",
+      "workflow_hint": "유료화 계획",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00188",
+      "label": "HOOK",
+      "workflow_hint": "마케팅 계획 질문",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00189",
+      "label": "INFO",
+      "workflow_hint": "마케팅 전략 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00190",
+      "label": "INFO",
+      "workflow_hint": "마케팅 전략 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00191",
+      "label": "INFO",
+      "workflow_hint": "마케팅 전략 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00192",
+      "label": "INFO",
+      "workflow_hint": "마케팅 전략 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00193",
+      "label": "INFO",
+      "workflow_hint": "마케팅 전략 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00194",
+      "label": "INFO",
+      "workflow_hint": "마케팅 전략 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00195",
+      "label": "INFO",
+      "workflow_hint": "마케팅 전략 설명",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00196",
+      "label": "HOOK",
+      "workflow_hint": "마케팅 연계 질문",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00197",
+      "label": "INFO",
+      "workflow_hint": "마케팅 연계 계획",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00198",
+      "label": "INFO",
+      "workflow_hint": "마케팅 연계 계획",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00199",
+      "label": "INFO",
+      "workflow_hint": "마케팅 연계 계획",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00200",
+      "label": "INFO",
+      "workflow_hint": "마케팅 연계 계획",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00201",
+      "label": "INFO",
+      "workflow_hint": "마케팅 연계 계획",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00202",
+      "label": "INFO",
+      "workflow_hint": "마케팅 연계 계획",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00203",
+      "label": "INFO",
+      "workflow_hint": "마케팅 연계 계획",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00204",
+      "label": "HOOK",
+      "workflow_hint": "초보자 조언 요청",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00205",
+      "label": "INFO",
+      "workflow_hint": "초보자 조언",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00206",
+      "label": "INFO",
+      "workflow_hint": "초보자 조언",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00207",
+      "label": "INFO",
+      "workflow_hint": "초보자 조언",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00208",
+      "label": "INFO",
+      "workflow_hint": "초보자 조언",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00209",
+      "label": "INFO",
+      "workflow_hint": "초보자 조언",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00210",
+      "label": "INFO",
+      "workflow_hint": "초보자 조언",
+      "drop_reason": null
+    },
+    {
+      "utterance_id": "UT-00211",
+      "label": "INFO",
+      "workflow_hint": "마지막 인사",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00212",
+      "label": "INFO",
+      "workflow_hint": "마지막 인사",
+      "drop_reason": "small_talk"
+    },
+    {
+      "utterance_id": "UT-00213",
+      "label": "INFO",
+      "workflow_hint": "마지막 인사",
+      "drop_reason": "small_talk"
+    }
+  ]
+}
+```

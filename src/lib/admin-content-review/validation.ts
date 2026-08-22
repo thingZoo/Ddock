@@ -60,6 +60,10 @@ export function isReviewItemResolved(
     const part = draft.draft_parts.find((value) => value.part_id === item.part_id);
     return Boolean(part && partHasCoreFields(part));
   }
+  if (item.type === "unaccounted_action_anchor" && item.part_id) {
+    const part = draft.draft_parts.find((value) => value.part_id === item.part_id);
+    return Boolean(part && partHasCoreFields(part));
+  }
   if (item.type === "step_needs_review" && item.part_id && item.step_id) {
     const part = draft.draft_parts.find((value) => value.part_id === item.part_id);
     const step = part?.steps.find((value) => value.step_id === item.step_id);

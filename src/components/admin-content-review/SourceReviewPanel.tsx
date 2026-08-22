@@ -25,6 +25,17 @@ const reviewTypeLabels: Record<ReviewQueueItem["type"], string> = {
   unattached_context: "연결되지 않은 맥락",
   unsupported_claim_removed: "근거 없는 문장 제거",
   script_not_human_verified: "스크립트 검수 필요",
+  uncertain_entity: "이름 확인 필요",
+  checkpoint_missing: "완료 확인 근거 없음",
+  prompt_removed: "프롬프트 제거",
+  weak_grounding: "근거 연결 확인",
+  source_claim_needs_verification: "원본 주장 확인 필요",
+  unaccounted_action_anchor: "확인되지 않은 작업",
+  low_action_anchor_coverage: "일부 작업이 PART에 포함되지 않았어요",
+  supplemental_action_anchor: "추가로 발견한 작업이에요",
+  possible_duplicate_part: "비슷한 PART를 확인해 주세요",
+  workflow_grouping_review: "PART 구성을 다시 확인해 주세요",
+  writing_style_review: "사용자 문구를 자연스럽게 다듬어 주세요",
 };
 
 function evidenceModeLabel(mode: Exclude<EvidenceMode, null>): string {

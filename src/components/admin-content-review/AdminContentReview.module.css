@@ -39,7 +39,7 @@
 .documentIdentity span { margin-top: 3px; color: var(--muted); font-size: 11px; }
 .documentIdentity code { font-family: ui-monospace, SFMono-Regular, monospace; }
 .headerActions { display: flex; align-items: center; gap: 7px; }
-.headerButton, .publishButton, .primaryButton, .secondaryButton, .dangerButton, .iconButton {
+.headerButton, .publishButton, .primaryButton, .secondaryButton, .dangerButton, .iconButton, .localAiButton, .localAiHeaderButton {
   min-height: 36px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -51,6 +51,9 @@
   padding: 0 12px;
   transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, transform 100ms ease;
 }
+.localAiButton, .localAiHeaderButton { border-color: #27272a; background: #27272a; color: white; }
+.localAiButton:hover, .localAiHeaderButton:hover { background: #09090b; }
+.localAiHeaderButton { white-space: nowrap; }
 .headerButton:hover, .secondaryButton:hover { background: var(--soft); border-color: #d4d4d8; }
 .publishButton, .primaryButton { border-color: var(--accent); background: var(--accent); color: white; }
 .publishButton:hover, .primaryButton:hover { background: #ea580c; }
@@ -206,6 +209,10 @@
 .validationIssues span { color: #dc2626; font-size: 8px; font-weight: 800; text-transform: uppercase; }
 .validationIssues b { font-size: 9px; }
 .validationIssues small { grid-column: 1 / -1; color: var(--muted); font-size: 9px; }
+.localAiStatus { position: absolute; z-index: 7; top: 76px; left: 50%; display: flex; align-items: center; gap: 12px; min-width: 330px; transform: translateX(-50%); padding: 11px 15px; border: 1px solid #d4d4d8; border-radius: 10px; background: rgba(255,255,255,.98); box-shadow: 0 10px 30px rgba(24,24,27,.13); }
+.localAiStatus .eyebrow { margin: 0; color: #f97316; }
+.localAiStatus strong { font-size: 12px; }
+.localAiStatus small { margin-left: auto; color: var(--muted); font-family: ui-monospace, monospace; font-size: 10px; }
 
 .dialogBackdrop { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 32px; background: rgba(9,9,11,.56); }
 .previewDialog { width: min(920px, 90vw); height: min(820px, 88vh); overflow: hidden; border-radius: 14px; background: #fafafa; box-shadow: 0 24px 80px rgba(0,0,0,.28); }
@@ -236,8 +243,12 @@
 .emptyImport h1 { margin: 10px 0 14px; font-size: 36px; line-height: 1.17; letter-spacing: -.05em; }
 .emptyImport > p:not(.eyebrow) { color: var(--muted); font-size: 13px; line-height: 1.65; }
 .emptyImport code { padding: 2px 5px; border-radius: 4px; background: var(--soft); font-family: ui-monospace, monospace; font-size: 11px; }
-.emptyActions { display: flex; align-items: center; gap: 9px; margin-top: 28px; }
-.importToast { position: fixed; z-index: 30; right: 20px; bottom: 20px; display: grid; grid-template-columns: auto auto auto; align-items: center; gap: 10px; max-width: 520px; padding: 13px 15px; border: 1px solid #fecaca; border-radius: 9px; background: white; box-shadow: 0 12px 35px rgba(24,24,27,.15); color: #b91c1c; font-size: 11px; }
+.emptyActions { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-top: 28px; }
+.localAiReady { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; margin-top: 18px; padding: 14px; border: 1px solid #fed7aa; border-radius: 10px; background: #fff7ed; }
+.localAiReady span { color: #c2410c; font-size: 10px; font-weight: 800; }
+.localAiReady strong { grid-column: 1 / -1; font-size: 15px; }
+.localAiReady small { grid-column: 1 / -1; color: var(--muted); font-size: 10px; }
+.importToast { position: fixed; z-index: 110; right: 20px; bottom: 20px; display: grid; grid-template-columns: auto auto auto; align-items: center; gap: 10px; max-width: 520px; padding: 13px 15px; border: 1px solid #fecaca; border-radius: 9px; background: white; box-shadow: 0 12px 35px rgba(24,24,27,.15); color: #b91c1c; font-size: 11px; }
 .importToast button { border: 0; background: none; cursor: pointer; color: var(--muted); }
 .missingEditor { display: grid; min-height: 320px; place-content: center; text-align: center; }
 .missingEditor p { color: var(--muted); font-size: 12px; }

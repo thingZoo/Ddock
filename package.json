@@ -5,6 +5,8 @@
   "scripts": {
     "predev": "node scripts/setup-fonts.mjs",
     "dev": "next dev",
+    "predev:admin": "node scripts/setup-fonts.mjs",
+    "dev:admin": "next dev -p 3101",
     "prebuild": "node scripts/setup-fonts.mjs",
     "build": "next build",
     "start": "next start",

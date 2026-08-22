@@ -150,6 +150,17 @@ REVIEW_QUEUE_TYPES: Final = frozenset(
         "unattached_context",
         "unsupported_claim_removed",
         "script_not_human_verified",
+        "uncertain_entity",
+        "checkpoint_missing",
+        "prompt_removed",
+        "weak_grounding",
+        "source_claim_needs_verification",
+        "unaccounted_action_anchor",
+        "low_action_anchor_coverage",
+        "supplemental_action_anchor",
+        "possible_duplicate_part",
+        "workflow_grouping_review",
+        "writing_style_review",
     }
 )
 REVIEW_SEVERITIES: Final = frozenset({"warning", "blocking"})
@@ -186,6 +197,7 @@ EXCLUSION_REASON_CATEGORIES: Final = frozenset(
         "superseded_by_adjacent_action",
         "filtered_by_grounding",
         "ambiguous_source",
+        "unaccounted_action_anchor",
         "unassigned",
     }
 )
@@ -246,6 +258,7 @@ GENERATION_FIELDS: Final = frozenset(
         "script_review_status",
         "deterministic_generation",
         "source_preprocessed_sha256",
+        "admin_skill",
     }
 )
 

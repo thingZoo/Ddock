@@ -1,0 +1,742 @@
+```json
+{
+  "mode": "practice",
+  "classified": [
+    {
+      "utterance_id": "UT-00001",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00002",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00003",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00004",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00005",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00006",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00007",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00008",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00009",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00010",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00011",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00012",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00013",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00014",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00015",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00016",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00017",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00018",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00019",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00020",
+      "verdict": "STEP_PREVIEW"
+    },
+    {
+      "utterance_id": "UT-00021",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00022",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00023",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00024",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00025",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00026",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00027",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00028",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00029",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00030",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00031",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00032",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00033",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00034",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00035",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00036",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00037",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00038",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00039",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00040",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00041",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00042",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00043",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00044",
+      "verdict": "WARNING_EVIDENCE"
+    },
+    {
+      "utterance_id": "UT-00045",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00046",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00047",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00048",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00049",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00050",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00051",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00052",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00053",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00054",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00055",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00056",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00057",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00058",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00059",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00060",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00061",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00062",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00063",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00064",
+      "verdict": "CHECKPOINT"
+    },
+    {
+      "utterance_id": "UT-00065",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00066",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00067",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00068",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00069",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00070",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00071",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00072",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00073",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00074",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00075",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00076",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00077",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00078",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00079",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00080",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00081",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00082",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00083",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00084",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00085",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00086",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00087",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00088",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00089",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00090",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00091",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00092",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00093",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00094",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00095",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00096",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00097",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00098",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00099",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00100",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00101",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00102",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00103",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00104",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00105",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00106",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00107",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00108",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00109",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00110",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00111",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00112",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00113",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00114",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00115",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00116",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00117",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00118",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00119",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00120",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00121",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00122",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00123",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00124",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00125",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00126",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00127",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00128",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00129",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00130",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00131",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00132",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00133",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00134",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00135",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00136",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00137",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00138",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00139",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00140",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00141",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00142",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00143",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00144",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00145",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00146",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00147",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00148",
+      "verdict": "STEP"
+    },
+    {
+      "utterance_id": "UT-00149",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00150",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00151",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00152",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00153",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00154",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00155",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00156",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00157",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00158",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00159",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00160",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00161",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00162",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00163",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00164",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00165",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00166",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00167",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00168",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00169",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00170",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00171",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00172",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00173",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00174",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00175",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00176",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00177",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00178",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00179",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00180",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00181",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00182",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-00183",
+      "verdict": "HOOK"
+    },
+    {
+      "utterance_id": "UT-00184",
+      "verdict": "INFO"
+    },
+    {
+      "utterance_id": "UT-

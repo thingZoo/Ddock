@@ -125,7 +125,18 @@ export interface ReviewQueueItem {
     | "excluded_action"
     | "unattached_context"
     | "unsupported_claim_removed"
-    | "script_not_human_verified";
+    | "script_not_human_verified"
+    | "uncertain_entity"
+    | "checkpoint_missing"
+    | "prompt_removed"
+    | "weak_grounding"
+    | "source_claim_needs_verification"
+    | "unaccounted_action_anchor"
+    | "low_action_anchor_coverage"
+    | "supplemental_action_anchor"
+    | "possible_duplicate_part"
+    | "workflow_grouping_review"
+    | "writing_style_review";
   severity: ReviewSeverity;
   part_id: string | null;
   phase_id: string | null;

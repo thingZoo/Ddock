@@ -3,6 +3,12 @@ import test from "node:test";
 
 import { parseReviewDraft, parseReviewDraftText, ReviewImportError } from "./guards";
 import {
+  generatedDraftSummary,
+  injectGeneratedDraft,
+  parsePreprocessedInput,
+  parsePreprocessedInputText,
+} from "./local-ai";
+import {
   addStep,
   assignPhaseToPart,
   createPartFromPhase,
@@ -172,4 +178,60 @@ test("published schema version is correct", () => {
     toPublishedCandidate(createReviewFixture()).schema_version,
     PUBLISHED_SCHEMA_VERSION,
   );
+});
+
+test("valid preprocessing JSON import", () => {
+  const input = {
+    schema_version: "script_preprocessing_v0.3.16",
+    video_id: "fixture-video",
+    normalized_utterances: [{ utterance_id: "UT-00001", final_text: "메뉴를 엽니다." }],
+  };
+  assert.equal(parsePreprocessedInputText(JSON.stringify(input)).video_id, "fixture-video");
+});
+
+test("review JSON is rejected as preprocessing input", () => {
+  assert.throws(() => parsePreprocessedInput(createReviewFixture()), ReviewImportError);
+});
+
+test("unsupported preprocessing schema is rejected", () => {
+  assert.throws(
+    () =>
+      parsePreprocessedInput({
+        schema_version: "script_preprocessing_v0.2",
+        video_id: "fixture-video",
+        normalized_utterances: [{}],
+      }),
+    ReviewImportError,
+  );
+});
+
+test("generated review draft is parsed and derived fields are synchronized", () => {
+  const generated = createReviewFixture();
+  generated.draft_parts[0].steps[0].order = 99;
+  const injected = injectGeneratedDraft(generated);
+  assert.equal(injected.draft_parts[0].steps[0].order, 1);
+});
+
+test("completed_with_review draft exposes Korean status and blocking summary", () => {
+  const generated = injectGeneratedDraft(createReviewFixture());
+  const summary = generatedDraftSummary(generated);
+  assert.equal(summary.label, "초안 생성 완료 · 검토 필요");
+  assert.equal(summary.partCount, generated.draft_parts.length);
+  assert.equal(summary.stepCount, generated.draft_parts.flatMap((part) => part.steps).length);
+  assert.equal(summary.blockingCount, 1);
+});
+
+test("generated draft with blocking items still injects into Admin state", () => {
+  const generated = createReviewFixture();
+  generated.curation_generation.status = "completed_with_review";
+  const injected = injectGeneratedDraft(generated);
+  assert.equal(injected.curation_generation.status, "completed_with_review");
+  assert.ok(injected.review_queue.some((item) => item.severity === "blocking"));
+});
+
+test("failed generated draft parsing does not mutate the current draft", () => {
+  const current = createReviewFixture();
+  const snapshot = structuredClone(current);
+  assert.throws(() => injectGeneratedDraft({ schema_version: "invalid" }), ReviewImportError);
+  assert.deepEqual(current, snapshot);
 });
