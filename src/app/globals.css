@@ -57,27 +57,21 @@
 }
 
 /* ---------------------------------------------------------------
-   앱 틀 — 폰에서는 화면을 꽉 채우고, 데스크톱에서는 폰 모양 프레임
-   세로로 늘어지지 않게 높이를 잡고, 안쪽 콘텐츠만 스크롤해요
+   앱 틀 — 홈·발견 화면과 똑같이 375 폭 한 줄로 서요.
+   폰 모양 프레임(둥근 모서리·그림자·위아래 여백)은 뺐습니다 —
+   상세만 액자에 갇힌 것처럼 보였거든요.
+   높이는 화면에 딱 맞추고 안쪽만 스크롤해요.
    --------------------------------------------------------------- */
 .app-shell {
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: var(--app-w);
+  margin-inline: auto;
   height: 100dvh;
   overflow: hidden;
   background: #fff;
-}
-
-/* 데스크톱 — 폰 모양 프레임으로 가운데 정렬 */
-@media (min-width: 480px) {
-  .app-shell {
-    max-width: var(--app-w);
-    height: min(var(--app-h), calc(100dvh - 48px));
-    border-radius: 24px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-  }
 }
 
 /* 틀 안에서 스크롤되는 영역 */
