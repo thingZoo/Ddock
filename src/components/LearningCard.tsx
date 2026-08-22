@@ -79,8 +79,8 @@ export function LearningCard({
           </ul>
         </div>
 
-        {step.variant === "prompt" && step.prompt && <PromptBlock prompt={step.prompt} />}
-        {step.variant === "warning" && step.warning && <WarningBox warning={step.warning} />}
+        {step.prompt && <PromptBlock prompt={step.prompt} />}
+        {step.warning && <WarningBox warning={step.warning} />}
       </div>
 
       {/* 하단 CTA */}

@@ -15,6 +15,7 @@ export function PartCard({ part, onClick }: { part: Part; onClick?: () => void }
   const total = part.steps.length;
   const done = Math.min(doneOf(part.id), total);
   const complete = done >= total && total > 0;
+  const remoteThumbnail = /^https?:\/\//.test(part.thumbnail);
 
   return (
     <button
@@ -26,7 +27,15 @@ export function PartCard({ part, onClick }: { part: Part; onClick?: () => void }
     >
       <div className="flex w-full items-start gap-3">
         <div className="relative h-[72px] w-[110px] shrink-0 overflow-hidden rounded-[4px]">
-          <Image src={part.thumbnail} alt="" fill sizes="110px" className="object-cover" />
+          <Image
+            src={part.thumbnail}
+            loader={remoteThumbnail ? ({ src }) => src : undefined}
+            unoptimized={remoteThumbnail}
+            alt=""
+            fill
+            sizes="110px"
+            className="object-cover"
+          />
           {complete && <span className="absolute inset-0 bg-black/40" />}
           <span className="absolute left-0 top-0 p-2">
             <span className="t-xs-normal flex items-center justify-center rounded-[6px] bg-black/70 px-1.5 py-1 text-white backdrop-blur-[1px]">

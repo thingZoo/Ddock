@@ -1,0 +1,1612 @@
+{
+  "utterances": [
+    {
+      "utterance_id": "UT-00001",
+      "script_chapter_id": "CH-01",
+      "start_seconds": 0.08,
+      "end_seconds": 19.72,
+      "text": "Figma 대부모드 MCP라는 걸 활용을 해서 디자인 시스템을 뽑아낸 파일이에요. 지금 선택한 컴포넌트를 리액트 코드로 구현해 주세요. 뭐 이런 식으로 이제 디자인 시스템을 이제 구성을 했어요. 네. 지금 보시는게 저희 스크린 플로우라는 서비스의 랜딩 페이지고요."
+    },
+    {
+      "utterance_id": "UT-00002",
+      "script_chapter_id": "CH-01",
+      "start_seconds": 15.519,
+      "end_seconds": 32.480000000000004,
+      "text": "일단 첫 페이지에서의 캡처를 완성을 하면 이렇게 PC 태블릿 모바일 사이즈의 화면 요렇게 캡처가 된 걸 확인을 하실 수가 있고 아래쪽에서 Figma에서 복사 버튼을 누르면이 보시면 이렇게 가지고 가졌어요. Figma에."
+    },
+    {
+      "utterance_id": "UT-00003",
+      "script_chapter_id": "CH-01",
+      "start_seconds": 28.8,
+      "end_seconds": 44.28,
+      "text": "그래서 HTML 원본이라서 일단 다 수정도 할 수가 있고 막 AI 툴이 도구가 발전하고 막 그런 소식들이 계속 끊임없이 들어오잖아요. 내가 겪고 있는 사소한 문제들을 이렇게 가볍게 시작해 보시는 걸 저는 추천을 드려요."
+    },
+    {
+      "utterance_id": "UT-00004",
+      "script_chapter_id": "CH-02",
+      "start_seconds": 42.68,
+      "end_seconds": 56.64,
+      "text": "네. 안녕하세요 구독자 여러분. 오늘 하우와이어의 팟캐스트에는 Figma 튜터 하이선 님을 모셨습니다. 현재 유튜버이시기도 하시고 인스타그램에서 활동하고 계시는 분이십니다. 네, 우선 인사 나누겠습니다. 안녕하세요, 이서님."
+    },
+    {
+      "utterance_id": "UT-00005",
+      "script_chapter_id": "CH-02",
+      "start_seconds": 54.92,
+      "end_seconds": 68.96000000000001,
+      "text": "네, 안녕하세요. 반갑습니다. 하이서입니다. 네, 저는 이제 UUY 디자이너로 한 10년 정도 일을 하고 있고 그리고 이제 사스 제품을 만들고 있는 메이커라고 생각해 주시면 됩니다."
+    },
+    {
+      "utterance_id": "UT-00006",
+      "script_chapter_id": "CH-02",
+      "start_seconds": 65.04,
+      "end_seconds": 74.03999999999999,
+      "text": "그래서 기술이랑 디자인 경계에서 막 고금 분투하고 있는 사람이다 이렇게 생각해 주시면 될 거 같아요. 네."
+    },
+    {
+      "utterance_id": "UT-00007",
+      "script_chapter_id": "CH-02",
+      "start_seconds": 72.24,
+      "end_seconds": 83.799,
+      "text": "네. 네. 네. 너무 좋습니다. 일단은 Figma 튜터를 언제부터 시작을 하셨고 어떻게 키워고 계신지에 대해서 간단하게 말씀해 주시면 좋을 것 같아요."
+    },
+    {
+      "utterance_id": "UT-00008",
+      "script_chapter_id": "CH-03",
+      "start_seconds": 81.759,
+      "end_seconds": 95.2,
+      "text": "아, 네. 그래서 2023년부터 저는 계정을 시작했고요. 근데 2019년에 Figma를 처음에 접했을 때 이제 제가 공부하면서 어려움을 좀 많이 겪었어요."
+    },
+    {
+      "utterance_id": "UT-00009",
+      "script_chapter_id": "CH-03",
+      "start_seconds": 90.28,
+      "end_seconds": 107.32000000000001,
+      "text": "다 영어고 사실 뭐 쓰는 방법도 모르겠고 이래서 거를 이제 하나 둘 정리하던 거를 이제 다른 디자이너분들이나 비슷한 분들도 필요하실 것 같아서 인스타그램에 올리다 보니까 그게 반응이 꽤 괜찮더라고요."
+    },
+    {
+      "utterance_id": "UT-00010",
+      "script_chapter_id": "CH-03",
+      "start_seconds": 103.159,
+      "end_seconds": 111.36,
+      "text": "그래서 좀 재밌어서 하다 보니까 좀 지속하게 됐던 거 같아요."
+    },
+    {
+      "utterance_id": "UT-00011",
+      "script_chapter_id": "CH-03",
+      "start_seconds": 107.32,
+      "end_seconds": 127.28,
+      "text": "그거를 지금 거의 3년 가셨는데 꾸준히 하시는게 정말 대단하고 너무 멋진 거 같고 그 와중에서 또 성공도 하시고 너무 또 같이 배우고 싶은 그런 소위 말하는 동료 크리에이터로도 삼고 싶은 그런 분이시기도 합니다. 네."
+    },
+    {
+      "utterance_id": "UT-00012",
+      "script_chapter_id": "CH-03",
+      "start_seconds": 122.88,
+      "end_seconds": 137.16,
+      "text": "일단은 간단하게 어떤 걸 보여 주실 수 있을지 오늘 소개를 해 주실 수 있을까요? 마 MCP 활용해서 디자인 시스템을 좀 구현을 하고 이걸로 컴퍼넌트 제작하는 과정들을 많이 진행을 하시잖아요."
+    },
+    {
+      "utterance_id": "UT-00013",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 134.92,
+      "end_seconds": 147.59900000000002,
+      "text": "그래서 이렇게 진행했을 때 이점은 얘가 작업한 디자인 그대로 반영이 되고 코드에 조금 깨끗한 코드를 뽑아낼 수 있고음 할루시네이션을 줄일 수 있다라는 장점이 있습니다."
+    },
+    {
+      "utterance_id": "UT-00014",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 143.519,
+      "end_seconds": 154.20000000000002,
+      "text": "그래서 이렇게 하는 과정들을 좀 보여 드리려고 하고 또 이제 Figma 메이크라는 툴이 있잖아요."
+    },
+    {
+      "utterance_id": "UT-00015",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 149.4,
+      "end_seconds": 160.56,
+      "text": "근데 그런 툴들을 활용을 해서 이제 또 커서나 뭐 Claude 같은 LN 툴에 연결해서 또 코드로 뽑아낼 수가 있어요."
+    },
+    {
+      "utterance_id": "UT-00016",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 158.12,
+      "end_seconds": 163.92000000000002,
+      "text": "그래서 그런 과정들 좀 보여 드리려고 합니다."
+    },
+    {
+      "utterance_id": "UT-00017",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 161.72,
+      "end_seconds": 170.12,
+      "text": "네. 저희 구독자는 디자이너만 있는게 아니라 사실 개발자분이 대단히 많으세요. 생각보다."
+    },
+    {
+      "utterance_id": "UT-00018",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 165.36,
+      "end_seconds": 181.04,
+      "text": "그래서 오늘 알모신 분들은 마튜터만 잘 따라가시면 진짜 좋은 디자인을 또 뽑아낼 수 있을 것이다라고 생각을 합니다. 네. 그럼 화면 보여 주시면서 좀 설명을 해 주시면 감사할 것 같아요."
+    },
+    {
+      "utterance_id": "UT-00019",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 178.4,
+      "end_seconds": 188.48,
+      "text": "네. 좋습니다. 이거는 지금 보시면 제가 최근에 이제 Figma 데브모드 MCP라는 걸 활용을 해서 디자인 시스템을 뽑아낸 파일이에요."
+    },
+    {
+      "utterance_id": "UT-00020",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 185.2,
+      "end_seconds": 190.159,
+      "text": "그래서 이제"
+    },
+    {
+      "utterance_id": "UT-00021",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 188.48,
+      "end_seconds": 200.92,
+      "text": "저는 개발자분들이나 이런 분들일수록 더 활용하시면 좋다라고 느끼는 부분이 커뮤니티에 좋은 소스들이나 디자인 시스템 파일들이 너무너무 많습니다."
+    },
+    {
+      "utterance_id": "UT-00022",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 196.319,
+      "end_seconds": 214.319,
+      "text": "그래서 저는 이렇게 일단은 디자인 시스템을 뭔가 구현을 하고 이걸 토대로 해서 컴포넌트에 입혀서 작업하는 방식으로 진행을 하고 있고요. 지금 보시면 스타일 가이드랑 컴포넌트들을 이렇게 준비를 했어요."
+    },
+    {
+      "utterance_id": "UT-00023",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 210.319,
+      "end_seconds": 218.28,
+      "text": "그래서 이걸 토대로 제가 MCP를 어떻게 뽑아내는지 좀 보여 드리면 좋을 것 같습니다."
+    },
+    {
+      "utterance_id": "UT-00024",
+      "script_chapter_id": "CH-04",
+      "start_seconds": 215.879,
+      "end_seconds": 228.20000000000002,
+      "text": "너무 재밌을 것 같아요. 그 간단하게 정말 초보자 관점에서 일단 이런 디자인 시스템을 왜 바이브 코딩을 할 때 만들어야 되는지에 대해서 간단하게만 설명 주실 수 있을까요?"
+    },
+    {
+      "utterance_id": "UT-00025",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 226.2,
+      "end_seconds": 230.76,
+      "text": ", 네. 물론입니다."
+    },
+    {
+      "utterance_id": "UT-00026",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 226.2,
+      "end_seconds": 247.64000000000001,
+      "text": "일단 이거를 이제 후에 재사용하는 코드로 활용하기 위해서는 그냥 뭐 단순히 그냥 저희가 뭐 MVP 수준으로 만들 땐 괜찮지만 제품 관점에서 봤을 때는 컴파운트 단위로 관리하셔야 효율도 좋고 장기적으로 봤을 때 이걸 고도화하거나 했을 때 더 조금 더 잘 활용을 하실 수가 있습니다."
+    },
+    {
+      "utterance_id": "UT-00027",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 243.56,
+      "end_seconds": 261.0,
+      "text": "그리고 하드코딩을 했을 때 나중에 뭔가 유지보스 하는 관점에서 봤을 때는 이걸 하나하나 다 수정해 줘야 하는 또 비효율이 엄청나게 발생을 하고 AI로 코딩을 한다 해도이 과정에서 엄청나게 토큰을 소모하거나 시간을 소모하셔야 합니다."
+    },
+    {
+      "utterance_id": "UT-00028",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 258.639,
+      "end_seconds": 271.759,
+      "text": "그래서 효율 측면에서 봤을 때 무조건 디자인 시스템을 구축을 하시고 요걸 토대로 해서 내 서비스를 제작하시는 과정으로 하시는게 좋아요. 네. 맞습니다."
+    },
+    {
+      "utterance_id": "UT-00029",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 267.6,
+      "end_seconds": 280.96000000000004,
+      "text": "저도 같은 디자이너 입장에서 저도 좀 첨환을 하고 싶다면 Claude Code나 아니면 커서 관점에서는 어떤 시스템 프롬프트나 별도의 가이드라인 문서인데 항상 지켜야 되는 어떤 규칙 같은 거잖아요."
+    },
+    {
+      "utterance_id": "UT-00030",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 278.16,
+      "end_seconds": 283.75899999999996,
+      "text": "근데 그거를"
+    },
+    {
+      "utterance_id": "UT-00031",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 280.96,
+      "end_seconds": 288.0,
+      "text": "최근에 저도 기획 문서를 정말 잘게 쪼개 가지고"
+    },
+    {
+      "utterance_id": "UT-00032",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 285.68,
+      "end_seconds": 295.919,
+      "text": "있는 끝까지 정말 자세하게 쓰는 형태로 더 진화를 했거든요. 예전보다 훨씬 더."
+    },
+    {
+      "utterance_id": "UT-00033",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 289.8,
+      "end_seconds": 309.818,
+      "text": "근데 그 정도의 눈으로 만져질 정도의 내용으로 만들어 주는게 확실히이 코딩을 할 때 진짜 효율적이고 더 일관된 결과물을 만들어 내는데 있어서 정말 좋은데 이렇게 보여 주시는 형태 자체도 많은 분들께 되게 영감을 주는 방향인 거 같습니다. 네."
+    },
+    {
+      "utterance_id": "UT-00034",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 307.28,
+      "end_seconds": 310.08,
+      "text": "그래서 계속 진행해 주시죠. 네"
+    },
+    {
+      "utterance_id": "UT-00035",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 310.08,
+      "end_seconds": 324.96,
+      "text": "네, 맞습니다. 조시님 말씀처럼 일관된 작업을 하 있어서도 디자인 시스템이 가장 근본이기 때문에요 작업을 하시고 바이브 코딩을 하는 것과이 과정이 없이 하는 거랑은 차이가 많이 날 거예요."
+    },
+    {
+      "utterance_id": "UT-00036",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 320.4,
+      "end_seconds": 333.28,
+      "text": "그래서 저는 이제 최근에 저 최근까지도 저는 커서를 쓰면서이 안에서 뭐 클러드 코드 학장 프로그램을 연결해서 쓰는 방식으로 하고 있어요."
+    },
+    {
+      "utterance_id": "UT-00037",
+      "script_chapter_id": "CH-05",
+      "start_seconds": 328.919,
+      "end_seconds": 347.84000000000003,
+      "text": "그래서 일단 기본적으로 커서로 보여 드릴 거기는 합니다. 일단 MCP를 아마 뭐 익숙하게 쓰시는 분들도 계시겠지만 처음이신 분들을 위해서 설명을 좀 드리면 Figma MCP라고 쳐서 사이트에 들어갔을 때 이렇게 코드가 있습니다."
+    },
+    {
+      "utterance_id": "UT-00038",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 343.6,
+      "end_seconds": 363.039,
+      "text": "그래서요 코드를 복사를 하셔 가지고 뭐 이제 커서 같은 채팅창에서 이제 붙여 놓고 그냥 MCP 파일에 추가해 줘라고 이렇게 그냥 요청을 하셔도 되고 아니면 설정 왼쪽에 보시면 이제 MCP라는 탭이 있습니다."
+    },
+    {
+      "utterance_id": "UT-00039",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 358.36,
+      "end_seconds": 378.56,
+      "text": "그래서 여기서 뭐 새로운 파일을 추가하는 버튼을 눌러서 여기다 붙여 넣기를 하셔도 돼요. 일단 이렇게 입력을 하고 나서 이제 확인을 하기 위해서 Figma 작업장에서 스타일 가이드 부분을 선택을 하고요. 네. 노드 정보를 읽어 보라고 한번 해 보겠습니다."
+    },
+    {
+      "utterance_id": "UT-00040",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 376.919,
+      "end_seconds": 382.72,
+      "text": "그러면 저 레이어를 읽어 준다는 거죠? Figma MTP가 연결이 잘 되었으면요."
+    },
+    {
+      "utterance_id": "UT-00041",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 381.16,
+      "end_seconds": 396.44,
+      "text": "네. 그래서 이제 메타데이터 같은 것들을 다 읽고 오기 때문에 일단 이제 시작하기 전에 잠깐 설명을 드리면 여기 지금 베리어블이나 이런 스타일 토큰 같은 게 먼저 정의가 잘 되어 있어야 합니다."
+    },
+    {
+      "utterance_id": "UT-00042",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 392.28,
+      "end_seconds": 405.8,
+      "text": "근데 이제 이런 거를 잡기 전에 좀 부담이 되신다면 지금 제가 보고 있는 것도 Figma에서 제공하는 심플 디자인 시스템이라는 뭐 제공 소스예요."
+    },
+    {
+      "utterance_id": "UT-00043",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 400.88,
+      "end_seconds": 414.84000000000003,
+      "text": "그래서 기본 소스를 활용하셔도 무방합니다. 일단 요거를 다 이렇게 준비가 되셨다면 데브 모드를 켜 가지고 일단 커서 한번 대부 모드를 연결을 해 보겠습니다."
+    },
+    {
+      "utterance_id": "UT-00044",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 412.96,
+      "end_seconds": 417.56,
+      "text": "부모드는 유료 사용자만 켤 수 있나요?"
+    },
+    {
+      "utterance_id": "UT-00045",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 415.56,
+      "end_seconds": 421.96,
+      "text": "네. 프로 이상부터 제공을 합니다. 좀 아쉽게도. 네."
+    },
+    {
+      "utterance_id": "UT-00046",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 420.08,
+      "end_seconds": 434.28000000000003,
+      "text": "네. 그래서 이게 만약에 근데 뭐 유료로 쓰고지 계시지 않으면 그냥 플러그인 같은 걸로 추출하실 수도 있어요. 그냥 리어블 제이슨이라고만 치셔도 무료로 할 수 있는 것들이 너무 많거든요."
+    },
+    {
+      "utterance_id": "UT-00047",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 430.319,
+      "end_seconds": 441.319,
+      "text": "그래서 그렇게 활용을 하셔도 되고 일단은 일단 제가 데브모드 MCP 연결했는지 확인해 달라고 요청을 하겠습니다."
+    },
+    {
+      "utterance_id": "UT-00048",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 436.36,
+      "end_seconds": 454.36,
+      "text": "그러면 이게 확인이 되셨으면 이게 먼저 스타일 가이드를 작업을 하셨을 때 섹션이라는 단위로 묶어 놓으면 하나씩 선택하지 않고이 섹션 안에 있는 스타일 정보들을 한 번에 읽어 올 수 있어요."
+    },
+    {
+      "utterance_id": "UT-00049",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 449.36,
+      "end_seconds": 472.08,
+      "text": "그래서 저는 이렇게 소스들을 이제 섹션이라는 것으로 묶었고 이제 요거 전체를 읽어서 스타일로 한번 구성하라고 한번 해 보겠습니다. 지금 선택한 섹션 정보 전체를 읽어보고 스페이스 컬러 텍스트 스타일을 토큰으로 구성해 달라고 요청을 했습니다. 일단 밑작업을 하는 거예요."
+    },
+    {
+      "utterance_id": "UT-00050",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 467.56,
+      "end_seconds": 479.639,
+      "text": "그래서이 섹션에 있는 맥락을 다 읽어 와서 아마 제가 미리 적용해 놓은 베리어블이라는 것들을 읽어서 이제 토큰화 하는 과정을 아마 거칠 거예요. ."
+    },
+    {
+      "utterance_id": "UT-00051",
+      "script_chapter_id": "CH-06",
+      "start_seconds": 477.68,
+      "end_seconds": 489.039,
+      "text": "토큰화를 시키는 이유는 뭐예요? 토큰화를 해 놓으면은 해당하는 토큰에 참조하는 값을 바음으로써 확장을 하기에도 쉽고요."
+    },
+    {
+      "utterance_id": "UT-00052",
+      "script_chapter_id": "CH-07",
+      "start_seconds": 484.4,
+      "end_seconds": 495.79999999999995,
+      "text": "그리고 재사용할 때 그냥 정말 저희가 컴퍼넌트나 에셋 가져다 쓰는 것처럼 가져와서 쓸 수가 있어요."
+    },
+    {
+      "utterance_id": "UT-00053",
+      "script_chapter_id": "CH-07",
+      "start_seconds": 490.96,
+      "end_seconds": 499.879,
+      "text": "그래서 하드코딩 하는 거보다 효율이 올라가고 잘 구성된 디자인 시스템을 만들 수 있습니다."
+    },
+    {
+      "utterance_id": "UT-00054",
+      "script_chapter_id": "CH-07",
+      "start_seconds": 498.199,
+      "end_seconds": 508.91900000000004,
+      "text": "네. 토큰이라는게 하나의 작은 단위단위인 거죠. 그러니깐 개발자분들은 LM 토큰으로 생각하시거든요. 그런데 우리는 디자인 토큰으로"
+    },
+    {
+      "utterance_id": "UT-00055",
+      "script_chapter_id": "CH-07",
+      "start_seconds": 507.36,
+      "end_seconds": 523.88,
+      "text": "얘기를 해야 되는 거잖아요. 그죠? 그렇죠? 디자인 시스템의 토큰이라고 봐 주시면 되고 쉽게 말씀드려서 컬러나 뭐 텍스트처럼 자주 사용되는 요소를 그냥 등록을 해 놓고서 가져다가 쓰는 개념이라고 생각을 하시면 돼요."
+    },
+    {
+      "utterance_id": "UT-00056",
+      "script_chapter_id": "CH-07",
+      "start_seconds": 521.12,
+      "end_seconds": 526.2,
+      "text": "토큰과 컴포넌트의 차이가 있나요?"
+    },
+    {
+      "utterance_id": "UT-00057",
+      "script_chapter_id": "CH-07",
+      "start_seconds": 523.88,
+      "end_seconds": 539.36,
+      "text": "네. 토크는 더 작은 단위입니다. 컬러라면 컬러 단위, 프라이머리 컬러 단위라든지 아니면은 뭐 서체라고 한다면 뭐 타이포그라피, 뭐 크기 이런 정말 작은 요소들이 토큰이라고 생각을 해 주시면 돼요."
+    },
+    {
+      "utterance_id": "UT-00058",
+      "script_chapter_id": "CH-07",
+      "start_seconds": 535.64,
+      "end_seconds": 550.04,
+      "text": "그렇게 다르게 구성을 해 주시면 되고 결국에는이 토큰을 구성해서 저희가 컴퍼넌트 구성할 때이 토큰 기반으로 좀 연결해서 작업을 하고 관리하는 과정을 거치게 됩니다."
+    },
+    {
+      "utterance_id": "UT-00059",
+      "script_chapter_id": "CH-07",
+      "start_seconds": 548.24,
+      "end_seconds": 565.56,
+      "text": "그러면 또 다른 질문 드리고 싶은게 그 디자이너시잖아요. 근데 바이브 코딩으로 직접 이렇게 토큰도 만들고 제작을 하고 계시는데 기존 개발자분이랑 좀 같이 또 창업을 하셔 가지고 협업을 하고 계신 거 같아요."
+    },
+    {
+      "utterance_id": "UT-00060",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 560.92,
+      "end_seconds": 573.4799999999999,
+      "text": "이 이렇게 협업을 실제로 하셨을 때 예전과는 다른 점이 무엇인가요? 아무래도 제 역할 자체가 좀 확장된 부분인 거 같습니다."
+    },
+    {
+      "utterance_id": "UT-00061",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 568.68,
+      "end_seconds": 582.079,
+      "text": "근데 여전히 저는 이제 뭔가 복잡하거나 계속해서 서버 관리가 필요하거나 조금 더 그런 작업들은 전문성이 있는 분들이 타 주시는게 맞다라고 보고요."
+    },
+    {
+      "utterance_id": "UT-00062",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 579.6,
+      "end_seconds": 599.64,
+      "text": "그 외에 뭔가 예전에는 제가 UI를 뭔가 디자인을 해서 요청하고이 부분에 뭐 노노테이션을 접고 이런 과정들을 거쳤다면 지금 제가 협업하는 형태는 UI나 수정 같은 게 있으면 그냥 간단하게 논 이후에 저희 시스템 파일을 불러와서 바로 수정해서 기세를 올립니다."
+    },
+    {
+      "utterance_id": "UT-00063",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 595.04,
+      "end_seconds": 613.88,
+      "text": "그래서 과정 자체가 아예 저는 바뀌었다라고 생각을 하고요. 오히려 근데 이렇게 됐을 때 저 제가 앞단에 사소한 수정들을 맡으면 이제 개발자분은 뭐 서버의 안정성을 유지한다거나 이런 부분에 조금 더 집중하실 수 있는 거 같아요. 인프라를 뭐 구축을 한다거나."
+    },
+    {
+      "utterance_id": "UT-00064",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 609.04,
+      "end_seconds": 629.76,
+      "text": "그래서 이런 방식 항으로 계속 바뀌어 가고 있고 지금은 사실은 1인 뭐 사업이나 저희처럼 소규모 기업에만 해당하지만 이런게 빠르게 좀 확산되어 나갈 거라고 저는 보고 있기는 합니다. . 네. 일단 말하는 동안 구현이 됐어요."
+    },
+    {
+      "utterance_id": "UT-00065",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 624.76,
+      "end_seconds": 640.36,
+      "text": "뭐 타이퍼 컬러랑 스페이스 토큰을 구현했다라고 일단은 이제 커서가 답을 줬고요. 이제 앞에 이제 제작한 변수들을 기반으로 해서 컴포넌트를 구성해 달라고 할 겁니다."
+    },
+    {
+      "utterance_id": "UT-00066",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 636.88,
+      "end_seconds": 645.519,
+      "text": "그래서 같이 준비한 아래쪽에요 소스들 섹션 선택해 가지고 한번 추가로 한번 요청을 해 보겠습니다."
+    },
+    {
+      "utterance_id": "UT-00067",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 643.76,
+      "end_seconds": 660.12,
+      "text": "저 소스들은 어떤게 있어요? 아, 여기 보시면 랜딩 페이지에 들어가는 간단한 요소들을 뭐 버튼이라든지 뭐 이런 뭔가 헤딩 관련된 리스트 컴포넌트 뭐 이런 것들을 제가 미리 준비를 했어요."
+    },
+    {
+      "utterance_id": "UT-00068",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 655.76,
+      "end_seconds": 668.279,
+      "text": "참고로이 컴퍼넌트 같은 경우에는 아마도 프로 디자이너 분들은 뭐 다 적용해서 쓰실 거라고 생각이 들지만 프로퍼티라는 속성 같은 게 다 적용이 되어 있습니다."
+    },
+    {
+      "utterance_id": "UT-00069",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 666.16,
+      "end_seconds": 676.5600000000001,
+      "text": "그래서 이걸 가지고 와서 커서로 코딩을 하실 때도이 프로퍼티를 반영해서 재사용할 수 있게 구성을 해 달라고 요청을 하셔야 돼요."
+    },
+    {
+      "utterance_id": "UT-00070",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 672.519,
+      "end_seconds": 694.68,
+      "text": "근데 이게 뭐 사소한 프롬프팅 차이지만 이걸 가이드를 줬을 때랑 주지 않았을 때랑 포함하지 않는 경우도 있기 때문에 그런 것들 요청해서 주셔야 하고 자 요렇게 이제 언트라는 컴포넌트 세트로 구성해서 이게 프로퍼티 그러니까 뭐 텍스트나 이런 것들 속상들을 다 부여한 컴포넌트다라고 생각해 주시면 되겠습니다."
+    },
+    {
+      "utterance_id": "UT-00071",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 692.279,
+      "end_seconds": 702.8,
+      "text": "버라이언트가 있는데 그러니까 일종의 한 컴포넌트당 다른 여러 셋들이 같이 존재하는 거를 전달하는 그런 의미로 해석하면 되나요? 네, 그렇습니다."
+    },
+    {
+      "utterance_id": "UT-00072",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 701.12,
+      "end_seconds": 709.839,
+      "text": "그래서 개층 구조에 따라서 자세히 보시면 컴포넌트를 지금 이렇게 구분을 해 놨죠."
+    },
+    {
+      "utterance_id": "UT-00073",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 705.36,
+      "end_seconds": 722.9200000000001,
+      "text": "그게 이런 속성에 따라 구분을 해 놨고 잠깐 제가 이거를 디자인 모드에서 보여 드리면 이런 컴퍼넌트들에는 기본적으로 베리언트뿐만 아니라 어떤 아이콘이 포함되고 포함되지 않고의 케이스 같은 것들이 다 포함이 되어 있어요."
+    },
+    {
+      "utterance_id": "UT-00074",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 718.72,
+      "end_seconds": 733.9590000000001,
+      "text": "그래서 작업하실 때 디자이너분들이 이런 것들을 다 구성을 해서 프로퍼티를 포함을 해서 최소한의 컴파운트로 전체를 관리할 수 있게 구현을 하시거든요."
+    },
+    {
+      "utterance_id": "UT-00075",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 729.32,
+      "end_seconds": 743.6,
+      "text": "그래서이 이렇게 이제 컴파운트 단이나 아니면 디자인 단에서 잘 구성이 되어 있으면 코드로 불러와서 아까 제가 말씀드린 대로 구현을 했을 때도 더 잘 구성된 디자인 시스템을 만드실 수 있어요."
+    },
+    {
+      "utterance_id": "UT-00076",
+      "script_chapter_id": "CH-08",
+      "start_seconds": 741.92,
+      "end_seconds": 754.7199999999999,
+      "text": "좋네요. 그 그런 생각을 하실 것 같아요. 그냥 개발자분들이라든가 아니면 아예 바이브 코딩 초보분들이 보신다고 하면은 저런 형태를 그러면은 제가 손으로 일들이 다 미리 만들어야 되나요라고 생각하실 것 같아요."
+    },
+    {
+      "utterance_id": "UT-00077",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 752.8,
+      "end_seconds": 761.6800000000001,
+      "text": "그럴 수 있죠. 하지만 제가 아까 말씀드렸던 것처럼 커뮤니티라는 데가 있잖아요."
+    },
+    {
+      "utterance_id": "UT-00078",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 757.32,
+      "end_seconds": 774.639,
+      "text": "그래서 굉장히 괜찮은 디자인 시스템들이 되게 많습니다. 뭐 샤드시엔 키트라든지 그리고 굉장히 유명한 글로벌 기업에서도 대부분 다 소스들을 무료로 이제 이렇게 뭔가 풀어서 사용할 수 있게 라이센스를 풀어 놓은 것들이 꽤 많습니다. 그래서"
+    },
+    {
+      "utterance_id": "UT-00079",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 772.399,
+      "end_seconds": 777.199,
+      "text": "맞아요. 애플이나 구글들도 다 배포가 돼 있죠."
+    },
+    {
+      "utterance_id": "UT-00080",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 775.32,
+      "end_seconds": 783.9590000000001,
+      "text": "네. 맞아요. 그래서 그것들을 좀 최대한 활용해 보시는 것을 추천드리고 네."
+    },
+    {
+      "utterance_id": "UT-00081",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 779.72,
+      "end_seconds": 799.8,
+      "text": "그래서 이런 것들 다 뭔가 이제 찾아다니려고 하면은 귀찮으실 수 있어요. 그래서 이제 디자인시스템. com이라는 사이트에 가시면 Figma 디자인 시스템들, 유명한 글로벌 디자인 시스템들의 원본을 그냥 다 볼 수 있게끔 이렇게 리스트로 되어 있습니다."
+    },
+    {
+      "utterance_id": "UT-00082",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 795.079,
+      "end_seconds": 806.76,
+      "text": "지금 디자인 시스템즈라는 파일 여기 사이트로 가셔서 클릭해서 보면 Figma 디자인 원본으로 바로 복사할 수 있게끔 이렇게 열어 보실 수가 있어요."
+    },
+    {
+      "utterance_id": "UT-00083",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 803.56,
+      "end_seconds": 809.3199999999999,
+      "text": "그래서 이런 것도 참고해 보시면 좋을 것 같습니다. 네."
+    },
+    {
+      "utterance_id": "UT-00084",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 807.32,
+      "end_seconds": 826.36,
+      "text": "네. 그니까 내가 디자인을 다 하기가 힘들고 뭔가 원하는 디자인 스타일 같은 게 잘 안 나올 때 디자인시스템 닷컴에 간다던가 해서 시그마 디자인 시스템 원본들을 참조하고 그거를 커서가 읽게끔 해서 내가 바이브 코딩으로 디자인을 좀 더 잘할 수가 있다라고 우리가 볼 수 있는 거거든요."
+    },
+    {
+      "utterance_id": "UT-00085",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 824.519,
+      "end_seconds": 833.639,
+      "text": "네, 맞습니다. 그래서 그냥 기본 소스를 많이 활용하셔라 이렇게 추천을 드리고 싶어요. 기본적인 AUI 다르지 않거든요, 사실. 네."
+    },
+    {
+      "utterance_id": "UT-00086",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 832.079,
+      "end_seconds": 841.8,
+      "text": "네. 좋죠. 좋죠. 네. 오픈 소스니깐요. 게다가 그죠? 맞아요. 오픈 소스들을 적극적으로 활용해 보시면 좋을 것 같습니다. 네."
+    },
+    {
+      "utterance_id": "UT-00087",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 838.92,
+      "end_seconds": 845.639,
+      "text": "네. 좋습니다. 그럼 그다음 설명을 주실 수 있을까요?"
+    },
+    {
+      "utterance_id": "UT-00088",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 842.92,
+      "end_seconds": 857.16,
+      "text": "네. 그래서 이제 일단은 이제 여기 이제 변수를 구성을 했으니까 이번에는 아까 설명드렸던 컴퍼넌트 섹션을 선택을 해서 불러오겠습니다."
+    },
+    {
+      "utterance_id": "UT-00089",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 851.279,
+      "end_seconds": 872.32,
+      "text": "여기다가 앞에서 구성한 연수를 도대로 지금 선택한 컴포넌트를 리액트 코드로 구현해 주세요. 이 언어를 그냥 여기 만약에 쓴 언어가 있으시면은 지정을 하시면 더 정확하게 할 수가 있고요."
+    },
+    {
+      "utterance_id": "UT-00090",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 867.839,
+      "end_seconds": 888.199,
+      "text": "그래서 리액트을 해 주세요. 이렇게 하고 아 그리고 저는 최근에는 제가 약간 이제 확인을 하고 싶어서 플랫 모드를 좀 많이 활용을 하고 있어요. 그냥 에이전트로 하면 제가 의도하지 않은 걸 계속해서가 구현을 하는 거 같아서 일단은 구현해 주세요라고 하고"
+    },
+    {
+      "utterance_id": "UT-00091",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 892.839,
+      "end_seconds": 903.759,
+      "text": "네. 요렇게 한번 요청을 해 보겠습니다. 그러면 이렇게 이제 컴파운드 정보를 섹션에 있는 것들이 읽어와서 하나씩 작업을 하는데 아마 뭐 물어보고 할 것 같습니다. 저한테 여기까지."
+    },
+    {
+      "utterance_id": "UT-00092",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 902.959,
+      "end_seconds": 905.399,
+      "text": "."
+    },
+    {
+      "utterance_id": "UT-00093",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 903.759,
+      "end_seconds": 913.519,
+      "text": "예전에는 저렇게 스크린샷을 가져온 적이 없었는데 지금은 스크린샷도 제시해 주고 내가 네가 지금 선택한이 화면이 맞아라고 하는 것도 잘 보여 주네요."
+    },
+    {
+      "utterance_id": "UT-00094",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 911.959,
+      "end_seconds": 919.5999999999999,
+      "text": "그렇죠. 예전에 비해서 좀 업데이트가 많이 됐고 이런 맥락을 읽어올 수 있는 이미지 형태로 가지고 오더라고요."
+    },
+    {
+      "utterance_id": "UT-00095",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 917.6,
+      "end_seconds": 925.56,
+      "text": "그러니깐요. 너무 좋네요. 그죠? 너무 좋아요. 진짜 읽으면서 할 겁니다. 네."
+    },
+    {
+      "utterance_id": "UT-00096",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 921.959,
+      "end_seconds": 943.5600000000001,
+      "text": "그래서 이제 전체 아홉 개 컴퍼넌트 구현을 하라고 하고음 그냥 일단은 가벼운 설정으로 한번 해 보라고 하겠습니다. 네. 이런 식으로 이제 구성을 하 이제 이런 몇 가지 옵션을 선택을 하고 두면은 이제 작업을 알아서 합니다."
+    },
+    {
+      "utterance_id": "UT-00097",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 938.44,
+      "end_seconds": 956.5999999999999,
+      "text": "그래서 되게 근데 MCP도 점점 더 속도가 빨라지는 거 같고요. 토큰을 좀 많이 쓰기는 하지만 그리고 이제 이것과는 별개로 이제 디자인 수정하는 MCP도 있는데 Figma MCP도 있는데 그것도 전에 비해서 속도가 진짜 많이 빨라졌더라고요."
+    },
+    {
+      "utterance_id": "UT-00098",
+      "script_chapter_id": "CH-09",
+      "start_seconds": 954.72,
+      "end_seconds": 966.959,
+      "text": "전에는 이럴 바에 내가 손으로 하는게 더 빠르지 않을까 이런 생각들이 조금 들긴 했는데 최근에 좀 많이 개선이 됐더라고요. . 좋네요. 옆에 벌써 또 계획도 떴네요."
+    },
+    {
+      "utterance_id": "UT-00099",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 965.36,
+      "end_seconds": 970.04,
+      "text": ". 네. 그렇죠. 구형 계획을 이렇게 세웠어요. ."
+    },
+    {
+      "utterance_id": "UT-00100",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 968.279,
+      "end_seconds": 973.399,
+      "text": ". 계획도를 보통 좀 읽어보고 진행을 하시나요?"
+    },
+    {
+      "utterance_id": "UT-00101",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 971.48,
+      "end_seconds": 988.079,
+      "text": "네. 근데 사실 실무할 때는 무조건 읽어 봐야 되는 거 같고 그리고 이제 개발자분이랑 협업을 할 때는 가이드를 주셔서 MD 파일 읽어보고 작업하라는 식으로 진행을 하고 또 이제 PR 올렸을 때 한 번 더 검토해 주시고 이런 과정으로 확인해요. 네."
+    },
+    {
+      "utterance_id": "UT-00102",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 986.36,
+      "end_seconds": 993.519,
+      "text": ". 너무 좋네요. 너무 좋네요. 지금 예상은 잘 안 되지만 유사성을 꽤 뛴 결과물이 나오나요?"
+    },
+    {
+      "utterance_id": "UT-00103",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 991.88,
+      "end_seconds": 998.4399999999999,
+      "text": ". 네. 거의 그냥 비슷하게 잡는다라고 보시면 돼요. 이제 컨퍼먼트. 그렇구나."
+    },
+    {
+      "utterance_id": "UT-00104",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 996.68,
+      "end_seconds": 1000.12,
+      "text": "네."
+    },
+    {
+      "utterance_id": "UT-00105",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 996.68,
+      "end_seconds": 1017.44,
+      "text": "사실 뭐 근데 하드 가끔 하드코딩 해 버리는 경우가 있어서 한번 검토가 필요하기는 하지만 그래도 거의 보이는 화면 그대로 이제 나온다라고 생각하시면 되고 실제로 저는 랜딩 페이지 디자인 할 때 디자인 가이드 잡고 이제 랜딩 페이지 소스랑 컴퍼넌트 기반으로 했더니 거의 비슷하게 나와서 손이 거의 안 갔던 거 같아요."
+    },
+    {
+      "utterance_id": "UT-00106",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1015.72,
+      "end_seconds": 1017.44,
+      "text": "."
+    },
+    {
+      "utterance_id": "UT-00107",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1016.72,
+      "end_seconds": 1019.0790000000001,
+      "text": "너무 좋네요."
+    },
+    {
+      "utterance_id": "UT-00108",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1017.44,
+      "end_seconds": 1031.36,
+      "text": "네. 근데 이제 이게 저는 하면 저도 하면서 느꼈던 건데 디자인에서 뭔가 이제 레이어명이나 컴파운트나 이런게 잘 정리되어 있을수록 좀 쉽게 가는 거 같고요. 그렇지 않으면 좀 고생을 하십니다."
+    },
+    {
+      "utterance_id": "UT-00109",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1029.079,
+      "end_seconds": 1042.0,
+      "text": "저도 처음에 이제 MVP 만들 때는 좀 약간 부족한 부분들이 많아서 이것 때문에 개발자분도 그렇고 저도 그렇고 토큰을 꽤 많이 썼어요. 그래서"
+    },
+    {
+      "utterance_id": "UT-00110",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1039.36,
+      "end_seconds": 1044.799,
+      "text": "이번에 말씀하신 토큰은 이제 LLM 토큰 얘기하시"
+    },
+    {
+      "utterance_id": "UT-00111",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1042.679,
+      "end_seconds": 1048.72,
+      "text": "LM 토큰이죠. 지금의 토큰은 LM 토큰이고 네"
+    },
+    {
+      "utterance_id": "UT-00112",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1046.36,
+      "end_seconds": 1055.0,
+      "text": "알겠습니다. 알겠습니다. 네 근데 실무에서는 확실히 하시는는 방식이 맞는 거 같아요."
+    },
+    {
+      "utterance_id": "UT-00113",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1050.919,
+      "end_seconds": 1064.48,
+      "text": "그러니까 MVP를 만드는 단계라든가 초반부에 만드는 단계에서는 사실 저런 과정까지는 다 하지 않고 보통은 그냥 기술 검증 혹은 이제 비즈니스 검증만으로 돌아가는데"
+    },
+    {
+      "utterance_id": "UT-00114",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1062.08,
+      "end_seconds": 1085.24,
+      "text": "실제로 그 약간 사이즈가 좀 더 커지게 시작하면은 관리라는 업무에 대해서 그리고 보통뭐 혹은 또 소통이라는 업무에 대해서 우리가 계속 부채가 쌓이기 때문에 저런 규칙 같은 것들을 잘 잡고 가는 것이랑 그렇지 않은 것이랑 엄청난 커뮤니케이션 차이가 나는데 그거를 체계적으로 잘 잡고 가음 시는 거 같아서 너무 좋은 거 같아요."
+    },
+    {
+      "utterance_id": "UT-00115",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1083.36,
+      "end_seconds": 1093.0800000000002,
+      "text": "실제로 최근에 실무자분들도 이런 부분들에 대해서 관심을 많이 가지고 강의도 요청 많이 주시기도 하더라고요."
+    },
+    {
+      "utterance_id": "UT-00116",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1088.88,
+      "end_seconds": 1106.6399999999999,
+      "text": "그래서 일단 뭐 이게 항상 그렇잖아요. 기술이 나오면 뭐 바이브 코딩 좋은 거 알겠고 뭐 다 좋은데 AI 기술도 좋은데 그래서 어떻게 내 일에 반영할 수 있는가 이제 질문인 거 같아요. 이제 실무자분들이 일하시는 분들의 질문인 거 같아서"
+    },
+    {
+      "utterance_id": "UT-00117",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1104.28,
+      "end_seconds": 1121.76,
+      "text": "보통은 그러면은 지금 개발자분이랑 되게 면밀하게 일하고 계신데 예전에는 디자인 가이드라인에서 이제 네이밍 규칙이라든가 아니면 컴포넌트 규칙이라든가 이런 것들을 수동으로 했단 말이에요. 지금은 혹시 달라진게 있나요?"
+    },
+    {
+      "utterance_id": "UT-00118",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1117.559,
+      "end_seconds": 1128.2,
+      "text": "일단은 이제 뭐 Figma 자체에서 AI로 레이어명을 바꿀 수 있는 이제 그런 기능이 나왔고요."
+    },
+    {
+      "utterance_id": "UT-00119",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1123.559,
+      "end_seconds": 1133.96,
+      "text": "근데 사실 테스트를 해 봤을 때 엄청 만족스럽다기보다는 그냥 뭐 프레임 3 4 5 6 7 89 이런 거 되게 많잖아요."
+    },
+    {
+      "utterance_id": "UT-00120",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1129.96,
+      "end_seconds": 1149.24,
+      "text": "근데 그런 것들을 좀 잡아내기 좋은 기능인 거 같아요. 그래서 뭐 예를 들어 잠깐 보여 드리면 제가 이거를 그냥 임의로 잠시만 좀 바꿔 보겠습니다. 이런 프레임이 섞여 있다고 했을 때 이게 생각보다 근데 하다 보면 진짜 많이 생기거든요. 네."
+    },
+    {
+      "utterance_id": "UT-00121",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1144.679,
+      "end_seconds": 1158.0,
+      "text": "그래서 요즘에는 이제이 레이어명 바꾸는 것도 굉장히 좋아져서 일단 뭐 간단하게 예시로 보여 드리면 왼쪽에 보시면 뭐 프레임 뭐 3, 4,2 뭐 이런 식으로 되어 있잖아요. 뭐 이런 것들."
+    },
+    {
+      "utterance_id": "UT-00122",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1156.919,
+      "end_seconds": 1175.28,
+      "text": "네. 이제 뭐 제가 밑에 것도 그냥 한번 임의로 한번 섞어 보겠습니다. 뭐 이런 것들을 이제 Figma 이제 아래쪽에 액션 메뉴에서 그냥 리네임 레이어즈라는 메뉴를 찾으시면 일단 리네임 처리를 한번 해 볼게요."
+    },
+    {
+      "utterance_id": "UT-00123",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1170.84,
+      "end_seconds": 1185.76,
+      "text": "이런 식으로 이제이 전체 맥락을 이제 인식을 해서 레이어명을 바꿔 줍니다. 그래도 이제 뭐 이게 사실 실무에서 쓰시는 이제 레이어명 규칙 같은 게 있을 거잖아요."
+    },
+    {
+      "utterance_id": "UT-00124",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1180.96,
+      "end_seconds": 1193.48,
+      "text": "그래서 규칙을 입력하는 수준까진 아니지만 그래도 프레임 뭐 3 4 뭐 이렇게 하는 것보다는 훨씬 더 깔끔하게 따 줍니다."
+    },
+    {
+      "utterance_id": "UT-00125",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1189.96,
+      "end_seconds": 1196.24,
+      "text": "그래서 요렇게 정리를 하시는 방법이 있을 것 같아요."
+    },
+    {
+      "utterance_id": "UT-00126",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1193.48,
+      "end_seconds": 1206.28,
+      "text": "그렇군요. 그렇군요. 네. 실무에서는 막 화면 스크린 번호마다 다 따고 약간 다르게 가는데 이제 쟤는 그냥 전체적인 양상만 보고 일단 수정을 잘 해 주는 그 정도라고 보면 되겠네요."
+    },
+    {
+      "utterance_id": "UT-00127",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1204.559,
+      "end_seconds": 1214.76,
+      "text": "맞아요. 그냥 프레임이나 텍스트 인식해서 그냥 만들어 주는 수준. 네. 그래도 그냥 그 아예 그냥 엉망인 거보다 나은 수준이다 이렇게 생각해 주시면"
+    },
+    {
+      "utterance_id": "UT-00128",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1213.039,
+      "end_seconds": 1230.1589999999999,
+      "text": "맞아요. 맞네요. 맞네요. 저게 되게 고통스러운 일 중에 하나여 가지고 약간 그것도 좀 잘 주어지면 좋겠습니다. 혹시 빌드는 다 됐나요? 한번 보겠습니다. 네. . 네. 이제 저희가 이제 잠깐 다른 이야기를 하는 동안 이제 빌드를 마친 거 같아요."
+    },
+    {
+      "utterance_id": "UT-00129",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1226.28,
+      "end_seconds": 1230.1589999999999,
+      "text": "그래서 아"
+    },
+    {
+      "utterance_id": "UT-00130",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1227.84,
+      "end_seconds": 1242.64,
+      "text": "다 했다고 작업을 이제 보고를 하고 있고요. 일단 제가 이제 왼쪽에 그냥 한번 브라우저에 띄어 보라고 한번 해 볼게요. . 이제 됐어요."
+    },
+    {
+      "utterance_id": "UT-00131",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1238.2,
+      "end_seconds": 1245.64,
+      "text": "근데 제가 처음 보드렸던 것만큼의 퀄리티는 나오지 않았지만"
+    },
+    {
+      "utterance_id": "UT-00132",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1243.799,
+      "end_seconds": 1253.8799999999999,
+      "text": "뭐 이런 식으로 이제 디자인 시스템을 이제 구성을 했어요. 근데 아마도 조금 빠뜨리거나 뭐 이런게 있을 수 있을 것 같기는 합니다."
+    },
+    {
+      "utterance_id": "UT-00133",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1249.76,
+      "end_seconds": 1266.08,
+      "text": "그래서 이제 아까 말씀드렸던 것처럼 저는 이렇게 잡고 이제 여기이 뭐 커서 편집 같은 거 써 가지고 간단한 수정들 여기 디자인 편집에서 하는 편이긴 해요. 최근에 그게 좀 생각보다 편하더라고요, 이게. ."
+    },
+    {
+      "utterance_id": "UT-00134",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1263.96,
+      "end_seconds": 1281.279,
+      "text": "맞아요. 네. 저기 저게 진짜 레이아웃 편집하기도 쉽고 여러 가지로 제가 그냥 굳이 코드 얘기를 하지 않아도 저렇게 해서 쉽게 뭔가 한꺼번에 수정 사항 같은 것들을 일괄로 좀 잡고 싶을 때 저거를 많이 쓰면 진짜 좋다고 생각을 해요. ."
+    },
+    {
+      "utterance_id": "UT-00135",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1279.72,
+      "end_seconds": 1299.72,
+      "text": "네. 일단 소개해 주셔서 감사합니다. 네. 현재 지금 이렇게 해서 컴포넌트를 만들고 실제로 이제 제품 관련된 과정 같은 것들을 저걸 레퍼런스 삼아서 만들 수가 있는 건데요. 혹시 뭐 추가로 이제 저희에게 꼭이 세션을 얘기하면서 좀 나누고 싶은 그런 이야기가 좀 있을까요?"
+    },
+    {
+      "utterance_id": "UT-00136",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1297.159,
+      "end_seconds": 1310.72,
+      "text": "네. 뭐 우성대 저는 이제이 과정을 거쳐서 일단 엔딩 페이지를 잘 제작을 하더라도 그냥 후를 생각을 한다면요 밑업을 하시고 하는 걸 추천을 드리고요."
+    },
+    {
+      "utterance_id": "UT-00137",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1305.84,
+      "end_seconds": 1320.799,
+      "text": "그리고 딱히 근데이 전체 과정에서 봤을 때 지금 당장은 내가 현업에 반영할 일이 없다 하더라도 요걸 조금씩 익숙해지시면 써야만 하는 시점이 좀 빠르게 올 거라고 보고 있거든요."
+    },
+    {
+      "utterance_id": "UT-00138",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1317.279,
+      "end_seconds": 1325.0,
+      "text": "그래서 요거 참고를 해 보시면 좋을 것 같습니다. 이 워크 플로우 자체를. 네."
+    },
+    {
+      "utterance_id": "UT-00139",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1322.159,
+      "end_seconds": 1336.52,
+      "text": ". 너무 좋습니다. 네. 일단 파트 1은 여기서 한번 마무리하면 좋을 것 같고 이제 파트 2로 한번 넘어가 보고 싶어요. 크린 플로우라고 하는 제품을 최근에 많으셨죠? 이선님께서 소개를 해 주실 수 있을까 싶습니다."
+    },
+    {
+      "utterance_id": "UT-00140",
+      "script_chapter_id": "CH-10",
+      "start_seconds": 1334.48,
+      "end_seconds": 1354.96,
+      "text": "아, 네. 너무 좋습니다. 네. 지금 보시는게 저희 스크린 플로우라는 서비스의 랜딩 페이지고요. 쉽게 말씀드려서 내가 원하는 웹사이트를 그냥 해상도별로 한 번에 더미로 캡처하고 그리고 Figma의 편집 가능한 디자인으로 가져갈 수 있는 서비스다라고 이렇게 설명드리고 싶어요."
+    },
+    {
+      "utterance_id": "UT-00141",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1350.679,
+      "end_seconds": 1372.36,
+      "text": "그래서 제가 요거 로그인해서 잠깐 보여 드리면 네. 요 왼쪽에는 제가 이제 미리 캡처를 했었던 화면들인데 일단 캡처를 하실 때는 여기에다가 예를 들어서 내가 네이버를 캡처를 하고 싶다라고 하면 링크를 입력하고 이제 왼쪽에 보시면 댑스가 있는데 이게 각 페이지마다의 링크예요."
+    },
+    {
+      "utterance_id": "UT-00142",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1368.52,
+      "end_seconds": 1387.0,
+      "text": "트리처럼 첫 페이지에서 링크 그리고 거기서 퍼져 나가는 이제 이런 사이트 맵처 이런 링크 같은 것들 링크 트리들이라고 하시면 됩니다. 이렇게 원댑스, 투 댑스, 쓰 있는데 사실 저희가 마지막으로 그리는 그림은 플로우별로 가지고 오는 거예요."
+    },
+    {
+      "utterance_id": "UT-00143",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1383.679,
+      "end_seconds": 1388.9189999999999,
+      "text": "그래서 지금은 아주 극기 단계라고 봐 주시면 되고"
+    },
+    {
+      "utterance_id": "UT-00144",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1387.0,
+      "end_seconds": 1404.08,
+      "text": "이거는 사이트를 이미지로 캡처하는 도구인 거잖아요. 그죠? 근데 이거는 누가 타겟이고 이게 어떤 점이 이제 불편했길에이 제품을 탄생시키게 됐는지 그 배경에 대해서 좀 더 설명 수 있을까요?"
+    },
+    {
+      "utterance_id": "UT-00145",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1399.559,
+      "end_seconds": 1412.8400000000001,
+      "text": "예전에 제 아이디어를 설명하거나 해야 할 때 레퍼런스를 토대로 근거를 가지고 오고 부분에 저희가 참조하는 용으로 좀 조합을 해서 새로운 전문가를 만들잖아요."
+    },
+    {
+      "utterance_id": "UT-00146",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1410.4,
+      "end_seconds": 1424.4399999999998,
+      "text": "근데 화면을 하나씩 클릭하면서 캡처를 해야 되고 또 정리를 해야 되고 거기다 어노테이션을 접고 막 이런 과정들이 굉장히 저는 번거롭고 별거 아닌데 반복 작업이라는 생각이 들더라고요."
+    },
+    {
+      "utterance_id": "UT-00147",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1420.36,
+      "end_seconds": 1428.919,
+      "text": "그래서 이런 것들을 좀 해결하고 싶다라고 생각해서 만든게 스크린 플로우라는 서비스예요. 네."
+    },
+    {
+      "utterance_id": "UT-00148",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1427.0,
+      "end_seconds": 1462.5200000000002,
+      "text": "그래서 지금 화면에 지금 이게 시간이 사실은 백그라운드에서 돌아가 걸리는 거 같아서 이거를 제가 캡처된 화면으로 보여 드리면 일단 첫 페이지에서의 캡처를 이렇게 뭔가 완성을 하면 상쇄 보기를 눌렀을 때 이렇게 해상도별 탭을 누르면 이렇게 PC 태블릿 모바일 사이즈의 화면 요렇게 캡처가 된 걸 확인을 하실 수가 있고 이것들을 아카이브 처리를 해서 내가 원하는 화면들을 서비스별로 이렇게 모아서 보다가 만약에 이게 이제 뭐 Figma 작업자 장으로 가져가거나 편집 가능한 디자인으로 필요합니다."
+    },
+    {
+      "utterance_id": "UT-00149",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1458.159,
+      "end_seconds": 1478.72,
+      "text": "그럴 때는 이렇게 선택을 하고 아래쪽에서 Figma에서 복사 버튼을 누르면 이제 저장이 됐다라고 뜨고요. 제가 Figma로 가서 한번 보여 드리면 플러그인에서 저희가 이제 스크린 플로우라는 명칭을 검색하시면 플러그인이 뜨는데"
+    },
+    {
+      "utterance_id": "UT-00150",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1476.48,
+      "end_seconds": 1483.76,
+      "text": "아 플러그인도 출시하셨어요. 네. 그래서 요거를 붙어 넣기를 하면"
+    },
+    {
+      "utterance_id": "UT-00151",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1481.72,
+      "end_seconds": 1489.36,
+      "text": "이제 이미지로 가지고 올 건지 레이어 원본으로 가지고 올 건지 선택을 할 수가 있습니다."
+    },
+    {
+      "utterance_id": "UT-00152",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1485.6,
+      "end_seconds": 1491.1200000000001,
+      "text": "그래서 이거를 가지고 오기를 하면"
+    },
+    {
+      "utterance_id": "UT-00153",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1489.36,
+      "end_seconds": 1501.679,
+      "text": "이거 되게 플로우를 잘 푸셨네요. 원래는 다이렉트 복사가 안 되는데 별로 별도로 플러그인으로 따로 설치가 돼 가지고 그거를 통신시켜서 하시는 형태로 푸셨네요. 네"
+    },
+    {
+      "utterance_id": "UT-00154",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1499.48,
+      "end_seconds": 1520.52,
+      "text": "맞습니다. 그래서 지금 당장은 요렇게 쓰지만 사실 이런 HTML 원본들이 이제 참고용으로 이제 바이브 코딩할 때도 사용이 되잖아요. 그런데 이제 뭔가 커서나 이런 툴로 바로 가져가게 할 수 있는 것도 지원을 할 예정이고 이게 보시면 이렇게 가지고 와줬어요. 비그마에."
+    },
+    {
+      "utterance_id": "UT-00155",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1514.08,
+      "end_seconds": 1533.0,
+      "text": "그래서 HTML 원본이라서 일단 다 수정도 할 수가 있고 이게 팝업 같은 거 뜨는 것도 다 읽어오게끔 지금 구성을 해 놔 가지고 이런 것들 다 클릭해서 보실 필요 없이 이렇게 꺼내 가지고 하면 보시면 됩니다. 이런 식으로. ."
+    },
+    {
+      "utterance_id": "UT-00156",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1529.2,
+      "end_seconds": 1544.0800000000002,
+      "text": "그래서 뭐 이런 것들 저희가 레퍼런스로 쓸 때 그냥 버튼 수정하면 뭐이 뭐 이런 느낌이라고 이야기하는 거보다 사실 비주얼로 커뮤니케이션 하는게 더 정확하잖아요."
+    },
+    {
+      "utterance_id": "UT-00157",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1539.44,
+      "end_seconds": 1550.039,
+      "text": "사실 이거 이런 느낌만 가지고 오고 싶은데라고 하면 서로 생각하는게 너무 다르단 말이죠."
+    },
+    {
+      "utterance_id": "UT-00158",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1545.76,
+      "end_seconds": 1558.48,
+      "text": "근데 그런를 맞춰 주는 역할로서 저는 이런 것들 소스를 쓸 거라고 생각했기 때문에 HTML2 디자인까지 저희가 개발을 일단 한 상태입니다. 네."
+    },
+    {
+      "utterance_id": "UT-00159",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1555.32,
+      "end_seconds": 1562.24,
+      "text": "아, 그렇구나. 네. 저도 되게 쓰고 싶다는 생각을 지금 하게 됐어요."
+    },
+    {
+      "utterance_id": "UT-00160",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1560.039,
+      "end_seconds": 1577.2,
+      "text": "그러니까 저도 지금 레퍼런스 캡처라든가 이런 것들을 Figma로 불러올 일이 되게 많긴 한데 그런 부분에 있어서도 좀 여러 페이지를 벌크로 한 번에 가져와서 한다는 그런 도구는 잘 없었거든요. 제 생각에는."
+    },
+    {
+      "utterance_id": "UT-00161",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1573.72,
+      "end_seconds": 1591.0,
+      "text": "근데 그거를 할 수 있다는 것 자체가 상당히 재밌는 거 같고 저도 AI에서 직접 만들어 가지고 그걸 Figma로 복사한다던가 이런 것들을 구현 데서 상당히 까다로웠는데 이거를 좀 합리적인 플로우로 잘 풀어내신 거 같아서 너무 재밌습니다."
+    },
+    {
+      "utterance_id": "UT-00162",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1587.52,
+      "end_seconds": 1600.039,
+      "text": "그 이거를 만들게 되신 그 배경을 저는 조금 알고 있지만 구독자분들은 잘 모르실 텐데 사실 이걸 처음에는 이서님이 혼자 만드셨단 말이에요."
+    },
+    {
+      "utterance_id": "UT-00163",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1596.84,
+      "end_seconds": 1618.8799999999999,
+      "text": "근데 지금은 개발자님이랑 같이 공동 창업을 하셔 가지고 함께 협업하기로 전환을 하셨단 말이죠. 근데이 전환하 이유가 어떻게 되셨는지에 대해서 조금 뭐 그리고 레이지브라고 하는 팀이나요? 그게 어떻게 탄색했는지에 대해서 좀 설명 주실 수 있을까요? 아, 네. 그럼요."
+    },
+    {
+      "utterance_id": "UT-00164",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1614.12,
+      "end_seconds": 1626.399,
+      "text": "일단 저는 네. 작년부터 제가 이제 만들고 싶어서 여덟 개 정도 플로그램부터 사소하게 막 하나 두 개씩 막 만들어 보기 시작했던 거 같아요."
+    },
+    {
+      "utterance_id": "UT-00165",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1622.399,
+      "end_seconds": 1635.32,
+      "text": "이제 그중에 제품을 뭔가 제가 공개를 했을 때 다른 분들이 반응을 하시고 뭔가 이거 좀 필요하다라고 이제 좀 뜨겁게 지지를 해 주신게 스크린 플로우였고요."
+    },
+    {
+      "utterance_id": "UT-00166",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1630.96,
+      "end_seconds": 1644.6000000000001,
+      "text": "근데 이거를 이제 제가 좀 본격적으로 해보고 싶다라고 생각을 했을 때 조씨 님이 운영하신 ASC에 제가 그때 들어갔었던 시기였어요."
+    },
+    {
+      "utterance_id": "UT-00167",
+      "script_chapter_id": "CH-11",
+      "start_seconds": 1639.679,
+      "end_seconds": 1684.399,
+      "text": "그래서 막 그때 초반에 막 이거 기획하고 제품 개발을을 어떻게 할지 좀 구퇴화를 하고 그리고 개발하는 과정까지를 한번 쭉 이렇게 뭔가 같이 조시님이랑 따라가면서 아 이게 생각보다 쉽지 않은 작업이고 그리고 이거를 제가 진짜 제품을 제대로 만들고 운영하기 위해서는 이걸 운영해 주실 개발자분이 필요하겠구나라고 절실하게 느꼈었고 그 과정에서 근데 이거를 조끼리 발표하는 그런 이제 세션이 있었는데 그거를 이제 상님께서 보시고 제가 마침 개발자를 찾고 있던 그런 시기쯤에 이제 관심을 가지시면서 미니 프로젝트로 한번 진행해 보자 정도의 이야기만 했었는데 하다 보니까 이제 이게 제대로 뭔가 올인해서 하지 않으면 안 되겠더라고요."
+    },
+    {
+      "utterance_id": "UT-00168",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1680.12,
+      "end_seconds": 1688.039,
+      "text": "그래서 팀을 하나로 합치고 같이 한번 제대로 만들어 보자 이렇게 됐던 거 같아요. ."
+    },
+    {
+      "utterance_id": "UT-00169",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1687.039,
+      "end_seconds": 1704.72,
+      "text": "재밌습니다. 네. 그 지금 어쨌든 현재는 베타 버전이잖아요. 유저 피드백도 되게 열심히 받으시고 이메일도 보내시고 마케팅 활동을 열심히 잘 저도 보고 있었습니다. 이 스크린 플로우를 쓰시는 유저분들의 피드백 같은 것들이 어떤게 있었나요?"
+    },
+    {
+      "utterance_id": "UT-00170",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1702.44,
+      "end_seconds": 1718.799,
+      "text": "네. 댓글처럼 정성적인 반응도 되게 많기는 했지만 뭐 저는 유저 인터뷰에서 좀 얻었던 피드백이 조금 의미가 있었던 거 같아요. 일단 그 미국에 계시는 디자이너분이랑 인터뷰를 한 1한시간 반 정도 한 적이 있어요."
+    },
+    {
+      "utterance_id": "UT-00171",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1714.519,
+      "end_seconds": 1736.8400000000001,
+      "text": "근데 그분의 ICP가 매일매일 이틀에 한 번씩 PM분이랑 회의를 하신대요. 제품 관련해서. 그리고이 자기의 뜻을 뭔가 관철시키거나 아니면은 논리를 가지기 위해서 서비스마다 다 캡처를 하고 어노테이션 달고 막 그런 것들을 이틀에 한 번씩 진행을 하고 계신다라는 거예요."
+    },
+    {
+      "utterance_id": "UT-00172",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1731.919,
+      "end_seconds": 1750.72,
+      "text": "근데 제 제품을 소개해 드리고 사용을 해 보시더니 와 이거 있으면 그래도 하는 시간에 50% 정도는 줄일 수 있겠다라고 그냥 정말 진짜 진심으로 울어나온 피드백을 막 진짜 막 쏟아내셨을 때 그때가 좀 기억이 많이 나는 거 같아요."
+    },
+    {
+      "utterance_id": "UT-00173",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1747.159,
+      "end_seconds": 1755.679,
+      "text": "그래서 아 우리가 찾는 유저분이 여기 계셨구나 막 이러면서 좀 와닿기도 했고 그렇게 주셨던 피드백이 좀 의미가 있었어요. 네."
+    },
+    {
+      "utterance_id": "UT-00174",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1755.039,
+      "end_seconds": 1759.08,
+      "text": "."
+    },
+    {
+      "utterance_id": "UT-00175",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1755.679,
+      "end_seconds": 1770.2,
+      "text": ". 그 추가적으로 듣고 싶었던 거는 또 실제로 유저들이 썼을 때 그 피드백을 반영을 하는 과정이 혹시 어땠는지가 좀 궁금해요."
+    },
+    {
+      "utterance_id": "UT-00176",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1765.159,
+      "end_seconds": 1783.36,
+      "text": "저도 베타 테스트를 하면서 유저 피드백을 듣고 이제 그것들을 종합을 해서 저희가 그걸 선별하고 기능을 발전해 나가기도 하는데 이제 이선 님은 어떻게 그런 과정이 있으신지가 좀 궁금합니다."
+    },
+    {
+      "utterance_id": "UT-00177",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1780.64,
+      "end_seconds": 1795.08,
+      "text": ". 네. 뭐 사실 조씨 님도 엄청 많이 받으시겠지만 저도 다양한 채널들을 통해서 이게 있었으면 좋겠다. 이거는 좀 개전되면 좋겠다. 이런 피드백들을 굉장히 많이 받고 있습니다. 네."
+    },
+    {
+      "utterance_id": "UT-00178",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1791.039,
+      "end_seconds": 1814.36,
+      "text": "물론 이거를 다 반영해 드리고 싶지만 저희의 긴 장기적인 로드맵이나 이런 우선 순위 같은 걸 따져야 하다 보니까 거기서 저희의 생각과 결이 맞거나 아니면 저희가 타겟한 유저들이랑 조금 더 결이 맞는 기능들을 좀 추출을 해 내서 그것들을 우선 순위 세워 가지고 반영하는 과정으로 가고 있는 거 같아요."
+    },
+    {
+      "utterance_id": "UT-00179",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1810.559,
+      "end_seconds": 1817.519,
+      "text": "하지만 쉽진 않습니다. 기준 세운다는 거 자체도 조금 모한 부분이 있고. 그죠?"
+    },
+    {
+      "utterance_id": "UT-00180",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1815.279,
+      "end_seconds": 1823.48,
+      "text": "아, 쉽지 않죠. 네. 맞아요. 리소스도 한정적이고 저희는 두 명밖에 없는데. 네. 그래서"
+    },
+    {
+      "utterance_id": "UT-00181",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1820.76,
+      "end_seconds": 1825.6,
+      "text": "그죠."
+    },
+    {
+      "utterance_id": "UT-00182",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1820.76,
+      "end_seconds": 1840.88,
+      "text": "저도 지금 어쨌든 같이 공동 창업하는 개발자분이랑 이제 피드백 받아가면서 개선해 나가고는 있는데 역시 제일 그 제품 쪽에선 어려운게 아무래도 실제 사용자들이 계속 들어와서 써보고 결제까지 하느냐가 제일 역시 어려운 지점인 거 같아요."
+    },
+    {
+      "utterance_id": "UT-00183",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1839.48,
+      "end_seconds": 1844.2,
+      "text": "지금 현재 앞으로의 계획은 혹시 어떻게 되시나요?"
+    },
+    {
+      "utterance_id": "UT-00184",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1842.44,
+      "end_seconds": 1851.279,
+      "text": "네. 네. 우선 저희는 일단 지금은 완전 오픈 베타 상태라서 무료인 단계고요."
+    },
+    {
+      "utterance_id": "UT-00185",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1846.679,
+      "end_seconds": 1865.159,
+      "text": "그리고 이제 3월 중에 픽스를 할 것 같아요. 오픈 날짜를 픽스를 해서 유료화를 시작을 하려고 합니다. 이런 계획들을 가지고 있고 이제 유료화 시작 이후에는 또 여러 가지 기능들을 좀 계획을 하고 있기는 한데 네. 뭐 그런 상태라고 보시면 되겠습니다. 네."
+    },
+    {
+      "utterance_id": "UT-00186",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1863.44,
+      "end_seconds": 1866.96,
+      "text": "아 이제 유료화를 곧 시작하시는 거군요. 제대로."
+    },
+    {
+      "utterance_id": "UT-00187",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1865.919,
+      "end_seconds": 1870.3990000000001,
+      "text": "네. 그렇습니다. ."
+    },
+    {
+      "utterance_id": "UT-00188",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1866.96,
+      "end_seconds": 1877.159,
+      "text": "아 그렇구나. 야, 역시 그 유료화를 시작을 하시기 전에 혹시 뭐 마케팅 계획 같은 것들을 되게 많이 궁금해하실 것 같아요."
+    },
+    {
+      "utterance_id": "UT-00189",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1873.88,
+      "end_seconds": 1893.0,
+      "text": "사실 이렇게 제품 만드시는 분들이 가장 힘들어하는게 마케팅이긴 하거든요. 지금, 이젠 클로즈드 베타 끝나고 오픈 베타 기간이 한 이제 2개월 정도가 된 상태에서, 그다음에는 어떻게 좀 더, 마케팅을 좀 전개해 나가실 예정인지 좀 궁금합니다."
+    },
+    {
+      "utterance_id": "UT-00190",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1890.6,
+      "end_seconds": 1899.36,
+      "text": "네. 아, 근데 사실 베타 기간에는 뭐 사전 홍보 개념으로 그냥 페이드 광고는 저희는 전혀 하지 않았어요."
+    },
+    {
+      "utterance_id": "UT-00191",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1897.6,
+      "end_seconds": 1915.1200000000001,
+      "text": "그래서 그냥 제 채널 통해서 좀 알리는 정도로만 지금까지 했었고 오픈 단계에서 저희 좀 다양한 것들을 계획을 하고 있는데 우선 프로덕트 헌트에라는 서비스에 런칭을 해서 일단은 이제 글로벌 유저들을 조금 더 모으는게 저희 목표기는 합니다."
+    },
+    {
+      "utterance_id": "UT-00192",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1912.919,
+      "end_seconds": 1924.3990000000001,
+      "text": "그래서 프로덕트 헌트 런칭을 준비를 하고 있고 그 이후에는 페이드 광고 같은 것들을 다양한 채널 통해서 좀 진행을 해 보려고 해요."
+    },
+    {
+      "utterance_id": "UT-00193",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1919.48,
+      "end_seconds": 1930.1200000000001,
+      "text": "근데 다만 저희 서비스 자체가 워낙 시장이 크지 않아요. 시장이 크지 않아서 글로벌 시장을 목표로 합니다."
+    },
+    {
+      "utterance_id": "UT-00194",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1926.2,
+      "end_seconds": 1943.6000000000001,
+      "text": "그래서 국내에만 페이드 광고를 하는게 아니라이 해외 쪽으로도 좀 타게팅을 해서 이제 그런 유입되는 광고들을 한번 진행을 해 보려고 해요. 뭐 그런 광고를 구체적으로 좀 설명을 드리면 뭐 메타 광고도 있을 것이고요."
+    },
+    {
+      "utterance_id": "UT-00195",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1939.72,
+      "end_seconds": 1950.88,
+      "text": "그리고 에디나 이런 커뮤니티도 많잖아요. 그래서 그런데 좀 뭔가 홍보도 좀 해보고 이게 다양하게 시도를 해 보려고 계획 중입니다. ."
+    },
+    {
+      "utterance_id": "UT-00196",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1948.6,
+      "end_seconds": 1965.8799999999999,
+      "text": ". GTM 전략을 많이 잘 세우시는 것으로 이해하면 좋을 거 같아요. Figma 튜터 계정에서는이 서비스를 홍보를 하실 예정이실지 아니면 좀 어떻게 좀 연계가 될 거 같으세요?"
+    },
+    {
+      "utterance_id": "UT-00197",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1961.6,
+      "end_seconds": 1974.48,
+      "text": "디자이너분들이 이제 이선님의 오디언스다 보니까 이제 앞으로는 어떻게이 콘텐츠 마케팅을 좀 이것과 병행해 나가실지가 조금 좀"
+    },
+    {
+      "utterance_id": "UT-00198",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1972.84,
+      "end_seconds": 1979.432,
+      "text": "사소한 부분이지만 좀 궁금하긴 했었어요."
+    },
+    {
+      "utterance_id": "UT-00199",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1976.44,
+      "end_seconds": 1983.08,
+      "text": "사실 좀 아직까지 좀 고민이 되실"
+    },
+    {
+      "utterance_id": "UT-00200",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 1980.679,
+      "end_seconds": 2006.24,
+      "text": "예 되게 정확하게 짚어내셨는데 아직까지 굉장히 많이 고민이 되는 지점이고 타겟 오디언스가 대부분 디자이너 분들이라곤 하지만 계정의 정체성과 비춰 봤을 때 막 완벽하게이 스크린 플로우를 위한 계정은 아니다 보니 사실 뭐 제가 빌드하는 과정이나 업데이트 된 것 정도는 알려 드릴 수 있더라도 이게 조금 모호한 지점들이 있을 것 같아요."
+    },
+    {
+      "utterance_id": "UT-00201",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 2001.6,
+      "end_seconds": 2020.039,
+      "text": "그래서 결론적으로는 사실이 제 개인 계정에서는 제가 만드는 과정이나 중요한 업데이트 정도를 알려 드리는 정도로 가고요. 공식적으로 이제 브랜드 계정을 따로 운영을 할 생각입니다. 다만이 두 가지 사이에서 시너지를 낼 수 있는 다양한 방법들을 고려하려고 하고요."
+    },
+    {
+      "utterance_id": "UT-00202",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 2018.08,
+      "end_seconds": 2037.0,
+      "text": "이제 기존 리소스는 많이 활용을 해서 좀 알리면 좋으니까 이제 그렇게 계획을 하고 있고 뭐 이거는 유튜브 채널이나 다른 채널도 마찬가지일 것 같아요. 그래서이 브랜드를 위한 계정을 따로 이제 운영을 하고 제 개인 계정과 함께 성장하는 방향으로 저는 계획을 하고 있기 해요. ."
+    },
+    {
+      "utterance_id": "UT-00203",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 2034.519,
+      "end_seconds": 2054.44,
+      "text": "아, 너무 좋네요. 너무 좋네요. 네. 앞으로의 그 스크린 플로우의 그 글로벌적인 성장, 기아 급수적인 제이커브 성장을 진짜 응원드리고 이제 비슷한 서비스를 만든 입장에서 저도 많이 배우도록 하고 또 이선님께도 저도 많이 도움될 수 있도록 하겠습니다. 너무 감사드리고요."
+    },
+    {
+      "utterance_id": "UT-00204",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 2049.52,
+      "end_seconds": 2067.76,
+      "text": "또 마지막으로 이제 질문드리고 싶은 건 지금 이제 AI나 바이브 코딩 쪽에 좀 관심이 있지만 이제 시작을 되게 힘들어 하시고 좀 아이 방향으로 내가 정말 나갈 수 있을까에 대한 그런 망설림을 가지신 분들이 좀 있을 것 같아요. 네."
+    },
+    {
+      "utterance_id": "UT-00205",
+      "script_chapter_id": "CH-12",
+      "start_seconds": 2064.96,
+      "end_seconds": 2072.079,
+      "text": "그런 분들을 위해서 한마디 조언을 꼭 해 주실 수 있을까요?"
+    },
+    {
+      "utterance_id": "UT-00206",
+      "script_chapter_id": "CH-13",
+      "start_seconds": 2067.76,
+      "end_seconds": 2086.2799999999997,
+      "text": "사실 저는 조언이라는 것을 좀 되게 조심스럽게 생각하는 편이긴 하지만 그냥 제 경험에 비춰서 말씀을 드리면 막 AI 툴이 도구가 발전하고 주변에서는 엄청나게 막 고창한 문제들을 해결하는 사람들이 많아 보이고 막 그런 소식들이 계속 끊임없이 들어오잖아요."
+    },
+    {
+      "utterance_id": "UT-00207",
+      "script_chapter_id": "CH-13",
+      "start_seconds": 2082.24,
+      "end_seconds": 2103.28,
+      "text": "근데 이런 것에 대해서 너무 내가 처음부터 큰 문제를 정의하려고 하기보다는 내가 겪고 있는 사소한 문제들을 제품으로 해결해 본다던가 이렇게 가볍게 시작해 보시는 걸 저는 추천을 드려요. 예를 들어서 Figma그인 같은 것들은 패키지가 있기 때문에 쉽게 접근할 수 있거든요."
+    },
+    {
+      "utterance_id": "UT-00208",
+      "script_chapter_id": "CH-13",
+      "start_seconds": 2099.52,
+      "end_seconds": 2118.119,
+      "text": "그래서 이런 거부터 시작해 본다든지이 베이비 스텝이라고 하잖아요. 그냥 살짝 내디어 보는 이런 것들을 한번 시도해 보시면서 이걸 내 일에 어떻게 접목할 수 있을지 고민해 보는 과정이 저는 꼭 필요하다고 생각하고 실제로 저도 그랬고요."
+    },
+    {
+      "utterance_id": "UT-00209",
+      "script_chapter_id": "CH-13",
+      "start_seconds": 2113.079,
+      "end_seconds": 2126.8,
+      "text": "그리고 또 기술이 많이 막 나온다고 해서 다 알 필요가 없고 내 일에 정말 어떻게 잘 써 먹을지 아는 것만도 저는 되게 유효하다고 생각하거든요."
+    },
+    {
+      "utterance_id": "UT-00210",
+      "script_chapter_id": "CH-13",
+      "start_seconds": 2121.92,
+      "end_seconds": 2129.04,
+      "text": "그래서 이런 막연한 불안감을 가지지 않으셨으면 좋겠어요."
+    },
+    {
+      "utterance_id": "UT-00211",
+      "script_chapter_id": "CH-13",
+      "start_seconds": 2126.8,
+      "end_seconds": 2138.44,
+      "text": "감사합니다. 네, 오늘은 이렇게 해서 이제 하이서 님과 이렇게 좀 즐거운 시간을 이제 가지게 되었는데요. 여러분들께 큰 도움이 되셨으나 생각을 합니다."
+    },
+    {
+      "utterance_id": "UT-00212",
+      "script_chapter_id": "CH-13",
+      "start_seconds": 2134.44,
+      "end_seconds": 2151.92,
+      "text": "디자인이 좀 어려우신다던가 앞으로 바이브 코딩이라든가 아니면 실제로 빌딩인 퍼블릭을 하면서 제품 개발을 하고 싶으신 그런 분들께서는 저희 Figma 튜터 하이서 님을 꼭 찾아 주셨으면 좋겠고요. 또 빌더주씨도 많이 사랑해 주셨으면 좋겠습니다."
+    },
+    {
+      "utterance_id": "UT-00213",
+      "script_chapter_id": "CH-13",
+      "start_seconds": 2148.4,
+      "end_seconds": 2156.4,
+      "text": "네 오늘 이렇게 해서 촬영을 마무리하도록 하겠습니다. 여러분 그러면 다음에 뵙겠습니다. 고맙습니다."
+    }
+  ],
+  "response": {
+    "recommendation": {
+      "eyebrow": "추천해요",
+      "title": "디자인 시스템을 기반으로 바이브 코딩 효율을 높이세요",
+      "body": "디자인 토큰과 컴포넌트를 체계적으로 구성하면 AI 도구가 더 정확한 코드를 생성하고 토큰 소모를 줄일 수 있습니다. 하이서는 Figma MCP와 커서, 클러드 코드를 연결해 디자인 시스템을 기반으로 리액트 코드를 자동 생성하는 프로세스를 공유했습니다.",
+      "claims": [
+        {
+          "text": "디자인 시스템을 구축하면 AI 도구가 더 정확한 코드를 생성하고 토큰 소모를 줄일 수 있습니다.",
+          "source_utterance_ids": [
+            "UT-00014",
+            "UT-00029",
+            "UT-00036",
+            "UT-00037",
+            "UT-00038",
+            "UT-00043",
+            "UT-00047",
+            "UT-00051",
+            "UT-00054",
+            "UT-00055",
+            "UT-00058",
+            "UT-00069",
+            "UT-00070",
+            "UT-00071",
+            "UT-00072",
+            "UT-00073",
+            "UT-00074",
+            "UT-00075",
+            "UT-00089",
+            "UT-00090",
+            "UT-00091",
+            "UT-00096",
+            "UT-00097",
+            "UT-00098"
+          ]
+        },
+        {
+          "text": "Figma MCP와 커서, 클러드 코드를 연결해 디자인 시스템을 기반으로 리액트 코드를 자동 생성할 수 있습니다.",
+          "source_utterance_ids": [
+            "UT-00014",
+            "UT-00015",
+            "UT-00029",
+            "UT-00036",
+            "UT-00037",
+            "UT-00038",
+            "UT-00043",
+            "UT-00047",
+            "UT-00051",
+            "UT-00054",
+            "UT-00055",
+            "UT-00058",
+            "UT-00069",
+            "UT-00070",
+            "UT-00071",
+            "UT-00072",
+            "UT-00073",
+            "UT-00074",
+            "UT-00075",
+            "UT-00089",
+            "UT-00090",
+            "UT-00091",
+            "UT-00096",
+            "UT-00097",
+            "UT-00098"
+          ]
+        }
+      ]
+    },
+    "tools": [
+      {
+        "name": "Figma",
+        "canonical_name": "Figma",
+        "url": null,
+        "description": "디자인 시스템을 구성하고 컴포넌트 및 토큰을 정의하는 데 사용되며, Figma MCP를 통해 AI 도구와 연동됩니다.",
+        "source_utterance_ids": [
+          "UT-00001",
+          "UT-00002",
+          "UT-00004",
+          "UT-00007",
+          "UT-00008",
+          "UT-00014"
+        ]
+      },
+      {
+        "name": "Cursor",
+        "canonical_name": "Cursor",
+        "url": null,
+        "description": "AI 기반 코드 에디터로, Figma MCP와 연결해 디자인 시스템을 기반으로 리액트 코드를 자동 생성합니다.",
+        "source_utterance_ids": [
+          "UT-00015",
+          "UT-00029",
+          "UT-00036",
+          "UT-00037",
+          "UT-00038",
+          "UT-00069"
+        ]
+      },
+      {
+        "name": "Claude Code",
+        "canonical_name": "Claude Code",
+        "url": null,
+        "description": "AI 코드 생성 도구로, 디자인 시스템의 맥락을 인식해 리액트 코드를 정확하게 생성합니다.",
+        "source_utterance_ids": [
+          "UT-00029",
+          "UT-00036"
+        ]
+      }
+    ],
+    "tags": [
+      "디자인 시스템",
+      "바이브 코딩",
+      "Figma",
+      "React",
+      "AI 도구",
+      "코드 자동화"
+    ],
+    "warnings": []
+  }
+}

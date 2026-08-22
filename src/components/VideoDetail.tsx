@@ -44,13 +44,25 @@ export function VideoDetail({ course }: { course: Course }) {
     else router.push("/");
   }, [router]);
 
-  /* 메타행은 시안대로 짧게 — "2.8점" → "2.8", "61,240" → "6.1만" */
-  const rating = course.ratingLabel.replace("점", "");
-  const views = compactCount(course.viewCountLabel);
-
   const activePart = course.parts.find((p) => p.id === activePartId) ?? null;
   const activeIdx = activePart ? course.parts.indexOf(activePart) : -1;
   const nextPart = activeIdx >= 0 ? course.parts[activeIdx + 1] : undefined;
+  /*
+   * 메타행 — 시안대로 짧게 ("2.8점" → "2.8", "61,240" → "6.1만").
+   * 어드민에서 발행한 콘텐츠는 채널·날짜·별점이 비어 있을 수 있어 있는 것만 이어붙여요.
+   */
+  const headerMeta = [
+    course.channel.name,
+    course.publishedAt,
+    course.ratingLabel ? `별점 ${course.ratingLabel.replace("점", "")}` : null,
+    course.viewCountLabel ? `조회 ${compactCount(course.viewCountLabel)}` : null,
+  ].filter((value): value is string => Boolean(value));
+  const hasMoreContent =
+    headerMeta.length > 0 ||
+    course.recommend !== null ||
+    course.tools.length > 0 ||
+    course.tags.length > 0 ||
+    course.relatedVideos.length > 0;
 
   const openPart = useCallback((id: string) => {
     setActivePartId(id);
@@ -83,25 +95,27 @@ export function VideoDetail({ course }: { course: Course }) {
 
             <h1 className="t-xl-bold truncate px-4 text-black">{course.title}</h1>
 
-            <button
-              type="button"
-              onClick={() => setMoreOpen(true)}
-              className="flex items-center justify-between gap-2 px-4 text-left"
-            >
-              <span className="flex min-w-0 items-center gap-1">
-                <YouTubeIcon size={16} />
-                <span className="t-2xs-normal truncate text-[#3a3a3e]">
-                  {course.channel.name} · {course.publishedAt} · 별점 {rating} · 조회 {views}
+            {hasMoreContent && (
+              <button
+                type="button"
+                onClick={() => setMoreOpen(true)}
+                className="flex items-center justify-between gap-2 px-4 text-left"
+              >
+                <span className="flex min-w-0 items-center gap-1">
+                  <YouTubeIcon size={16} />
+                  <span className="t-2xs-normal truncate text-[#3a3a3e]">
+                    {headerMeta.length > 0 ? headerMeta.join(" · ") : "영상 정보"}
+                  </span>
                 </span>
-              </span>
-              <Image
-                src="/icons/chevron-down.svg"
-                alt=""
-                width={16}
-                height={16}
-                className="shrink-0"
-              />
-            </button>
+                <Image
+                  src="/icons/chevron-down.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="shrink-0"
+                />
+              </button>
+            )}
 
             {/* 보관함 — 아직 안 눌려요 (1186:12688) */}
             <button
@@ -167,7 +181,7 @@ export function VideoDetail({ course }: { course: Course }) {
         {tab === "script" && (
           <div className="app-scroll">
             <ScriptTab
-            course={course}
+              course={course}
               selectedPartNo={scriptPartNo}
               onSelectPart={setScriptPartNo}
             />

@@ -56,7 +56,7 @@ export interface Part {
   /** 화면에 찍히는 번호 (Part 1) */
   partNo: number;
   /** 챕터 번호 (CH 01) */
-  chapterNo: string;
+  chapterNo?: string;
   title: string;
   thumbnail: string;
   /** "09:51-12:36" */
@@ -76,9 +76,9 @@ export interface Part {
 
 export interface Channel {
   name: string;
-  avatar: string;
-  url: string;
-  platform: string;
+  avatar?: string;
+  url?: string;
+  platform?: string;
 }
 
 /** 더보기 시트 — 추천 카드 */
@@ -91,13 +91,15 @@ export interface Recommend {
 /** 더보기 시트 — 이런 도구들을 다뤄요 */
 export interface Tool {
   name: string;
-  icon: string;
+  icon?: string;
+  url?: string;
+  description?: string;
 }
 
 export interface ToolHighlight {
   name: string;
-  url: string;
-  desc: string;
+  url?: string;
+  desc?: string;
 }
 
 /** 더보기 시트 — 이런 영상도 있어요 */
@@ -119,10 +121,12 @@ export interface ScriptSegment {
   /** 전처리 파일의 utterance_id (UT-00001) */
   id: string;
   /** 원본 챕터 (CH-01 …) — 파트와는 다른 구조예요 */
-  chapterId: string;
-  chapterLabel: string;
+  chapterId: string | null;
+  chapterLabel?: string;
   /** 이 문단이 속한 파트. 캐치업에 안 쓰인 구간은 null */
   partNo: number | null;
+  /** published contract의 multi-PART membership. legacy는 partNo만 사용해도 돼요. */
+  partNos?: number[];
   timeLabel: string;
   timeSec: number;
   endSec: number;
@@ -147,22 +151,23 @@ export interface Course {
   catchPointSubtitle?: string;
   thumbnail: string;
   channel: Channel;
-  publishedAt: string;
-  publishedLabel: string;
-  ratingLabel: string;
-  helpLabel: string;
-  viewLabel: string;
-  viewCountLabel: string;
-  likeLabel: string;
+  sourceUrl?: string;
+  publishedAt?: string;
+  publishedLabel?: string;
+  ratingLabel?: string;
+  helpLabel?: string;
+  viewLabel?: string;
+  viewCountLabel?: string;
+  likeLabel?: string;
   tags: string[];
-  recommend: Recommend;
+  recommend: Recommend | null;
   tools: Tool[];
-  toolHighlight: ToolHighlight;
+  toolHighlight?: ToolHighlight;
   relatedVideos: RelatedVideo[];
   parts: Part[];
   scriptChapters: ScriptChapter[];
   script: ScriptSegment[];
-  durationLabel: string;
+  durationLabel?: string;
 }
 
 /** "09:51" / "1:10:08" → 초 */
