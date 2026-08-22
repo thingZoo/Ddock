@@ -20,25 +20,32 @@ import {
  *  카드가 뜨면 스스로 한 번 왼쪽으로 밀렸다가 제자리로 돌아와요.
  *  미는 동안 오른쪽에 `Next Catch-Up` 이 드러났다가 같이 사라집니다.
  *  안내가 끝나면 리뷰를 쓰든 그냥 넘기든 사용자 마음이에요.
- *  손으로 끌 때도 같은 모습이고, 80px 넘게 끌면 다음 파트로 넘어갑니다.
+ *  손으로 끌 때도 같은 모습이에요. 왼쪽으로 80px 넘게 끌면 다음 파트로,
+ *  오른쪽으로 끌면 마지막 학습 카드로 돌아갑니다.
  */
 export function CompleteCard({
   partId,
   hasNext,
   onNext,
+  onPrev,
   onRestart,
 }: {
   /** 파트가 바뀌면 안내를 다시 한 번 보여주려고 받아요 */
   partId: string;
   hasNext: boolean;
   onNext: () => void;
+  /** 오른쪽으로 밀면 마지막 학습 카드로 돌아가요 */
+  onPrev: () => void;
+  /** 이 파트의 첫 카드부터 다시 */
   onRestart: () => void;
 }) {
   const x = useMotionValue(0);
-  /** 왼쪽으로 140px 밀리면 1 */
+  /** 왼쪽으로 140px 밀리면 1 — 다음 파트 쪽 */
   const pulled = useTransform(x, (v) => Math.min(1, Math.max(0, -v / 140)));
-  const cardScale = useTransform(pulled, [0, 1], [1, 0.94]);
-  const cardOpacity = useTransform(pulled, [0, 1], [1, 0.7]);
+  /** 어느 쪽이든 민 만큼 — 카드가 작아지고 흐려지는 정도 */
+  const moved = useTransform(x, (v) => Math.min(1, Math.abs(v) / 140));
+  const cardScale = useTransform(moved, [0, 1], [1, 0.94]);
+  const cardOpacity = useTransform(moved, [0, 1], [1, 0.7]);
   const hintOpacity = useTransform(pulled, [0, 0.1], [0, 1]);
 
   /** 안내가 실제로 보일 때만 눌리게 (안 보일 때 투명 버튼이 카드를 가리면 안 되니까) */
@@ -74,12 +81,15 @@ export function CompleteCard({
           backgroundImage:
             "linear-gradient(137.38deg, rgba(255,255,255,0.85) 4.4%, rgba(250,250,250,0.85) 96.83%)",
         }}
-        drag={hasNext ? "x" : false}
+        drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.5}
         onDragStart={() => preview.current?.stop()}
         onDragEnd={(_, info) => {
-          if (info.offset.x < -80 || info.velocity.x < -500) onNext();
+          const forward = info.offset.x < -80 || info.velocity.x < -500;
+          const back = info.offset.x > 80 || info.velocity.x > 500;
+          if (forward && hasNext) onNext();
+          else if (back) onPrev();
         }}
       >
         <div className="flex min-h-0 flex-1 flex-col items-center gap-6 overflow-y-auto px-5 pb-5 pt-8">

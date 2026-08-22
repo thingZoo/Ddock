@@ -184,7 +184,16 @@ export function VideoDetail({ course }: { course: Course }) {
                   partId={activePart.id}
                   hasNext={Boolean(nextPart)}
                   onNext={() => nextPart && openPart(nextPart.id)}
-                  onRestart={() => setActivePartId(null)}
+                  /* 오른쪽으로 밀면 방금 본 마지막 카드로 */
+                  onPrev={() => {
+                    setFinished(false);
+                    setStepIndex(Math.max(0, activePart.steps.length - 1));
+                  }}
+                  /* "처음으로" 는 목록이 아니라 이 파트의 첫 카드예요 */
+                  onRestart={() => {
+                    setFinished(false);
+                    setStepIndex(0);
+                  }}
                 />
               ) : (
                 <CardStack

@@ -8,6 +8,13 @@ import { InfoSheetView } from "./InfoSheetView";
 import { useYouTube } from "./YouTubePlayer";
 import { useProgress } from "@/lib/progress";
 
+/** 넘기는 방향에 따라 들어오고 나가는 쪽이 바뀌어요 */
+const SLIDE = {
+  enter: (dir: number) => ({ x: dir > 0 ? 48 : -48, opacity: 0, scale: 0.96 }),
+  center: { x: 0, opacity: 1, scale: 1 },
+  exit: (dir: number) => ({ x: dir > 0 ? -320 : 320, opacity: 0, scale: 0.96 }),
+};
+
 /**
  * 카드 스와이프 스택 (355:9749)
  * 앞 카드 위에 뒤 카드가 0.9배로 깔려요. 좌우로 밀어서 넘깁니다.
@@ -35,11 +42,19 @@ export function CardStack({
   const step = part.steps[index];
   const next = part.steps[index + 1];
 
-  function go(dir: 1 | -1) {
-    const t = index + dir;
+  /*
+   * 넘긴 방향. 앞으로 갈 땐 카드가 왼쪽으로 빠지고 새 카드가 오른쪽에서 들어와요.
+   * 뒤로 갈 땐 그 반대로 돌려줘야 튕기는 느낌이 안 나요.
+   * AnimatePresence 의 custom 으로 넘겨야 "빠져나가는 카드"까지 방향이 맞습니다.
+   */
+  const [dir, setDir] = useState<1 | -1>(1);
+
+  function go(d: 1 | -1) {
+    const t = index + d;
     if (t < 0) return;
+    setDir(d);
     // 앞으로 넘길 때만 "여기까지 했다"로 기록해요. 뒤로 가도 줄지 않습니다.
-    if (dir === 1) markDone(part.id, index + 1);
+    if (d === 1) markDone(part.id, index + 1);
     if (t >= part.steps.length) {
       onFinish();
       return;
@@ -70,14 +85,16 @@ export function CardStack({
         )}
 
         {/* 앞 카드 */}
-        <AnimatePresence initial={false} mode="popLayout">
+        <AnimatePresence initial={false} mode="popLayout" custom={dir}>
           <motion.div
             key={step.id}
             className="z-10 h-full w-full max-w-[335px]"
-            initial={{ x: 40, opacity: 0, scale: 0.96 }}
-            animate={{ x: 0, opacity: 1, scale: 1 }}
-            exit={{ x: -320, opacity: 0 }}
-            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            custom={dir}
+            variants={SLIDE}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ type: "spring", damping: 32, stiffness: 260 }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.5}
