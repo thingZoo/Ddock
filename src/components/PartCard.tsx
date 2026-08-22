@@ -6,8 +6,9 @@ import { ProgressGauge } from "./ProgressGauge";
 import { useProgress } from "@/lib/progress";
 
 /**
- * 파트 카드 (357:13400 / 13414 / 13428)
- * 배경이 상태에 따라 달라요 — 완료면 zinc/100, 아니면 흰색.
+ * 파트 카드 (1186:12706)
+ * 가로형이에요 — 왼쪽 썸네일 110×72, 오른쪽 제목·시간·"바로 학습하기", 아래 게이지.
+ * 완료한 파트는 배경이 zinc/100 이 되고 썸네일에 검은 막이 덮여요.
  */
 export function PartCard({ part, onClick }: { part: Part; onClick?: () => void }) {
   const { doneOf } = useProgress();
@@ -23,36 +24,28 @@ export function PartCard({ part, onClick }: { part: Part; onClick?: () => void }
         complete ? "bg-zinc-100" : "bg-white"
       }`}
     >
-      <div className="flex w-full items-center gap-[7px] pr-2">
-        <div className="relative h-[72px] w-[110px] shrink-0">
-          <Image
-            src={part.thumbnail}
-            alt=""
-            fill
-            sizes="110px"
-            className="rounded-[2px] object-cover"
-          />
-          <span className="absolute left-0 top-0 p-1">
-            <span
-              className="t-2xs-medium flex items-center justify-center rounded-chip px-1 py-0.5 text-zinc-25"
-              style={{
-                backgroundImage:
-                  "linear-gradient(-4.8deg, rgba(17,24,39,0.6) 7.39%, rgba(75,85,99,0.6) 92.65%)",
-                backdropFilter: "blur(6px)",
-              }}
-            >
-              Part {part.partNo}
+      <div className="flex w-full items-start gap-3">
+        <div className="relative h-[72px] w-[110px] shrink-0 overflow-hidden rounded-[4px]">
+          <Image src={part.thumbnail} alt="" fill sizes="110px" className="object-cover" />
+          {complete && <span className="absolute inset-0 bg-black/40" />}
+          <span className="absolute left-0 top-0 p-2">
+            <span className="t-xs-normal flex items-center justify-center rounded-[6px] bg-black/70 px-1.5 py-1 text-white backdrop-blur-[1px]">
+              Part.{part.partNo}
             </span>
           </span>
         </div>
 
-        <div className="flex h-14 min-w-0 flex-1 flex-col justify-center gap-0.5">
-          <p className="t-sm-bold clamp-2 text-zinc-900">{part.title}</p>
-          <p className="t-2xs-medium text-[#3a3a3e]">{part.timeLabel}</p>
+        <div className="flex min-w-0 flex-1 flex-col items-start gap-1.5">
+          <p className="t-sm-bold clamp-2 w-full text-zinc-900">{part.title}</p>
+          <p className="t-2xs-medium w-full text-zinc-600">{part.timeLabel}</p>
+          <span className="flex items-center gap-[5px] pt-0.5">
+            <span className="t-xs-medium text-orange-500">바로 학습하기</span>
+            <Image src="/icons/arrow-right-12.svg" alt="" width={12} height={12} />
+          </span>
         </div>
       </div>
 
-      <ProgressGauge done={done} total={total} />
+      <ProgressGauge done={done} total={total} complete={complete} />
     </button>
   );
 }

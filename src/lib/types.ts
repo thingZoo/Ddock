@@ -143,6 +143,8 @@ export interface Course {
   youtubeId: string;
   title: string;
   breadcrumb: string[];
+  /** "캐치 포인트 4" 아래 한 줄 (1186:12704) */
+  catchPointSubtitle?: string;
   thumbnail: string;
   channel: Channel;
   publishedAt: string;

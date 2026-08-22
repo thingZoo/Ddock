@@ -34,7 +34,7 @@ export function LearningCard({
     <div
       className="flex h-full w-full flex-col rounded-card"
       style={{
-        boxShadow: "var(--shadow-card)",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
         backdropFilter: "blur(6px)",
         backgroundImage:
           "linear-gradient(137.38deg, rgba(255,255,255,0.85) 4.4%, rgba(250,250,250,0.85) 96.83%)",
@@ -47,9 +47,9 @@ export function LearningCard({
           <button
             type="button"
             onClick={onOpenInfo}
-            className="flex items-center gap-1 rounded-pill border border-border bg-zinc-100 px-2.5 py-1.5"
+            className="flex items-center gap-1 rounded-pill border border-zinc-200 bg-zinc-100 px-2.5 py-2 backdrop-blur-[2px]"
           >
-            <span className="t-2xs-bold grid h-[18px] w-[18px] place-items-center rounded-pill bg-border text-zinc-600">
+            <span className="t-2xs-bold grid w-3.5 place-items-center rounded-pill bg-zinc-700 p-0.5 text-zinc-25">
               {infoCount}
             </span>
             <span className="t-2xs-bold text-zinc-600">더 알아보기</span>
@@ -72,7 +72,7 @@ export function LearningCard({
           <ul className="flex min-h-[104px] w-full flex-col gap-1.5">
             {step.actions.map((a, i) => (
               <li key={i} className="flex items-start gap-1.5">
-                <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
+                <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" aria-hidden />
                 <ActionText line={a} />
               </li>
             ))}
@@ -88,7 +88,7 @@ export function LearningCard({
         <button
           type="button"
           onClick={onSeeScript}
-          className="t-xs-bold whitespace-nowrap rounded-pill border border-border bg-zinc-100 px-4 py-3 text-zinc-700"
+          className="t-xs-bold whitespace-nowrap rounded-pill border border-zinc-200 bg-zinc-100 px-4 py-3 text-zinc-700"
         >
           구간 스크립트 보기
         </button>

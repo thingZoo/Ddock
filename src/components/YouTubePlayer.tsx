@@ -1,6 +1,5 @@
 "use client";
 
-import { PlayPauseButton } from "./PlayPauseButton";
 import {
   createContext,
   useCallback,
@@ -161,7 +160,6 @@ export function YouTubeProvider({
             style={{ backgroundImage: `url(${poster})` }}
           />
         )}
-        <HeroPlayButton />
         {onBack && <BackButton onBack={onBack} />}
       </div>
       {children}
@@ -170,8 +168,9 @@ export function YouTubeProvider({
 }
 
 /**
- * 영상 왼쪽 위 뒤로가기. 아이폰 스와이프가 되는 자리지만, 손이 닿는 버튼도 같이 둬요.
- * 노치가 있는 기기에서 상태바에 안 가리게 safe-area 만큼 내려요.
+ * 영상 왼쪽 위 뒤로가기 (헤더 1186:12669)
+ * 시안은 배경 없이 흰 화살표 하나예요. 밝은 썸네일에서 묻히지 않게 그림자만 얹었어요.
+ * 아이폰 스와이프가 되는 자리지만, 손이 닿는 버튼도 같이 둡니다.
  */
 function BackButton({ onBack }: { onBack: () => void }) {
   return (
@@ -179,9 +178,10 @@ function BackButton({ onBack }: { onBack: () => void }) {
       type="button"
       onClick={onBack}
       aria-label="뒤로"
-      className="absolute left-3 top-[max(12px,env(safe-area-inset-top))] z-20 grid h-9 w-9 place-items-center rounded-full bg-black/45 backdrop-blur-sm transition-colors active:bg-black/65"
+      className="absolute left-4 top-[max(12px,env(safe-area-inset-top))] z-20 grid h-6 w-6 place-items-center transition-opacity active:opacity-60"
+      style={{ filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.55))" }}
     >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path
           d="M16 4L8 12L16 20"
           stroke="white"
@@ -191,21 +191,5 @@ function BackButton({ onBack }: { onBack: () => void }) {
         />
       </svg>
     </button>
-  );
-}
-
-/**
- * 썸네일 가운데 큰 재생 버튼 (360:13602)
- * 재생이 시작되면 숨겨서 유튜브 자체 컨트롤을 쓰게 둡니다.
- */
-export function HeroPlayButton() {
-  const { playing, toggle } = useYouTube();
-  if (playing) return null;
-  return (
-    <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center">
-      <div className="pointer-events-auto">
-        <PlayPauseButton playing={false} onToggle={() => toggle()} size={70} />
-      </div>
-    </div>
   );
 }
