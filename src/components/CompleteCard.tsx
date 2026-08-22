@@ -12,6 +12,7 @@ import {
 
 /**
  * 파트 완료 (1180:9506)
+ * 학습 카드와 같은 자리·같은 크기로 서요 (h-full). 버튼 두 개는 카드 바닥에 붙습니다.
  *
  * 별점·사진·메모는 시안대로 그려두고 아직 안 눌려요 (Supabase 붙일 때 연결).
  *
@@ -61,9 +62,9 @@ export function CompleteCard({
   }, [hasNext, partId, x]);
 
   return (
-    <div className="relative flex min-h-0 flex-1 items-start justify-center px-5 pb-6 pt-1">
+    <div className="relative flex min-h-0 flex-1 items-stretch justify-center px-5 pb-6 pt-1">
       <motion.div
-        className="w-full max-w-[335px] rounded-card"
+        className="flex h-full w-full max-w-[335px] flex-col rounded-card"
         style={{
           x,
           scale: cardScale,
@@ -81,7 +82,7 @@ export function CompleteCard({
           if (info.offset.x < -80 || info.velocity.x < -500) onNext();
         }}
       >
-        <div className="flex flex-col items-center gap-6 px-5 pb-5 pt-8">
+        <div className="flex min-h-0 flex-1 flex-col items-center gap-6 overflow-y-auto px-5 pb-5 pt-8">
           <p className="t-xl-bold w-full text-zinc-900">이 파트가 도움이 되었나요?</p>
 
           {/* 별점 — 시안만, 아직 안 눌려요 */}
@@ -109,7 +110,7 @@ export function CompleteCard({
           </div>
         </div>
 
-        <div className="flex gap-2 px-5 pb-5">
+        <div className="flex shrink-0 gap-2 px-5 pb-5">
           <button
             type="button"
             onClick={onRestart}
