@@ -28,7 +28,8 @@ export const course: Course = {
   id: "claude-code-video-edit",
   youtubeId: "vI4RdXMSq8c",
   title: "클로드 코드로 영상 편집 완전 자동화하기",
-  breadcrumb: ["동영상", "콘텐츠", "Sandy Lee AI"],
+  breadcrumb: ["동영상", "디자인 자동화"],
+  catchPointSubtitle: "영상 편집 자동화 흐름을 네 단계로 익혀요",
   thumbnail: "/img/hero.jpg",
   durationLabel: "21분 28초",
   channel: {

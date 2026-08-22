@@ -3,8 +3,9 @@
 import Image from "next/image";
 
 /**
- * 재생 / 멈춤 (360:13595 · 360:13690)
- * 컴포넌트 하나에 상태 둘. 크기는 두 자리에서 다르게 써요 — 썸네일 70, 카드 44.
+ * 재생 / 멈춤 (1180:9992)
+ * 학습 카드 우상단에만 써요. 44 박스 안에 32 아이콘.
+ * 시안 아이콘이 밝은 원이라 멈춤 막대도 어두운 색이에요.
  */
 export function PlayPauseButton({
   playing,
@@ -19,7 +20,7 @@ export function PlayPauseButton({
   label?: string;
 }) {
   const icon = size === 70 ? 48 : 32;
-  const barH = size === 70 ? 20 : 14;
+  const barH = size === 70 ? 20 : 12;
   const barW = size === 70 ? 4 : 3;
   const gap = size === 70 ? 6 : 4;
 
@@ -33,7 +34,7 @@ export function PlayPauseButton({
     >
       <span className="relative block" style={{ width: icon, height: icon }}>
         <Image
-          src={size === 70 ? "/icons/play-48.svg" : "/icons/play-32.svg"}
+          src={size === 70 ? "/icons/play-48.svg" : "/icons/play-card-32.svg"}
           alt=""
           width={icon}
           height={icon}
@@ -46,12 +47,12 @@ export function PlayPauseButton({
             style={{ gap }}
           >
             <i
-              className="block rounded-[1px] bg-white"
-              style={{ width: barW, height: barH, boxShadow: "var(--shadow-bar)" }}
+              className="block rounded-[1px] bg-zinc-800"
+              style={{ width: barW, height: barH }}
             />
             <i
-              className="block rounded-[1px] bg-white"
-              style={{ width: barW, height: barH, boxShadow: "var(--shadow-bar)" }}
+              className="block rounded-[1px] bg-zinc-800"
+              style={{ width: barW, height: barH }}
             />
           </span>
         )}

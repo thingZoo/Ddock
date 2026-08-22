@@ -59,19 +59,13 @@ export function CardStack({
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="relative flex min-h-0 flex-1 items-stretch justify-center px-5 pb-1 pt-1">
-        {/* 뒤 카드 */}
+        {/* 뒤 카드 — 오른쪽으로 살짝 비껴 보이는 회색 판 하나 (1180:9939) */}
         {next && (
-          <div className="pointer-events-none absolute inset-x-5 inset-y-1 flex justify-center overflow-hidden opacity-60">
-            <div className="h-full w-full max-w-[335px] origin-top translate-y-6 scale-90">
-              <LearningCard
-                step={next}
-                onOpenInfo={() => {}}
-                onPlaySegment={() => {}}
-                playing={false}
-                onSeeScript={() => {}}
-                dimmed
-              />
-            </div>
+          <div
+            className="pointer-events-none absolute inset-x-5 inset-y-1 flex justify-center"
+            aria-hidden
+          >
+            <div className="h-full w-full max-w-[335px] origin-center translate-x-[22px] scale-[0.94] rounded-card bg-[#e8e8e8] opacity-90 shadow-[0_4px_6px_rgba(0,0,0,0.08)]" />
           </div>
         )}
 
@@ -101,11 +95,6 @@ export function CardStack({
             />
           </motion.div>
         </AnimatePresence>
-      </div>
-
-      {/* 넘기기 안내 */}
-      <div className="flex shrink-0 items-center justify-center py-3">
-        <span className="t-2xs-medium text-zinc-500">← 밀어서 넘기기 →</span>
       </div>
 
       <InfoSheetView

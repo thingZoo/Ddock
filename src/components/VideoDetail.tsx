@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { YouTubeIcon } from "./YouTubeIcon";
 import type { Course } from "@/lib/types";
@@ -13,6 +14,15 @@ import { CardStack } from "./CardStack";
 import { CompleteCard } from "./CompleteCard";
 import { ScriptTab } from "./ScriptTab";
 import { LogTab } from "./LogTab";
+
+/** 61,240 → 6.1만 */
+function compactCount(label: string) {
+  const n = Number(label.replace(/[^0-9]/g, ""));
+  if (!n) return label;
+  if (n >= 10000) return `${(n / 10000).toFixed(1)}만`;
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}천`;
+  return n.toLocaleString();
+}
 
 export function VideoDetail({ course }: { course: Course }) {
   const [tab, setTab] = useState<TabKey>("catchup");
@@ -37,9 +47,16 @@ export function VideoDetail({ course }: { course: Course }) {
   const activePart = course.parts.find((p) => p.id === activePartId) ?? null;
   const activeIdx = activePart ? course.parts.indexOf(activePart) : -1;
   const nextPart = activeIdx >= 0 ? course.parts[activeIdx + 1] : undefined;
-  const headerMeta = [course.channel.name, course.publishedAt, course.helpLabel].filter(
-    (value): value is string => Boolean(value),
-  );
+  /*
+   * 메타행 — 시안대로 짧게 ("2.8점" → "2.8", "61,240" → "6.1만").
+   * 어드민에서 발행한 콘텐츠는 채널·날짜·별점이 비어 있을 수 있어 있는 것만 이어붙여요.
+   */
+  const headerMeta = [
+    course.channel.name,
+    course.publishedAt,
+    course.ratingLabel ? `별점 ${course.ratingLabel.replace("점", "")}` : null,
+    course.viewCountLabel ? `조회 ${compactCount(course.viewCountLabel)}` : null,
+  ].filter((value): value is string => Boolean(value));
   const hasMoreContent =
     headerMeta.length > 0 ||
     course.recommend !== null ||
@@ -64,44 +81,55 @@ export function VideoDetail({ course }: { course: Course }) {
   return (
     <div className="app-shell">
       <YouTubeProvider videoId={course.youtubeId} poster={course.thumbnail} onBack={goBack}>
-        {/* 파트 목록 화면일 때만 제목/메타 노출 (355:8868) */}
+        {/* 파트 목록 화면일 때만 제목/메타 노출 (1186:12670) */}
         {!activePart && (
-          <header className="flex flex-col pb-3 pt-3">
-            <p className="t-2xs-medium flex items-center gap-1.5 px-4 text-zinc-500">
+          <header className="relative flex flex-col gap-1.5 pt-4">
+            <p className="t-2xs-normal flex items-center gap-1 px-4 text-[#3a3a3e]">
               {course.breadcrumb.map((b, i) => (
-                <span key={b} className="flex items-center gap-1.5">
-                  {i > 0 && <span className="h-0.5 w-0.5 rounded-full bg-zinc-300" />}
+                <span key={b} className="flex items-center gap-1">
+                  {i > 0 && <span className="h-0.5 w-0.5 rounded-full bg-zinc-400" />}
                   {b}
                 </span>
               ))}
             </p>
-            <h1 className="t-xl-bold px-4 pt-2 text-zinc-900">{course.title}</h1>
+
+            <h1 className="t-xl-bold truncate px-4 text-black">{course.title}</h1>
+
             {hasMoreContent && (
               <button
                 type="button"
                 onClick={() => setMoreOpen(true)}
-                className="flex items-center gap-2 px-4 pt-2.5 text-left"
+                className="flex items-center justify-between gap-2 px-4 text-left"
               >
-                <YouTubeIcon size={16} />
-                <span className="t-2xs-medium flex-1 text-zinc-500">
-                  {headerMeta.length > 0 ? headerMeta.join("\u00a0\u00a0") : "영상 정보"}
+                <span className="flex min-w-0 items-center gap-1">
+                  <YouTubeIcon size={16} />
+                  <span className="t-2xs-normal truncate text-[#3a3a3e]">
+                    {headerMeta.length > 0 ? headerMeta.join(" · ") : "영상 정보"}
+                  </span>
                 </span>
-                <svg width="16" height="16" viewBox="0 0 16 16" className="text-zinc-500">
-                  <path
-                    d="M4 6l4 4 4-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <Image
+                  src="/icons/chevron-down.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="shrink-0"
+                />
               </button>
             )}
+
+            {/* 보관함 — 아직 안 눌려요 (1186:12688) */}
+            <button
+              type="button"
+              disabled
+              aria-label="보관함에 담기 (준비 중)"
+              className="absolute right-0 top-0 grid h-11 w-11 place-items-center"
+            >
+              <Image src="/icons/folder.svg" alt="" width={24} height={24} />
+            </button>
           </header>
         )}
 
-        <Tabs value={tab} onChange={setTab} />
+        <Tabs value={tab} onChange={setTab} tight={Boolean(activePart)} />
 
         {tab === "catchup" &&
           (activePart ? (
@@ -115,7 +143,7 @@ export function VideoDetail({ course }: { course: Course }) {
               />
               {finished ? (
                 <CompleteCard
-                  part={activePart}
+                  partId={activePart.id}
                   hasNext={Boolean(nextPart)}
                   onNext={() => nextPart && openPart(nextPart.id)}
                   onRestart={() => setActivePartId(null)}
@@ -133,11 +161,16 @@ export function VideoDetail({ course }: { course: Course }) {
             </div>
           ) : (
             <div className="app-scroll">
-              <div className="flex items-center gap-1 px-4 pb-2 pt-6">
-                <h2 className="t-md-semibold text-zinc-900">CATCH-UP PART</h2>
-                <span className="t-md-semibold text-orange-500">{course.parts.length}</span>
+              <div className="flex flex-col gap-0.5 px-4 pt-4">
+                <div className="flex items-center gap-0.5">
+                  <h2 className="t-md-semibold text-zinc-900">캐치 포인트</h2>
+                  <span className="t-md-medium text-orange-500">{course.parts.length}</span>
+                </div>
+                {course.catchPointSubtitle && (
+                  <p className="t-xs-normal text-zinc-700">{course.catchPointSubtitle}</p>
+                )}
               </div>
-              <div className="flex flex-col gap-5 px-4 pb-10">
+              <div className="flex flex-col gap-5 px-4 pb-10 pt-6">
                 {course.parts.map((p) => (
                   <PartCard key={p.id} part={p} onClick={() => openPart(p.id)} />
                 ))}

@@ -1,29 +1,34 @@
 /**
- * 파트 카드 게이지 (357:13410)
- * 라벨은 두 겹이에요. 흰 겹을 채움 폭만큼 clip 해서, 오렌지가 라벨에 걸친 만큼만 흰색이 됩니다.
- * 피그마의 "163px 이상이면 흰색" 규칙을 고정 숫자 없이 만족시켜요.
+ * 파트 카드 게이지 (1186:12724)
+ * 라벨은 언제나 흰색이에요. 예전엔 오렌지에 걸친 만큼만 흰색으로 잘랐는데,
+ * 새 시안은 회색 트랙 위에서도 흰색으로 둡니다.
  */
-export function ProgressGauge({ done, total }: { done: number; total: number }) {
+export function ProgressGauge({
+  done,
+  total,
+  complete = false,
+}: {
+  done: number;
+  total: number;
+  /** 완료 카드는 트랙이 한 톤 밝아요 (zinc/200) */
+  complete?: boolean;
+}) {
   const pct = total > 0 ? Math.min(100, Math.max(0, (done / total) * 100)) : 0;
-  const label = `${done} / ${total}`;
 
   return (
-    <div className="relative h-4 w-full overflow-hidden rounded-pill bg-zinc-300">
+    <div
+      className={`relative h-4 w-full overflow-hidden rounded-pill ${
+        complete ? "bg-zinc-200" : "bg-zinc-300"
+      }`}
+    >
       {pct > 0 && (
         <div
           className="absolute inset-y-0 left-0 rounded-pill bg-orange-500"
           style={{ width: `${pct}%` }}
         />
       )}
-      <span className="t-2xs-bold absolute inset-0 grid place-items-center text-zinc-600">
-        {label}
-      </span>
-      <span
-        className="t-2xs-bold absolute inset-0 grid place-items-center text-zinc-25"
-        style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}
-        aria-hidden
-      >
-        {label}
+      <span className="t-2xs-semibold absolute inset-0 grid place-items-center text-zinc-25">
+        {done} / {total}
       </span>
     </div>
   );
