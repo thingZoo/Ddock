@@ -35,7 +35,7 @@ export function VideoDetail({ course }: { course: Course }) {
   const [stepIndex, setStepIndex] = useState(0);
   const [scriptPartNo, setScriptPartNo] = useState<number | null>(null);
   const router = useRouter();
-  const { doneOf } = useProgress();
+  const { doneOf, setDone } = useProgress();
 
   /*
    * 들어온 길로 되돌린다 — 발견 탭에서 왔으면 발견 탭으로.
@@ -186,11 +186,14 @@ export function VideoDetail({ course }: { course: Course }) {
                   onNext={() => nextPart && openPart(nextPart.id)}
                   /* 오른쪽으로 밀면 방금 본 마지막 카드로 */
                   onPrev={() => {
+                    const last = Math.max(0, activePart.steps.length - 1);
+                    setDone(activePart.id, last);
                     setFinished(false);
-                    setStepIndex(Math.max(0, activePart.steps.length - 1));
+                    setStepIndex(last);
                   }}
                   /* "처음으로" 는 목록이 아니라 이 파트의 첫 카드예요 */
                   onRestart={() => {
+                    setDone(activePart.id, 0);
                     setFinished(false);
                     setStepIndex(0);
                   }}

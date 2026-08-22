@@ -11,6 +11,7 @@ import { PlayPauseButton } from "./PlayPauseButton";
  *
  * 피그마는 335 × 420 고정이지만 화면이 작아지면 줄어들어야 해서 flex 로 짰어요.
  * 세로 구성: 상단바 52 → 간격 24 → 본문(넘치면 스크롤) → 하단 CTA 72
+ * 본문 안 블록끼리는 16px 씩 띄워요
  * 프롬프트가 길어져도 카드가 늘어나지 않아요 (본문에서 4줄로 자름).
  */
 export function LearningCard({
@@ -69,7 +70,7 @@ export function LearningCard({
        * 프롬프트와 주의가 같이 있는 카드는 아래 버튼까지 밀려 겹쳤어요. 최소 높이를 빼고
        * 넘치면 본문만 스크롤되게 했습니다.
        */}
-      <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-5 pt-6">
+      <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-5 pt-6">
         <div className="flex w-full shrink-0 flex-col gap-6">
           <h2 className="t-xl-bold text-zinc-900">{step.title}</h2>
           <ul className="flex w-full flex-col gap-1.5">
@@ -82,7 +83,7 @@ export function LearningCard({
           </ul>
         </div>
 
-        <div className="flex shrink-0 flex-col gap-2 pb-1">
+        <div className="flex shrink-0 flex-col gap-4 pb-1">
           {step.prompt && <PromptBlock prompt={step.prompt} />}
           {step.warning && <WarningBox warning={step.warning} />}
         </div>

@@ -29,7 +29,7 @@ export function MoreSheet({
       course.likeLabel,
   );
   return (
-    <BottomSheet open={open} onClose={onClose}>
+    <BottomSheet open={open} onClose={onClose} belowVideo>
       <div className="flex flex-col gap-4 px-4">
         {/* 1. 제목 */}
         <h2 className="t-xl-bold text-zinc-900">{course.title}</h2>
