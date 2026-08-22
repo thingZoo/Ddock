@@ -24,7 +24,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* eslint-disable-next-line @next/next/no-css-tags */}
         <link rel="stylesheet" href="/fonts/pretendard.css" />
       </head>
-      <body className="flex min-h-[100dvh] justify-center bg-[var(--shell-bg)] sm:items-center">
+      {/* 화면 가운데 375 한 줄. 위아래로 띄우지 않아요 (상세도 홈과 같은 모양) */}
+      <body className="flex min-h-[100dvh] justify-center bg-[var(--shell-bg)]">
         {children}
       </body>
     </html>
