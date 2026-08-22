@@ -59,13 +59,17 @@ export function useProgress() {
 
   const doneOf = useCallback((partId: string) => progress[partId] ?? 0, [progress]);
 
-  /** 최소 n개까지 끝난 것으로 표시 — 뒤로 가도 줄지 않아요 */
-  const markDone = useCallback((partId: string, n: number) => {
-    if (n <= (state[partId] ?? 0)) return;
-    persist({ ...state, [partId]: n });
+  /**
+   * 지금 몇 번째 카드까지 왔는지 그대로 기록해요.
+   * 뒤로 가거나 "처음으로" 를 누르면 게이지도 같이 줄어듭니다.
+   */
+  const setDone = useCallback((partId: string, n: number) => {
+    const next = Math.max(0, n);
+    if ((state[partId] ?? 0) === next) return;
+    persist({ ...state, [partId]: next });
   }, []);
 
   const resetAll = useCallback(() => persist({}), []);
 
-  return { progress, doneOf, markDone, resetAll };
+  return { progress, doneOf, setDone, resetAll };
 }

@@ -37,7 +37,7 @@ export function CardStack({
   const [infoOpen, setInfoOpen] = useState(false);
   const { playing, playFrom, toggle } = useYouTube();
   const [activeStepId, setActiveStepId] = useState<string | null>(null);
-  const { markDone } = useProgress();
+  const { setDone } = useProgress();
 
   const step = part.steps[index];
   const next = part.steps[index + 1];
@@ -53,12 +53,13 @@ export function CardStack({
     const t = index + d;
     if (t < 0) return;
     setDir(d);
-    // 앞으로 넘길 때만 "여기까지 했다"로 기록해요. 뒤로 가도 줄지 않습니다.
-    if (d === 1) markDone(part.id, index + 1);
     if (t >= part.steps.length) {
+      setDone(part.id, part.steps.length);
       onFinish();
       return;
     }
+    // 지금 서 있는 자리를 그대로 기록해요 — 뒤로 가면 게이지도 줄어듭니다.
+    setDone(part.id, t);
     onIndexChange(t);
   }
 
@@ -73,11 +74,11 @@ export function CardStack({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="relative flex min-h-0 flex-1 items-stretch justify-center px-5 pb-1 pt-1">
+      <div className="relative flex min-h-0 flex-1 items-stretch justify-center px-5 pb-5 pt-1">
         {/* 뒤 카드 — 오른쪽으로 살짝 비껴 보이는 회색 판 하나 (1180:9939) */}
         {next && (
           <div
-            className="pointer-events-none absolute inset-x-5 inset-y-1 flex justify-center"
+            className="pointer-events-none absolute inset-x-5 bottom-5 top-1 flex justify-center"
             aria-hidden
           >
             <div className="h-full w-full max-w-[335px] origin-center translate-x-[22px] scale-[0.94] rounded-card bg-[#e8e8e8] opacity-90 shadow-[0_4px_6px_rgba(0,0,0,0.08)]" />

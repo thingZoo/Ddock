@@ -69,7 +69,7 @@ export function CompleteCard({
   }, [hasNext, partId, x]);
 
   return (
-    <div className="relative flex min-h-0 flex-1 items-stretch justify-center px-5 pb-6 pt-1">
+    <div className="relative flex min-h-0 flex-1 items-stretch justify-center px-5 pb-5 pt-1">
       <motion.div
         className="flex h-full w-full max-w-[335px] flex-col rounded-card"
         style={{
